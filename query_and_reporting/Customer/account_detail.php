@@ -114,7 +114,7 @@ else if (isset($_POST['Cancel'])) {
 ?>
 
 <form method="get" class="hover-cursor-pointer" >
-<div class="sub-menu-title"><h1>Customer Master</h1></div>
+<div class="sub-menu-title"><h1>Account Detail</h1></div>
 <div class="warning insert-success submit-result <?php echo 'submit-result-', $submit_result, ' ', $error_class; ?>"><?php echo $errmsg; ?></div>
 <div id="customer-critera" class="wrapper-fieldset-forms">
     <fieldset class="fieldset-forms">
