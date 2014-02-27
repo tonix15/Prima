@@ -344,9 +344,8 @@ width:100%;
 }
 
 
-#menu > ul > li > ul.sub-menu > li > ul { width: 370px; }
-
-/*#menu > li > a > ul.sub-menu > li.Validation_list > a > ul{ width: 370px; }*/
+/*#menu > ul > li > ul.sub-menu > li > ul { width: 370px; }*/
+li.Validation_list > ul { width: 370px !important; }
 
 .clear {
 clear:both;
