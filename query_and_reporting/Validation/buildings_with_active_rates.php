@@ -69,9 +69,9 @@ $errmsg = !empty($data_list) ? '':'<strong>No Entries Found.</strong>';
 								<td><?php echo $report['Building']; ?></td>								
 								<td><?php echo $report['Utility']; ?></td>
 								<td><?php echo $report['Rate']; ?></td>
-								<td><?php echo $report['ScaleFk']; ?></td>
-								<td><?php echo $report['FixedRateFk']; ?></td>
-								<td><?php echo $report['FixedFeeFk']; ?></td>
+								<td class="table-column-text-align-center"><?php echo $report['ScaleFk']; ?></td>
+								<td class="table-column-text-align-center"><?php echo $report['FixedRateFk']; ?></td>
+								<td class="table-column-text-align-center"><?php echo $report['FixedFeeFk']; ?></td>
 								<td><?php echo $report['ChkTotal'] == 0 ? 'Error':''; ?></td>
 							</tr>
 					<?php endforeach; 

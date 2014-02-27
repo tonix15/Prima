@@ -8,6 +8,9 @@ class SP {
 	const GET_ALLOCATION_TYPE = '[get].[AllocationType]';
 	const SET_ALLOCATION_TYPE = '[set].[AllocationType]';
 	
+	/** Arrangement List */
+	const REP_ARRANGEMENT_LIST = '[rep].[ArrangementList]';
+	
 	/** Billing */
 	const GET_BILLING_REASONABILITY = '[get].[BillingReasonability]';
 	const SET_BILLING_REASONABILITY = '[set].[BillingReasonability]';

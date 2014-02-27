@@ -231,7 +231,7 @@ cursor:default;
 
 .table-column-text-align-right{ text-align: right; }
 .table-column-text-align-center{ text-align: center; }
-
+.table-column-width-50{ width: 50px; }
 /* -------------------- header ------------------- */
 .header {
 	background-color:#DDE8F3;

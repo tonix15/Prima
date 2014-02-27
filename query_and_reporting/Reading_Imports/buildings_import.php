@@ -97,7 +97,7 @@ else if (isset($_POST['Cancel'])) {
 					<tbody>
 						<?php foreach($buildings_import as $report):?>
 							<tr>
-								<td><?php echo $report['ReadingDay']; ?></td>
+								<td class="table-column-text-align-center"><?php echo $report['ReadingDay']; ?></td>
 								<td><?php echo $report['Name']; ?></td>
 								<td><?php echo $report['DisplayName']; ?></td>
 								<td class="table-column-text-align-right"><?php echo number_format($report['ReadingCount'], 0, '', ','); ?></td>
@@ -122,8 +122,8 @@ else if (isset($_POST['Cancel'])) {
 				?>
 				<label>
 					Export as: 
-					<a title="PDF" href="<?php echo DOMAIN_NAME . '/processing/exportAsPdf.php';?>">PDF</a>
-					<a title="SpreadSheet" href="<?php echo DOMAIN_NAME . '/processing/exportAsCSV.php';?>">SpreadSheet</a>
+					<a title="PDF" href="<?php echo DOMAIN_NAME . '/query_and_reporting/export_as_pdf.php';?>">PDF</a>
+					<a title="SpreadSheet" href="<?php echo DOMAIN_NAME . '/query_and_reporting/export_as_csv.php';?>">SpreadSheet</a>
 				</label>
 			</div>
 		</div>

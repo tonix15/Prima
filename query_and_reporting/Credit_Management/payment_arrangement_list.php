@@ -30,11 +30,11 @@ $params = array(
 	$userPK,
 	$Session->read('user_company_selection_key')
 );
-$data_list = $dbhandler->getMeterActiveRate($params);
+$data_list = $dbhandler->getArrangementList($params);
 $errmsg = !empty($data_list) ? '':'<strong>No Entries Found.</strong>';	
 ?>
 
-<div class="sub-menu-title"><h1>Rate Specific Meter with Active Rate Report</h1></div>
+<div class="sub-menu-title"><h1>Payment Arrangement List</h1></div>
 	<div class="table-wrapper billing-data-list-container">
 		<div class="wrapper-paging">
 			<ul>
@@ -51,15 +51,15 @@ $errmsg = !empty($data_list) ? '':'<strong>No Entries Found.</strong>';
 			<table class="billing scrollable planning-table planning-table-striped planning-table-hover">
 				<thead>
 					<tr>
-						<th>Building</th>
-						<th>Unit</th>
-						<th>Utility</th>
-						<th>Meter</th>
-						<th>Rate</th>
-						<th>Has Scale</th>							
-						<th>Has Fixed Rate</th>
-						<th>Has Fixed Fee</th>
-						<th>Control</th>
+						<th>Portfolio Manager</th>
+						<th>Building Name</th>
+						<th>Unit Number</th>
+						<th>Account Number</th>
+						<th>Surname</th>							
+						<th>Initials</th>
+						<th>Name</th>
+						<th>Arrangement Date</th>
+						<th>Outstanding Balance</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -68,18 +68,18 @@ $errmsg = !empty($data_list) ? '':'<strong>No Entries Found.</strong>';
 							foreach($data_list as $report):
 					?>
 							<tr>
-								<td><?php echo $report['Building']; ?></td>								
+								<td><?php echo $report['PortfolioManager']; ?></td>								
+								<td><?php echo $report['Building']; ?></td>
 								<td><?php echo $report['Unit']; ?></td>
-								<td><?php echo $report['Utility']; ?></td>
-								<td><?php echo $report['Meter']; ?></td>
-								<td><?php echo $report['Rate']; ?></td>
-								<td class="table-column-text-align-center"><?php echo $report['ScaleFk']; ?></td>
-								<td class="table-column-text-align-center"><?php echo $report['FixedRateFk']; ?></td>
-								<td class="table-column-text-align-center"><?php echo $report['FixedFeeFk']; ?></td>
-								<td><?php echo $report['ChkTotal'] == 0 ? 'Error':''; ?></td>
+								<td><?php echo $report['Account']; ?></td>
+								<td><?php echo $report['Surname']; ?></td>
+								<td><?php echo $report['Initials']; ?></td>
+								<td><?php echo $report['Name']; ?></td>
+								<td><?php echo $report['ArrangementDate']; ?></td>
+								<td class="table-column-text-align-right table-column-width-50"><?php echo number_format($report['Outstanding'], 2, '.', ','); ?></td>
 							</tr>
 					<?php endforeach; 
-						else: echo '<tr><td colspan="6"' . $errmsg . '</td></tr>';
+						else: echo '<tr><td colspan="9"' . $errmsg . '</td></tr>';
 						endif;
 					?>
 				</tbody>
@@ -89,7 +89,7 @@ $errmsg = !empty($data_list) ? '':'<strong>No Entries Found.</strong>';
 				$html = ob_get_contents();
 				ob_end_flush();
 				
-				$title = 'Rate Specific Meter with Active Rate Report';
+				$title = 'Payment Arrangement List';
 				$Session->write('title', $title);
 				$Session->write('content', $html);
 				
@@ -98,8 +98,8 @@ $errmsg = !empty($data_list) ? '':'<strong>No Entries Found.</strong>';
 			?>
 			<label>
 				Export as: 
-				<a title="PDF" href="<?php echo DOMAIN_NAME . '/processing/exportAsPdf.php';?>">PDF</a>
-				<a title="SpreadSheet" href="<?php echo DOMAIN_NAME . '/processing/exportAsCSV.php';?>">SpreadSheet</a>
+				<a title="PDF" href="<?php echo DOMAIN_NAME . '/query_and_reporting/export_as_pdf.php';?>">PDF</a>
+				<a title="SpreadSheet" href="<?php echo DOMAIN_NAME . '/query_and_reporting/export_as_csv.php';?>">SpreadSheet</a>
 			</label>
 		</div>
 	</div>

@@ -22,6 +22,10 @@ class DBHandler extends PDOSQLServerdbhandler {
     	return $this->getLastInsertId(PrimaDB::CREDIT_MANAGEMENT_TABLE);
     }
 	
+	public function getArrangementList($params, $isSingleRecord = false) {
+    	return $this->executeQueryStoredProcedure(SP::REP_ARRANGEMENT_LIST, $params, $isSingleRecord);
+    }
+	
 	/*** Billing */
 	public function getBillingAccount($params, $isSingleRecord = false){
 		return $this->executeQueryStoredProcedure(SP::GET_BILLING_ACCOUNT, $params, $isSingleRecord);

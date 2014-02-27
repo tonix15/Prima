@@ -21,8 +21,8 @@
 
 	$userCredentials = $User->getUserCredentials();
 	$userPK = $userCredentials['UserPk'];
-	
-	if($Session->check('title') && $Session->check('content')){
+		
+	if($Session->check('title') && $Session->check('content')){		
 		$mpdf = new mPDF();		
 		$mpdf->allow_charset_conversion = true;
 		$mpdf->charset_in = 'UTF-8';
@@ -46,5 +46,6 @@
 		$Session->sessionUnset('sessionUnset');
 		$Session->sessionUnset('content');
 		exit;
+			
 	}
 ?>
