@@ -217,6 +217,9 @@ class DBHandler extends PDOSQLServerdbhandler {
 		return $this->executeNonQueryStoredProcedure(SP::SET_FIXED_FEE, $params);
 	}
 	
+	public function getReadingAfterVacancyDate($params) {
+		return $this->executeQueryStoredProcedure(SP::READING_AFTER_VACANCY_DATE, $params);
+	}
 	
 	/** Reporting */
 	public function repReadingImport($params, $isSingleRecord = false){
@@ -290,6 +293,10 @@ class DBHandler extends PDOSQLServerdbhandler {
 	public function sageImportInvoiceDetail($params){
 		return $this->executeQueryStoredProcedure(SP::SAGE_IMPORT_INVOICE_DETAIL, $params);
 	}
+	
+	public function getUnitsBulkServiceMeters($params, $isSingleRecord = false) {
+    	return $this->executeQueryStoredProcedure(SP::UNITS_WITH_BULK_AND_SERVICE_METERS, $params, $isSingleRecord);
+    }
 	
 	/** User */
 	public function getUser($params, $isSingleRecord = false) {

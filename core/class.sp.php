@@ -128,6 +128,8 @@ class SP {
 	const GET_SCALE = '[get].[Scale]';
 	const SET_SCALE = '[set].[Scale]';
 	
+	const READING_AFTER_VACANCY_DATE = '[val].[ReadingAfterVacancyDate]';
+	
 	/** Reason */
 	const MOVENDUS_EXPORT_REASON = '[movendus].[ExportReason]';
 	
@@ -161,6 +163,7 @@ class SP {
 	const MOVENDUS_EXPORT_UNIT = '[movendus].[ExportUnit]';
 	const GET_UNIT = '[get].[Unit]';
 	const SET_UNIT = '[set].[Unit]';
+	const UNITS_WITH_BULK_AND_SERVICE_METERS = '[val].[UnitWithBulkOrServiceMeter]';
 	
 	/** User */
 	const GET_USER = '[get].[User]';
