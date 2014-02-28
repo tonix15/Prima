@@ -93,12 +93,9 @@ $errmsg = !empty($data_list) ? '':'<strong>No Entries Found.</strong>';
 				
 				unset($title);
 				unset($html);
-			?>
-			<label>
-				Export as: 
-				<a title="PDF" href="<?php echo DOMAIN_NAME . '/processing/exportAsPdf.php';?>">PDF</a>
-				<a title="SpreadSheet" href="<?php echo DOMAIN_NAME . '/processing/exportAsCSV.php';?>">SpreadSheet</a>
-			</label>
+				
+				require_once DOCROOT . '/widgets/query_and_reporting_pdf.php'
+			?>			
 		</div>
 	</div>
 		

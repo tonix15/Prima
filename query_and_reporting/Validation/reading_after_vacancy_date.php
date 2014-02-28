@@ -1,5 +1,5 @@
 <?php
-$page_name = 'Buildings with Active Rates';
+$page_name = 'Reading After Vacancy Date';
 
 require_once '../../init.php';
 
@@ -30,11 +30,11 @@ $params = array(
 	$userPK,
 	$Session->read('user_company_selection_key')
 );
-$data_list = $dbhandler->getBuildingActiveRate($params);
+$data_list = $dbhandler->getReadingAfterVacancyDate($params);
 $errmsg = !empty($data_list) ? '':'<strong>No Entries Found.</strong>';	
 ?>
 
-<div class="sub-menu-title"><h1>Buildings with Inactive Rates Report</h1></div>
+<div class="sub-menu-title"><h1>Reading After Vacancy Date Report</h1></div>
 	<div class="table-wrapper billing-data-list-container">
 		<div class="wrapper-paging">
 			<ul>
@@ -51,13 +51,12 @@ $errmsg = !empty($data_list) ? '':'<strong>No Entries Found.</strong>';
 			<table class="billing scrollable planning-table planning-table-striped planning-table-hover">
 				<thead>
 					<tr>
-						<th>Building</th>
-						<th>Utility</th>
-						<th>Rate</th>
-						<th>Has Scale</th>							
-						<th>Has Fixed Rate</th>
-						<th>Has Fixed Fee</th>
-						<th>Control</th>
+						<th>Building Name</th>
+						<th>Unit Number</th>
+						<th>Last Occupant</th>
+						<th>Vacancy Date</th>							
+						<th>Meter Number</th>
+						<th>Reading Day</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -67,15 +66,14 @@ $errmsg = !empty($data_list) ? '':'<strong>No Entries Found.</strong>';
 					?>
 							<tr>
 								<td><?php echo $report['Building']; ?></td>								
-								<td><?php echo $report['Utility']; ?></td>
-								<td><?php echo $report['Rate']; ?></td>
-								<td class="table-column-text-align-center"><?php echo $report['ScaleFk']; ?></td>
-								<td class="table-column-text-align-center"><?php echo $report['FixedRateFk']; ?></td>
-								<td class="table-column-text-align-center"><?php echo $report['FixedFeeFk']; ?></td>
-								<td><?php echo $report['ChkTotal'] == 0 ? 'Error':''; ?></td>
+								<td class="table-column-text-align-center"><?php echo $report['Unit']; ?></td>
+								<td class="table-column-text-align-center"><?php echo $report['LastERPCode']; ?></td>
+								<td class="table-column-text-align-center"><?php echo $report['VacancyDate']; ?></td>
+								<td><?php echo $report['Meter']; ?></td>
+								<td class="table-column-text-align-center"><?php echo $report['Readingdate']; ?></td>
 							</tr>
 					<?php endforeach; 
-						else: echo '<tr><td colspan="6"' . $errmsg . '</td></tr>';
+						else: echo '<tr><td colspan="8"' . $errmsg . '</td></tr>';
 						endif;
 					?>
 				</tbody>
@@ -85,7 +83,7 @@ $errmsg = !empty($data_list) ? '':'<strong>No Entries Found.</strong>';
 				$html = ob_get_contents();
 				ob_end_flush();
 				
-				$title = 'Buildings with Active Rates Report';
+				$title = 'Reading After Vacancy Date Report';
 				$Session->write('title', $title);
 				$Session->write('content', $html);
 				
@@ -93,7 +91,7 @@ $errmsg = !empty($data_list) ? '':'<strong>No Entries Found.</strong>';
 				unset($html);
 				
 				require_once DOCROOT . '/widgets/query_and_reporting_pdf.php'
-			?>			
+			?>
 		</div>
 	</div>
 		
