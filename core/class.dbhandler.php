@@ -30,6 +30,10 @@ class DBHandler extends PDOSQLServerdbhandler {
 	public function getBillingAccount($params, $isSingleRecord = false){
 		return $this->executeQueryStoredProcedure(SP::GET_BILLING_ACCOUNT, $params, $isSingleRecord);
 	}
+	
+	public function getBodyCorporateUnitSubMeter($params, $isSingleRecord = false){
+		return $this->executeQueryStoredProcedure(SP::BODY_CORPORATE_UNIT_WITH_SUB_METER, $params, $isSingleRecord);
+	}
     
     /** Building */
 	public function getBuilding($params, $isSingleRecord = false){

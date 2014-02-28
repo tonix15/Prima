@@ -19,6 +19,8 @@ class SP {
 	const GET_BILLING_ACCOUNT = '[get].[BillingAccount]';
 	const SET_BILLING_ACCOUNT = '[set].[BillingAccount]';
 	
+	const BODY_CORPORATE_UNIT_WITH_SUB_METER = '[val].[BCUnitWithSubMeter]';
+	
 	/** Building */
 	const GET_BUILDING = '[get].[Building]';
 	const SET_BUILDING = '[set].[Building]';

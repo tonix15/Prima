@@ -50,6 +50,7 @@
 		'QUERY_AND_REPORTING_VALIDATION_RATE_SPECIFIC_METER_WITH_INACTIVE_RATE' => DOMAIN_NAME . '/query_and_reporting/Validation/rate_specific_meter_with_inactive_rate.php',
 		'QUERY_AND_REPORTING_VALIDATION_RATE_SPECIFIC_METER_WITH_ACTIVE_RATE' => DOMAIN_NAME . '/query_and_reporting/Validation/rate_specific_meter_with_active_rate.php',
 		'QUERY_AND_REPORTING_VALIDATION_TOTAL_SQUARE_METER_BUILDING_SQM_ALLOCATION' => DOMAIN_NAME . '/query_and_reporting/Validation/total_square_meters_building_SQM_allocation.php',
+		'QUERY_AND_REPORTING_VALIDATION_BODY_CORPORATE_UNIT_WITH_SUB_METERS' => DOMAIN_NAME . '/query_and_reporting/Validation/body_corporate_unit_with_sub_meters.php',
 		//System Administration
 		'SYSTEM_ADMINISTRATION_PARAMETERS' => DOMAIN_NAME . '/sysadmin/parameters.php',
 		'SYSTEM_ADMINISTRATION_COMPANY'=> DOMAIN_NAME . '/sysadmin/company.php',
@@ -338,6 +339,7 @@
 								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_VALIDATION_RATE_SPECIFIC_METER_WITH_INACTIVE_RATE'] . '">Rate Specific Meter with Inactive Rate</a></li>';
 								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_VALIDATION_RATE_SPECIFIC_METER_WITH_ACTIVE_RATE'] . '">Rate Specific Meter with Active Rate</a></li>';
 								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_VALIDATION_TOTAL_SQUARE_METER_BUILDING_SQM_ALLOCATION'] . '">Total Square Meters for Buildings with SQM Allocation</a></li>';
+								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_VALIDATION_BODY_CORPORATE_UNIT_WITH_SUB_METERS'] . '">Body Corporate Unit with Sub Meters</a></li>';
 						echo '</ul>';
 					echo '</li>';
 					break;
