@@ -69,9 +69,18 @@
 	//Construct Parallel array,
 	//$menu_PK will contain the Primary Keys for the Menu
 	//$menu_VALUE will contain the String value of the Menu
-	foreach($menu_data as $menu){
-		$menu_PK[] = $menu['MenuPk'];
-		$menu_VALUE[] = $menu['Value'];
+	// foreach($menu_data as $menu){
+		// $menu_PK[] = $menu['MenuPk'];
+		// $menu_VALUE[] = $menu['Value'];
+	// }
+	
+	//Function to get Menu
+	function getMenuValue($menu_pk){
+		foreach($menu_data as $menu){
+			if ($menu_pk == $menu['MenuPk'] ){
+				return $menu['Value'];
+			}
+		}
 	}
 	
 	$BusinessFunctionFk = $Session->read('BusinessFunctionUser');
@@ -82,7 +91,7 @@
 		<ul class="sub-menu">    
 <?php			
 	foreach($business_function_user_menu_data as $user_menu){	
-		if($user_menu['MenuFk'] == 1){
+		if($user_menu['Menu'] == 'MAINTENANCE'){
 			echo '<li><a href="' . $path_constants['MAINTENANCE_PROVIDERS'] . '">Providers</a></li>'; 
 			echo '<li><a href="' . $path_constants['MAINTENANCE_RATES'] . '">Rates</a></li>'; 
 			echo '<li><a href="' . $path_constants['MAINTENANCE_BUILDINGS'] . '">Buildings</a></li>'; 
@@ -92,31 +101,31 @@
 			echo '<li><a href="' . $path_constants['MAINTENANCE_PARAMETERS'] . '">Parameters</a></li>';
 			break;
 		}
-		else if($user_menu['MenuFk'] == 2){ 
+		else if($user_menu['Menu'] == 'MAINTENANCE.PROVIDERS'){ 
 			echo '<li><a href="' . $path_constants['MAINTENANCE_PROVIDERS'] . '">Providers</a></li>';  
 			break;
 		}
-		else if($user_menu['MenuFk'] == 3){ 
+		else if($user_menu['Menu'] == 'MAINTENANCE.RATES'){ 
 			echo '<li><a href="' . $path_constants['MAINTENANCE_RATES'] . '">Rates</a></li>';   
 			break;
 		}
-		else if($user_menu['MenuFk'] == 4){ 
+		else if($user_menu['Menu'] == 'MAINTENANCE.BUILDINGS'){ 
 			echo '<li><a href="' . $path_constants['MAINTENANCE_BUILDINGS'] . '">Buildings</a></li>';   
 			break;
 		}
-		else if($user_menu['MenuFk'] == 5){ 
+		else if($user_menu['Menu'] == 'MAINTENANCE.UNITS'){ 
 			echo '<li><a href="' . $path_constants['MAINTENANCE_UNITS'] . '">Units</a></li>';   
 			break;
 		}
-		else if($user_menu['MenuFk'] == 6){ 
+		else if($user_menu['Menu'] == 'MAINTENANCE.CUSTOMERS'){ 
 			echo '<li><a href="' . $path_constants['MAINTENANCE_CUSTOMERS'] . '">Customers</a></li>';    
 			break;
 		}
-		else if($user_menu['MenuFk'] == 7){ 
+		else if($user_menu['Menu'] == 'MAINTENANCE.METERS'){ 
 			echo '<li><a href="' . $path_constants['MAINTENANCE_METERS'] . '">Meters</a></li>';    
 			break;
 		}
-		else if($user_menu['MenuFk'] == 8){ 
+		else if($user_menu['Menu'] == 'MAINTENANCE.PARAMETERS'){ 
 			echo '<li><a href="' . $path_constants['MAINTENANCE_PARAMETERS'] . '">Parameters</a></li>';   
 			break;
 		}
@@ -128,7 +137,7 @@
     <li><a href="#">Processing</a>	
         <ul class="sub-menu">
 		<?php foreach($business_function_user_menu_data as $user_menu){
-				if($user_menu['MenuFk'] == 9){					
+				if($user_menu['Menu'] == 'PROCESSING'){					
 					echo '<li><a href="' . $path_constants['PROCESSING_PLANNING'] . '">Planning</a></li>'; 
 					echo '<li>'; 
 						echo '<a href="#">Month-end Billing</a>';
@@ -146,11 +155,11 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['MenuFk'] == 10){
+				else if($user_menu['Menu'] == 'PROCESSING.MONTH END BILLING'){
 					echo '<li><a href="' . $path_constants['PROCESSING_PLANNING'] . '">Planning</a></li>'; 
 					break;
 				}
-				else if($user_menu['MenuFk'] == 11){
+				else if($user_menu['Menu'] == 'PROCESSING.MONTH END BILLING.REASONABILITY'){
 					echo '<li>'; 
 						echo '<a href="#">Month-end Billing</a>';
 						echo '<ul>';
@@ -160,7 +169,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['MenuFk'] == 12){
+				else if($user_menu['Menu'] == 'PROCESSING.MONTH END BILLING.INVOICING'){
 					echo '<li>'; 
 						echo '<a href="#">Month-end Billing</a>';
 						echo '<ul>';
@@ -169,7 +178,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['MenuFk'] == 13){
+				else if($user_menu['Menu'] == 'PROCESSING.MONTH END BILLING.INVOICING'){
 					echo '<li>'; 
 						echo '<a href="#">Month-end Billing</a>';
 						echo '<ul>';
@@ -178,7 +187,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['MenuFk'] == 14){
+				else if($user_menu['Menu'] == 'PROCESSING.SINGLE BILLING.RESET BILLING'){
 					echo '<li>'; 
 						echo '<a href="#">Single Billing</a>';
 						echo '<ul>';
@@ -188,7 +197,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['MenuFk'] == 15){
+				else if($user_menu['Menu'] == 'PROCESSING.SINGLE BILLING.RESET BILLING'){
 					echo '<li>'; 
 						echo '<a href="#">Single Billing</a>';
 						echo '<ul>';
@@ -197,7 +206,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['MenuFk'] == 16){
+				else if($user_menu['Menu'] == 'PROCESSING.SINGLE BILLING.INVOICING'){
 					echo '<li>'; 
 						echo '<a href="#">Single Billing</a>';
 						echo '<ul>';
@@ -214,7 +223,7 @@
         <ul class="sub-menu">
 		<?php 
 			foreach($business_function_user_menu_data as $user_menu){
-				if($user_menu['MenuFk'] == 17){
+				if($user_menu['Menu'] == 'CREDIT MANAGEMENT'){
 					echo '<li>'; 
 						echo '<a href="#">Cut Notification</a>';
 						echo '<ul>';
@@ -227,7 +236,7 @@
 					echo '<li><a href="' . $path_constants['CREDIT_MANAGEMENT_DEPOSIT_REVIEW'] . '">Deposit Review</a></li>';
 					break;
 				}
-				else if($user_menu['MenuFk'] == 18){
+				else if($user_menu['Menu'] == 'CREDIT MANAGEMENT.CUT NOTIFICATION'){
 					echo '<li>'; 
 						echo '<a href="#">Cut Notification</a>';
 						echo '<ul>';
@@ -237,7 +246,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['MenuFk'] == 19){
+				else if($user_menu['Menu'] == 'CREDIT MANAGEMENT.CUT NOTIFICATION.OVERDUE'){
 					echo '<li>'; 
 						echo '<a href="#">Cut Notification</a>';
 						echo '<ul>';
@@ -246,7 +255,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['MenuFk'] == 20){
+				else if($user_menu['Menu'] == 'CREDIT MANAGEMENT.CUT NOTIFICATION.AGREEMENT'){
 					echo '<li>'; 
 						echo '<a href="#">Cut Notification</a>';
 						echo '<ul>';
@@ -255,15 +264,15 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['MenuFk'] == 21){
+				else if($user_menu['Menu'] == 'CREDIT MANAGEMENT.CUT INSTRUCTION'){
 					echo '<li><a href="' . $path_constants['CREDIT_MANAGEMENT_CUT_INSTRUCTION'] . '">Cut Instruction</a></li>';
 					break;
 				}
-				else if($user_menu['MenuFk'] == 22){
+				else if($user_menu['Menu'] == 'CREDIT MANAGEMENT.RECONNECTION'){
 					echo '<li><a href="' . $path_constants['CREDIT_MANAGEMENT_RECONNECTION'] . '">Reconnection</a></li>'; 
 					break;
 				}
-				else if($user_menu['MenuFk'] == 23){
+				else if($user_menu['Menu'] == 'CREDIT MANAGEMENT.DEPOSIT REVIEW'){
 					echo '<li><a href="' . $path_constants['CREDIT_MANAGEMENT_DEPOSIT_REVIEW'] . '">Deposit Review</a></li>';
 					break;
 				}
@@ -275,7 +284,7 @@
         <ul class="sub-menu">
 		<?php 
 			foreach($business_function_user_menu_data as $user_menu){		
-				if($user_menu['MenuFk'] == 24){
+				if($user_menu['Menu'] == 'QUERY AND REPORTING'){
 					echo '<li class="Customer_list">'; 
 						echo '<a href="#">Customer</a>';
 						echo '<ul>';
@@ -333,7 +342,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['MenuFk'] == 25){
+				else if($user_menu['Menu'] == 'QUERY AND REPORTING.CUSTOMER' ){
 					echo '<li class="Customer_list">'; 
 						echo '<a href="#">Customer</a>';
 						echo '<ul>';
@@ -344,7 +353,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['MenuFk'] == 26){
+				else if($user_menu['Menu'] == 'QUERY AND REPORTING.CUSTOMER.DEPOSIT LIST' ){
 					echo '<li class="Customer_list">'; 
 						echo '<a href="#">Customer</a>';
 						echo '<ul>';
@@ -353,7 +362,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['MenuFk'] == 27){
+				else if($user_menu['Menu'] == 'QUERY AND REPORTING.CUSTOMER.ACCOUNT DETAIL'){
 					echo '<li class="Customer_list">'; 
 						echo '<a href="#">Customer</a>';
 						echo '<ul>';
@@ -362,7 +371,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['MenuFk'] == 28){
+				else if($user_menu['Menu'] == 'QUERY AND REPORTING.CUSTOMER.INVOICE DETAIL'){
 					echo '<li class="Customer_list">'; 
 						echo '<a href="#">Customer</a>';
 						echo '<ul>';
@@ -371,7 +380,7 @@
 					echo '</li>';
 					break;
 				}				
-				else if($user_menu['MenuFk'] == 29){
+				else if($user_menu['Menu'] == 'QUERY AND REPORTING.METER'){
 					echo '<li>'; 
 						echo '<a href="#">Meter</a>';
 						echo '<ul>';
@@ -382,7 +391,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['MenuFk'] == 30){
+				else if($user_menu['Menu'] == 'QUERY AND REPORTING.METER.READING REVIEW'){
 					echo '<li>'; 
 						echo '<a href="#">Meter</a>';
 						echo '<ul>';
@@ -391,7 +400,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['MenuFk'] == 31){
+				else if($user_menu['Menu'] == 'QUERY AND REPORTING.METER.IMPORT FILE ANALYSIS'){
 					echo '<li>'; 
 						echo '<a href="#">Meter</a>';
 						echo '<ul>';
@@ -400,7 +409,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['MenuFk'] == 33){
+				else if($user_menu['Menu'] == 'QUERY AND REPORTING.METER.INTERNAL PREPAID REASONA'){
 					echo '<li>'; 
 						echo '<a href="#">Meter</a>';
 						echo '<ul>';
@@ -409,7 +418,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['MenuFk'] == 34){
+				else if($user_menu['Menu'] == 'QUERY AND REPORTING.BILLING'){
 					echo '<li>'; 
 						echo '<a href="#">Billing</a>';
 						echo '<ul>';
@@ -420,7 +429,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['MenuFk'] == 35){
+				else if($user_menu['Menu'] == 'QUERY AND REPORTING.BILLING.TERMINATIONS NOT INVOICE'){
 					echo '<li>'; 
 						echo '<a href="#">Billing</a>';
 						echo '<ul>';
@@ -429,7 +438,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['MenuFk'] == 36){
+				else if($user_menu['Menu'] == 'QUERY AND REPORTING.BILLING.PREVIOUS BILLING REPORT'){
 					echo '<li>'; 
 						echo '<a href="#">Billing</a>';
 						echo '<ul>';
@@ -438,7 +447,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['MenuFk'] == 37){
+				else if($user_menu['Menu'] == 'QUERY AND REPORTING.BILLING.COMMON PROPERTY CALCULATION'){
 					echo '<li>'; 
 						echo '<a href="#">Billing</a>';
 						echo '<ul>';
@@ -447,7 +456,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['MenuFk'] == 38){
+				else if($user_menu['Menu'] == 'QUERY AND REPORTING.CREDIT MANAGEMENT'){
 					echo '<li>'; 
 						echo '<a href="#">Credit Management</a>';
 						echo '<ul>';
@@ -460,7 +469,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['MenuFk'] == 39){
+				else if($user_menu['Menu'] == 'QUERY AND REPORTING.CREDIT MANAGEMENT.PAYMENT ARRANGEMENT LIST'){
 					echo '<li>'; 
 						echo '<a href="#">Credit Management</a>';
 						echo '<ul>';
@@ -469,7 +478,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['MenuFk'] == 40){
+				else if($user_menu['Menu'] == 'QUERY AND REPORTING.CREDIT MANAGEMENT.OVERDUE NOT NOTIFIED'){
 					echo '<li>'; 
 						echo '<a href="#">Credit Management</a>';
 						echo '<ul>';
@@ -478,7 +487,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['MenuFk'] == 41){
+				else if($user_menu['Menu'] == 'QUERY AND REPORTING.CREDIT MANAGEMENT.AGREEMENT NOT NOTIFIED'){
 					echo '<li>'; 
 						echo '<a href="#">Credit Management</a>';
 						echo '<ul>';
@@ -487,7 +496,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['MenuFk'] == 50){
+				else if($user_menu['Menu'] == 'QUERY AND REPORTING.CREDIT MANAGEMENT.NOTIFIED NOT CUT'){
 					echo '<li>'; 
 						echo '<a href="#">Credit Management</a>';
 						echo '<ul>';
@@ -497,7 +506,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['MenuFk'] == 60){
+				else if($user_menu['Menu'] == 'QUERY AND REPORTING.CREDIT MANAGEMENT.PAID NOT RECONNECTED'){
 					echo '<li>'; 
 						echo '<a href="#">Credit Management</a>';
 						echo '<ul>';
@@ -506,7 +515,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['MenuFk'] == 61){
+				else if($user_menu['Menu'] == 'QUERY AND REPORTING.READING IMPORTS'){
 					echo '<li>'; 
 						echo '<a href="#">Reading Imports</a>';
 						echo '<ul>';
@@ -520,7 +529,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['MenuFk'] == 62){
+				else if($user_menu['Menu'] == 'QUERY AND REPORTING.READING IMPORTS.BUILDINGS IMPORT'){
 					echo '<li>'; 
 						echo '<a href="#">Reading Imports</a>';
 						echo '<ul>';
@@ -529,7 +538,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['MenuFk'] == 63){
+				else if($user_menu['Menu'] == 'QUERY AND REPORTING.READING IMPORTS.TEST METER'){
 					echo '<li>'; 
 						echo '<a href="#">Reading Imports</a>';
 						echo '<ul>';
@@ -538,7 +547,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['MenuFk'] == 64){
+				else if($user_menu['Menu'] == 'QUERY AND REPORTING.READING IMPORTS.ESTIMATED READING'){
 					echo '<li>'; 
 						echo '<a href="#">Reading Imports</a>';
 						echo '<ul>';
@@ -547,7 +556,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['MenuFk'] == 1029){
+				else if($user_menu['Menu'] == 'QUERY AND REPORTING.READING IMPORTS.METER ESTIMATE 3 TIMES'){
 					echo '<li>'; 
 						echo '<a href="#">Reading Imports</a>';
 						echo '<ul>';
@@ -556,7 +565,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['MenuFk'] == 1030){
+				else if($user_menu['Menu'] == 'QUERY AND REPORTING.READING IMPORTS.EXCEPTIONAL READING'){
 					echo '<li>'; 
 						echo '<a href="#">Reading Imports</a>';
 						echo '<ul>';
@@ -565,7 +574,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['MenuFk'] == 1031){
+				else if($user_menu['Menu'] == 'QUERY AND REPORTING.READING IMPORTS.VARIANCE FACTOR ANALYSIS'){
 					echo '<li>'; 
 						echo '<a href="#">Reading Imports</a>';
 						echo '<ul>';
@@ -574,7 +583,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['MenuFk'] == 1032){
+				else if($user_menu['Menu'] == 1032){
 					echo '<li class="Validation_list">'; 
 						echo '<a href="#">Validation</a>';
 						echo '<ul>';
@@ -587,7 +596,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['MenuFk'] == 1033){
+				else if($user_menu['Menu'] == 1033){
 					echo '<li class="Validation_list">'; 
 						echo '<a href="#">Validation</a>';
 						echo '<ul>';
@@ -596,7 +605,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['MenuFk'] == 1034){
+				else if($user_menu['Menu'] == 1034){
 					echo '<li class="Validation_list">'; 
 						echo '<a href="#">Validation</a>';
 						echo '<ul>';
@@ -605,7 +614,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['MenuFk'] == 1035){
+				else if($user_menu['Menu'] == 1035){
 					echo '<li class="Validation_list">'; 
 						echo '<a href="#">Validation</a>';
 						echo '<ul>';
@@ -614,7 +623,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['MenuFk'] == 1036){
+				else if($user_menu['Menu'] == 1036){
 					echo '<li class="Validation_list">'; 
 						echo '<a href="#">Validation</a>';
 						echo '<ul>';
@@ -623,7 +632,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['MenuFk'] == 1039){
+				else if($user_menu['Menu'] == 1039){
 					echo '<li class="Validation_list">'; 
 						echo '<a href="#">Validation</a>';
 						echo '<ul>';
@@ -641,26 +650,26 @@
 		<ul class="sub-menu">      
 		<?php 
 			foreach($business_function_user_menu_data as $user_menu){	
-				if($user_menu['MenuFk'] == 1040){
+				if($user_menu['Menu'] == 'SYSTEM ADMINISTRATION' || $userPK == 1){
 					echo '<li><a href="' . $path_constants['SYSTEM_ADMINISTRATION_PARAMETERS'] . '">Parameters</a>'; 
 					echo '<li><a href="' . $path_constants['SYSTEM_ADMINISTRATION_COMPANY'] . '">Company</a>'; 
 					echo '<li><a href="' . $path_constants['SYSTEM_ADMINISTRATION_BUSINESS_FUNCTION'] . '">Business Function</a>'; 
 					echo '<li><a href="' . $path_constants['SYSTEM_ADMINISTRATION_USER'] . '">User</a>';
 					break;
 				}
-				else if($user_menu['MenuFk'] == 1041){
+				else if($user_menu['Menu'] == 'SYSTEM ADMINISTRATION.PARAMETERS'){
 					echo '<li><a href="' . $path_constants['SYSTEM_ADMINISTRATION_PARAMETERS'] . '">Parameters</a>'; 
 					break;
 				}
-				else if($user_menu['MenuFk'] == 1042){
+				else if($user_menu['Menu'] == 'SYSTEM ADMINISTRATION.COMPANY'){
 					echo '<li><a href="' . $path_constants['SYSTEM_ADMINISTRATION_COMPANY'] . '">Company</a>'; 
 					break;
 				}
-				else if($user_menu['MenuFk'] == 1043){
+				else if($user_menu['Menu'] == 'SYSTEM ADMINISTRATION.BUSINESS FUNCTION'){
 					echo '<li><a href="' . $path_constants['SYSTEM_ADMINISTRATION_BUSINESS_FUNCTION'] . '">Business Function</a>'; 
 					break;
 				}
-				else if($user_menu['MenuFk'] == 1044){
+				else if($user_menu['Menu'] == 'SYSTEM ADMINISTRATION.USER'){
 					echo '<li><a href="' . $path_constants['SYSTEM_ADMINISTRATION_USER'] . '">User</a>';
 					break;
 				}

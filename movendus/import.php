@@ -1,5 +1,5 @@
 <?php
-define('NUM_ROWS', 350);
+define('NUM_ROWS', 100);
 define('DATETIME_FORMAT', 'Y-m-d H:i:s');
 define('LAST_UPDATED_DATE', '1970-01-01');
 
