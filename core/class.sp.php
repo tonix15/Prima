@@ -73,6 +73,8 @@ class SP {
 	/** Customer */
 	const GET_CUSTOMER = '[get].[Customer]';
 	const SET_CUSTOMER = '[set].[Customer]';
+	const VAL_CUSTOMER_WITH_OVERLAPPING_OCCUPANCY = '[val].[OccupancyOverlap]';
+	const VAL_OCCUPANCY_OVERLAP_PREPAID = '[val].[OccupancyOverlapPrepaid]';
 	
 	/** Cut Notification */
 	const GET_CUT_NOTIFICATION = '[get].[CutNotification]';
@@ -129,6 +131,7 @@ class SP {
 	const SET_SCALE = '[set].[Scale]';
 	
 	const READING_AFTER_VACANCY_DATE = '[val].[ReadingAfterVacancyDate]';
+	const READING_NEGATIVE = '[val].[ReadingNegative]';
 	
 	/** Reason */
 	const MOVENDUS_EXPORT_REASON = '[movendus].[ExportReason]';

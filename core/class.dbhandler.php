@@ -125,6 +125,14 @@ class DBHandler extends PDOSQLServerdbhandler {
 		return $this->executeQueryStoredProcedure(SP::GET_CUSTOMER, $params, $isSingleRecord);
 	}
 	
+	public function getCustomerOverlappingOccupancy($params, $isSingleRecord = false) {
+		return $this->executeQueryStoredProcedure(SP::VAL_CUSTOMER_WITH_OVERLAPPING_OCCUPANCY, $params, $isSingleRecord);
+	}
+	
+	public function getCustomerOccupancyOverlapPrepaid($params, $isSingleRecord = false) {
+		return $this->executeQueryStoredProcedure(SP::VAL_OCCUPANCY_OVERLAP_PREPAID, $params, $isSingleRecord);
+	}
+	
 	public function getInvoice($params, $isSingleRecord = false) {
 		return $this->executeQueryStoredProcedure(SP::GET_INVOICE, $params, $isSingleRecord);
 	}
@@ -219,6 +227,10 @@ class DBHandler extends PDOSQLServerdbhandler {
 	
 	public function getReadingAfterVacancyDate($params) {
 		return $this->executeQueryStoredProcedure(SP::READING_AFTER_VACANCY_DATE, $params);
+	}
+	
+	public function getReadingNegative($params) {
+		return $this->executeQueryStoredProcedure(SP::READING_NEGATIVE, $params);
 	}
 	
 	/** Reporting */

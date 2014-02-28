@@ -53,6 +53,9 @@
 		'QUERY_AND_REPORTING_VALIDATION_BODY_CORPORATE_UNIT_WITH_SUB_METERS' => DOMAIN_NAME . '/query_and_reporting/Validation/body_corporate_unit_with_sub_meters.php',
 		'QUERY_AND_REPORTING_VALIDATION_UNITS_WITH_BULK_AND_SERVICE_METERS' => DOMAIN_NAME . '/query_and_reporting/Validation/units_with_bulk_and_service_meters.php',
 		'QUERY_AND_REPORTING_VALIDATION_READING_AFTER_VACANCY_DATE' => DOMAIN_NAME . '/query_and_reporting/Validation/reading_after_vacancy_date.php',
+		'QUERY_AND_REPORTING_VALIDATION_READING_CURRENT_NEGATIVE_CONSUMPTION' => DOMAIN_NAME . '/query_and_reporting/Validation/reading_current_negative_consumption.php',
+		'QUERY_AND_REPORTING_VALIDATION_CUSTOMERS_WITH_OVERLAPPING_OCCUPANCY' => DOMAIN_NAME . '/query_and_reporting/Validation/customers_with_overlapping_occupancy.php',
+		'QUERY_AND_REPORTING_VALIDATION_CUSTOMERS_OCCUPANCY_OVERLAP_PREPAID' => DOMAIN_NAME . '/query_and_reporting/Validation/customer_occupancy_overlap_prepaid.php',
 		//System Administration
 		'SYSTEM_ADMINISTRATION_PARAMETERS' => DOMAIN_NAME . '/sysadmin/parameters.php',
 		'SYSTEM_ADMINISTRATION_COMPANY'=> DOMAIN_NAME . '/sysadmin/company.php',
@@ -344,6 +347,9 @@
 								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_VALIDATION_BODY_CORPORATE_UNIT_WITH_SUB_METERS'] . '">Body Corporate Unit with Sub Meters</a></li>';
 								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_VALIDATION_UNITS_WITH_BULK_AND_SERVICE_METERS'] . '">Units with Bulk and Service Meters</a></li>';
 								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_VALIDATION_READING_AFTER_VACANCY_DATE'] . '">Reading After Vacancy Date</a></li>';
+								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_VALIDATION_READING_CURRENT_NEGATIVE_CONSUMPTION'] . '">Reading Current Negative Consumption</a></li>';
+								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_VALIDATION_CUSTOMERS_WITH_OVERLAPPING_OCCUPANCY'] . '">Customers with Overlapping Occupancy</a></li>';
+								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_VALIDATION_CUSTOMERS_OCCUPANCY_OVERLAP_PREPAID'] . '">Customers Occupancy Overlap Prepaid</a></li>';
 						echo '</ul>';
 					echo '</li>';
 					break;
