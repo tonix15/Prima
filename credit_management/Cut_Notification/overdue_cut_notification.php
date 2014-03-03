@@ -77,8 +77,7 @@ if (isset($_POST['Notify'])) {
 		} else {
 			$Session->write('Fail', 'There are no accounts to send.');
 		}
-		
-		
+			
 		$Session->write('Success', '<strong>Cut notifications</strong> sent.');
 		header('Location:' . DOMAIN_NAME . $_SERVER['PHP_SELF']);
 		exit;
@@ -91,7 +90,7 @@ if (isset($_POST['Notify'])) {
 			$dbhandler->createCutNotification(array(
 				$userPK,
 				0,
-				$notification['CustomerFk'],
+				$notification['CustomerPk'],
 				$notification['Surname'],
 				$notification['Cellphone'],
 				$notification['Email'],
@@ -100,9 +99,8 @@ if (isset($_POST['Notify'])) {
 				$notification['TransactionDate'],
 				$notification['SMSDate'],
 				$notification['EmailDate'],
-				$notification['IsSendNotification'],
-				$notification['IsOverdue'],
 				$notification['IsAgreement'],
+				$notification['BillingAccountPk']
 			));
 		}
 	}
@@ -116,6 +114,7 @@ if (isset($_POST['Cancel'])) {
 ?>
 
 <div class="sub-menu-title"><h1>Cut Notification</h1></div>
+
 <?php 
 if ($Session->check('Success')) {
 	echo '<div class="warning insert-success">' . $Session->read('Success') . '</div>';
@@ -129,8 +128,6 @@ if ($Session->check('Success')) {
 	echo '</div>';
 	$Session->sessionUnset('Fail2');
 }
-
-
 ?>
 <div id="parameter-submit-result-error-box" class="warning insert-success submit-result <?php echo 'submit-result-', $submit_result, ' ', $error_class; ?>"><?php echo $errmsg; ?></div>
 <form method="post" >

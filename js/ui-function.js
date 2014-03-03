@@ -735,7 +735,7 @@ $(document).ready(function(e) {
     $('#customer-selection-building').change(function() {
 		var buildingPK = $(this).val();
         $('#customer-selection-unit').html('<option value="0">Please choose a unit</option>');
-        
+
         if (buildingPK > 0) {
             var data = { action: 'getUnits', buildingPK: buildingPK };
             data = 'data=' + JSON.stringify(data);
@@ -768,7 +768,7 @@ $(document).ready(function(e) {
         var unitPK = $(this).val();
         var buildingPK = $('#customer-selection-building').val();
         $('#customer-selection-tenant').html('<option value="0">Please choose a tenant no.</option>');
-        
+        $('#customer-selection-tenant1').html('<option value="0">Please choose a tenant no.</option>');
         if (unitPK > 0) {
             var data = { action: 'getBillingAccounts', unitPK: unitPK, buildingPK: buildingPK };
             data = 'data=' + JSON.stringify(data);
@@ -778,10 +778,12 @@ $(document).ready(function(e) {
                 if (result) {    
                     for (var i = 0; i < len; i++) {
                        $('#customer-selection-tenant').append('<option value="' + billing_account_list[i].billing_accountPK + '">' + billing_account_list[i].billing_accountNo + '</option>'); 
+					   $('#customer-selection-tenant1').append('<option value="' + billing_account_list[i].billing_accountPK + '">' + billing_account_list[i].billing_accountNo + '</option>'); 
                     }
                     
                     if (len > 0) { // hide please selected
                     	$('#customer-selection-tenant > option:first-child').hide();
+						$('#customer-selection-tenant1 > option:first-child').hide();
                     } 
                 }
             });
@@ -1004,6 +1006,12 @@ $(document).ready(function(e) {
             }
         });
 	}); // end of Meter
+	
+	/*------- Account Detail ------------------------------*/
+	$('#customer-selection-tenant1').change(function(){
+		var customerNumberBK = $("#customer-selection-tenant1 option:selected").text().trim();
+		$('input[name="tenant_no"]').val(customerNumberBK);
+	});
 	
 	/*------- Invoice Detail ------------------------------*/
 	$('#customer-selection-tenant').change(function(){

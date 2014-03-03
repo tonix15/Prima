@@ -48,6 +48,8 @@ $billing_account_list = null;
 //Invoice
 $invoice_list = NULL;
 $invoice_reference = NULL;
+$invoice_number = NULL;
+$customerNumberBk  = NULL;
 
 $line_amount_ex_vat_total = 0;
 $vat_total = 0;
@@ -60,7 +62,7 @@ if (isset($_GET['View'])){
 	$buildingPK = $_GET['choose_building'];
 	$unitPK = $_GET['choose_unit'];
 	$billing_accountPK = $_GET['choose_tenant'];
-	$invoice_reference = $_GET['choose_invoice'];
+	$invoice_number = $_GET['choose_invoice'];
 	
 	$customerNumberBk = $_GET['selected_invoice'];
 	if(!empty($customerNumberBk)){
@@ -78,7 +80,7 @@ if (isset($_GET['View'])){
 	$params = array(
 		$userPK,
 		$billing_accountPK,
-		$invoice_reference
+		$invoice_number
 	);
 	$invoice_list = $dbhandler->sageImportInvoiceDetail($params);
 	$msg = !empty($invoice_list) ? NULL:'<h2>No Entries Found.</h2>';
@@ -148,7 +150,7 @@ if(!empty($billing_account_list)){
                         <option <?php echo $selected; ?> value="<?php echo $billing_account['BillingAccountPk']; ?>"><?php echo $billing_account['NumberBk']; ?></option>
                     <?php } } ?>
                 </select>
-                <input type="hidden" name="selected_invoice" value="<?php ?>" />
+                <input type="hidden" name="selected_invoice" value="<?php echo $customerNumberBk; ?>" />
             </li>
 			<li>Invoice Number:</li>
             <li>
@@ -157,9 +159,9 @@ if(!empty($billing_account_list)){
                     <?php 
                     	if(!empty($invoice_reference)):
                     		foreach ($invoice_reference as $invoice):
-                    			
+							$selected = $invoice['InvNumber'] == $invoice_number ? 'selected':'';
                     ?>                 
-                    <option value="<?php echo $invoice['InvNumber']?>" <?php echo strcasecmp($customerNumberBk, $invoice['InvNumber']) == 0 ? 'selected':''; ?> ><?php echo $invoice['InvNumber']?></option>
+                    <option value="<?php echo $invoice['InvNumber']?>" <?php echo  $selected  ?> ><?php echo $invoice['InvNumber']?></option>
                     <?php 
                     		endforeach;
                     	endif;

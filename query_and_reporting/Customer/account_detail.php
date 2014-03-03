@@ -20,6 +20,7 @@ else{
 		exit();
 	}	
 }
+$tenant_no = '';
 
 $userCredentials = $User->getUserCredentials();
 $userPK = $userCredentials['UserPk'];
@@ -100,12 +101,9 @@ $import_account_detail = NULL;
 
 if (isset($_GET['View'])) { 
 	$billing_accountFK = !empty($_GET['choose_tenant']) ? $_GET['choose_tenant']:0;
-	$import_account_detail = $dbhandler->sageImportAccountDetail(array(1,55));	
+	$import_account_detail = $dbhandler->sageImportAccountDetail(array($userPK, $billing_accountFK));	
 	$errmsg = !empty($import_account_detail) ? '':'<h2>No Entries Found.</h2>';
-	// echo ' parameters ' , '<br />';
-	// var_dump(array($userPK, $billing_accountFK));
-		// echo ' import_account_detail ' , '<br />';
-	// var_dump($import_account_detail);
+	$tenant_no = $_GET['tenant_no'];
 }
 else if (isset($_POST['Cancel'])) {
     header('Location: ' . $_SERVER['PHP_SELF']);
@@ -148,7 +146,7 @@ else if (isset($_POST['Cancel'])) {
             </li>
             <li>Tenant Number:</li>
             <li>
-                <select id="customer-selection-tenant" class="selection-required-input" name="choose_tenant">
+                <select id="customer-selection-tenant1" class="selection-required-input" name="choose_tenant">
                     <option value="0">Please choose a tenant no.</option>
                     <?php 
                     if (!empty($billing_account_list)) { 
@@ -158,6 +156,7 @@ else if (isset($_POST['Cancel'])) {
                         <option <?php echo $selected; ?> value="<?php echo $billing_account['BillingAccountPk']; ?>"><?php echo $billing_account['NumberBk']; ?></option>
                     <?php } } ?>
                 </select>
+				<input type="hidden" name="tenant_no" value="<?php echo $tenant_no; ?>" />
             </li>
             <!-- <li>Billing Account:</li>
             <li><select><option value="0">Please choose a customer no.</option></select></li> -->
@@ -194,7 +193,8 @@ else if (isset($_POST['Cancel'])) {
 						'choose_building=' . $_GET['choose_building'] . '&' .
 						'choose_unit=' . $_GET['choose_unit'] .  '&' .
 						'choose_tenant=' . $_GET['choose_tenant'] .  '&' .
-						'reference=' . $account_detail['Reference'] . '&' .
+						'choose_invoice=' . $account_detail['Reference'] . '&' .
+						'selected_invoice=' . $tenant_no . '&' .
 						'View=View">' .  $account_detail['Reference'] . '</a>';
 					} else {
 						$ref = $account_detail['Reference'];

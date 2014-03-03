@@ -161,6 +161,10 @@
 					echo '</li>';
 					break;
 				}
+				else if($user_menu['Menu'] == 'PROCESSING.PLANNING'){
+					echo '<li><a href="' . $path_constants['PROCESSING_PLANNING'] . '">Planning</a></li>'; 
+					break;
+				}
 				else if($user_menu['Menu'] == 'PROCESSING.MONTH END BILLING'){
 					echo '<li><a href="' . $path_constants['PROCESSING_PLANNING'] . '">Planning</a></li>'; 
 					break;
@@ -595,7 +599,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['Menu'] == 1032){
+				else if($user_menu['Menu'] == 'QUERY AND REPORTING.VALIDATION'){
 					echo '<li class="Validation_list">'; 
 						echo '<a href="#">Validation</a>';
 						echo '<ul>';
@@ -608,7 +612,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['Menu'] == 1033){
+				else if($user_menu['Menu'] == 'QUERY AND REPORTING.VALIDATION.BUILDINGS WITH INACTIVE RATES'){
 					echo '<li class="Validation_list">'; 
 						echo '<a href="#">Validation</a>';
 						echo '<ul>';
@@ -617,7 +621,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['Menu'] == 1034){
+				else if($user_menu['Menu'] == 'QUERY AND REPORTING.VALIDATION.BUILDINGS WITH ACTIVE RATES'){
 					echo '<li class="Validation_list">'; 
 						echo '<a href="#">Validation</a>';
 						echo '<ul>';
@@ -626,7 +630,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['Menu'] == 1035){
+				else if($user_menu['Menu'] == 'QUERY AND REPORTING.VALIDATION.RATE SPECIFIC METER WITH INACTIVE RATE'){
 					echo '<li class="Validation_list">'; 
 						echo '<a href="#">Validation</a>';
 						echo '<ul>';
@@ -635,7 +639,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['Menu'] == 1036){
+				else if($user_menu['Menu'] == 'QUERY AND REPORTING.VALIDATION.RATE SPECIFIC METER WITH ACTIVE RATE'){
 					echo '<li class="Validation_list">'; 
 						echo '<a href="#">Validation</a>';
 						echo '<ul>';
@@ -644,7 +648,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['Menu'] == 1039){
+				else if($user_menu['Menu'] == 'QUERY AND REPORTING.VALIDATION.TOTAL SQUARE METERS FOR BUILDINGS WITH SQM ALLOCATION'){
 					echo '<li class="Validation_list">'; 
 						echo '<a href="#">Validation</a>';
 						echo '<ul>';

@@ -111,13 +111,15 @@ if(isset($_REQUEST['View'])){
 	$selected_date = $selected_year . '-' . $selected_month . '-01';
 }
 
+//$last_date = ($selected_month - 1 == 0 ? $selected_year - 1 : $selected_year) . '-' . ($selected_month - 1 == 0 ? '12' : sprintf("%02d",$selected_month - 1)) . '-01';
+//$last_building_billing_period_list = $dbhandler->getBuildingBillingPeriod(array($userPK, 0, $last_date));
 $building_billing_period_list = $dbhandler->getBuildingBillingPeriod(array($userPK, 0, $selected_date));
 // if (isset($_SESSION['xx']) )
 	// var_dump($_SESSION['xx']);
 ?>
 <form id="form-planning" action="" method="post" name="">
 <div class="sub-menu-title"><h1>Planning</h1></div>
-<?php
+<?php 
 	if ($Session->check('Success')) { 
 		echo '<div class="warning insert-success">' . $Session->read('Success') . '</div>';
 		$Session->sessionUnset('Success');
@@ -203,7 +205,14 @@ $building_billing_period_list = $dbhandler->getBuildingBillingPeriod(array($user
 				if ($billing_period['ReadingDay'] === '2100-01-01' || strtotime($billing_period['ReadingDay']) >= strtotime(Prima::getSaveDate())) {
 					$disabled = '';
 					$disabled_class = '';
-				} ?>
+				} 
+				
+				//if ($billing_period['TeamFk'] == -1) {
+					//$team_fk = $last_building_billing_period_list[$ctr]['TeamFk'];
+				//} else {
+					$team_fk = $billing_period['TeamFk'];
+				//} 
+				?>
 			<tr>
 				<td>
 					<?php echo $billing_period['BuildingName']; ?>
@@ -214,8 +223,9 @@ $building_billing_period_list = $dbhandler->getBuildingBillingPeriod(array($user
 					<select <?php echo $disabled; ?> name="billing_team_PK[]" id="billing_team_<?php echo $ctr; ?>" class="billing_team <?php echo $disabled_class; ?>" style="width: 135px;">
 						<option value="0">Please select...</option>
 						<?php if (!empty($team_list)) { 
-							foreach ($team_list as $team) { 
-							$selected = $billing_period['TeamFk'] == $team['TeamPk'] ? 'selected="' . $team['TeamPk'] . '"':''; ?>
+							foreach ($team_list as $team) {
+
+							$selected = $team_fk == $team['TeamPk'] ? 'selected="' . $team['TeamPk'] . '"':''; ?>
 							<option <?php echo $selected; ?> value="<?php echo $team['TeamPk']; ?>"><?php echo $team['Value']; ?></option>
 						<?php } }?>
 					</select>
