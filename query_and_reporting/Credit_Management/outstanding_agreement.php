@@ -1,5 +1,5 @@
 <?php
-$page_name = 'Buildings with Active Rates';
+$page_name = 'Outstanding Agreement';
 
 require_once '../../init.php';
 
@@ -30,11 +30,11 @@ $params = array(
 	$userPK,
 	$Session->read('user_company_selection_key')
 );
-$data_list = $dbhandler->getArrangementList($params);
+$data_list = $dbhandler->repOutstandingAgreement($params);
 $errmsg = !empty($data_list) ? '':'<strong>No Entries Found.</strong>';	
 ?>
 
-<div class="sub-menu-title"><h1>Payment Arrangement List</h1></div>
+<div class="sub-menu-title"><h1>Outstanding Agreement Report</h1></div>
 	<div class="table-wrapper billing-data-list-container">
 		<div class="wrapper-paging">
 			<ul>
@@ -50,16 +50,14 @@ $errmsg = !empty($data_list) ? '':'<strong>No Entries Found.</strong>';
 			?>
 			<table class="billing scrollable planning-table planning-table-striped planning-table-hover">
 				<thead>
-					<tr>
-						<th>Portfolio Manager</th>
-						<th>Building Name</th>
-						<th>Unit Number</th>
+					<tr>						
+						<th>Building</th>
 						<th>Account Number</th>
-						<th>Surname</th>							
-						<th>Initials</th>
+						<th>Surname</th>
+						<th>Initials</th>							
 						<th>Name</th>
-						<th>Arrangement Date</th>
-						<th>Outstanding Balance</th>
+						<th>Cellphone</th>
+						<th>Occupance Date</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -68,18 +66,16 @@ $errmsg = !empty($data_list) ? '':'<strong>No Entries Found.</strong>';
 							foreach($data_list as $report):
 					?>
 							<tr>
-								<td><?php echo $report['PortfolioManager']; ?></td>								
-								<td><?php echo $report['Building']; ?></td>
-								<td><?php echo $report['Unit']; ?></td>
-								<td><?php echo $report['Account']; ?></td>
+								<td><?php echo $report['Building']; ?></td>								
+								<td class="table-column-text-align-center"><?php echo $report['ERPCode']; ?></td>
 								<td><?php echo $report['Surname']; ?></td>
 								<td><?php echo $report['Initials']; ?></td>
-								<td><?php echo $report['Name']; ?></td>
-								<td><?php echo $report['ArrangementDate']; ?></td>
-								<td class="table-column-text-align-right table-column-width-50"><?php echo number_format($report['Outstanding'], 2, '.', ','); ?></td>
+								<td><?php echo $report['Customer']; ?></td>
+								<td><?php echo $report['Cellphone']; ?></td>
+								<td class="table-column-text-align-center"><?php echo $report['OccupancyDate']; ?></td>
 							</tr>
 					<?php endforeach; 
-						else: echo '<tr><td colspan="9"' . $errmsg . '</td></tr>';
+						else: echo '<tr><td colspan="7"' . $errmsg . '</td></tr>';
 						endif;
 					?>
 				</tbody>
@@ -89,20 +85,18 @@ $errmsg = !empty($data_list) ? '':'<strong>No Entries Found.</strong>';
 				$html = ob_get_contents();
 				ob_end_flush();
 				
-				$title = 'Payment Arrangement List';
+				$title = 'Outstanding Agreement Report';
 				$Session->write('title', $title);
 				$Session->write('content', $html);
-				
+								
 				unset($title);
 				unset($html);
 				
 				require_once DOCROOT . '/widgets/query_and_reporting_pdf.php'
-			?>
+			?>			
 		</div>
 	</div>
 		
 <?php require DOCROOT . '/template/footer.php'; ?>
-<script src="<?php echo DOMAIN_NAME; ?>/js/modernizr.custom.min.js"></script>
-<script src="<?php echo DOMAIN_NAME; ?>/js/input.date.sniffer.js"></script>
 <script src="<?php echo DOMAIN_NAME; ?>/js/pagination.js"></script>
 <script type="text/javascript">$(function(){ TABLE.paginate('.billing', 10); });</script>
