@@ -34,11 +34,15 @@
 		'QUERY_AND_REPORTING_BILLING_TERMINATIONS_NOT_INVOICE' => '#',
 		'QUERY_AND_REPORTING_BILLING_PREVIOUS_BILLING_REPORT' => '#',
 		'QUERY_AND_REPORTING_BILLING_COMMON_PROPERTY_CALCULATION' => '#',
+		'QUERY_AND_REPORTING_BILLING_OUTSTANDING_BILLING_LIST' => DOMAIN_NAME . '/query_and_reporting/Billing/outstanding_billing_list.php',
+		'QUERY_AND_REPORTING_BILLING_OUTSTANDING_BILLING_DETAIL' => DOMAIN_NAME . '/query_and_reporting/Billing/outstanding_billing_detail.php',
 		'QUERY_AND_REPORTING_CREDIT_MANAGEMENT_PAYMENT_ARRANGEMENT_LIST' => DOMAIN_NAME . '/query_and_reporting/Credit_Management/payment_arrangement_list.php',
 		'QUERY_AND_REPORTING_CREDIT_MANAGEMENT_OVERDUE_NOT_NOTIFIED' => '#',
 		'QUERY_AND_REPORTING_CREDIT_MANAGEMENT_AGREEMENT_NOT_NOTIFIED' => '#',
 		'QUERY_AND_REPORTING_CREDIT_MANAGEMENT_NOTIFIED_NOT_CUT' => '#',
 		'QUERY_AND_REPORTING_CREDIT_MANAGEMENT_PAID_NOT_RECONNECTED' => '#',
+		'QUERY_AND_REPORTING_CREDIT_MANAGEMENT_OUTSTANDING_AGREEMENT' => DOMAIN_NAME . '/query_and_reporting/Credit_Management/outstanding_agreement.php',
+		'QUERY_AND_REPORTING_CREDIT_MANAGEMENT_CUSTOMER_NO_CONTACT_DETAIL' => DOMAIN_NAME . '/query_and_reporting/Credit_Management/customer_with_no_contact_detail.php',
 		'QUERY_AND_REPORTING_READING_IMPORTS_BUILDING_IMPORTS' => DOMAIN_NAME . '/query_and_reporting/Reading_Imports/buildings_import.php',
 		'QUERY_AND_REPORTING_READING_IMPORTS_TEST_METER_REPORT' => DOMAIN_NAME . '/query_and_reporting/Reading_Imports/reading_test_meter.php',
 		'QUERY_AND_REPORTING_READING_IMPORTS_ESTIMATED_READINGS_REPORT' => DOMAIN_NAME . '/query_and_reporting/Reading_Imports/estimated_readings_report.php',
@@ -166,7 +170,13 @@
 					break;
 				}
 				else if($user_menu['Menu'] == 'PROCESSING.MONTH END BILLING'){
-					echo '<li><a href="' . $path_constants['PROCESSING_PLANNING'] . '">Planning</a></li>'; 
+					echo '<li>'; 
+						echo '<a href="#">Month-end Billing</a>';
+						echo '<ul>';
+								echo '<li><a href="' . $path_constants['PROCESSING_MONTH_END_BILLING_REASONABILITY'] . '">Reasonability</a></li>';
+								echo '<li><a href="' . $path_constants['PROCESSING_MONTH_END_BILLING_BILLING'] . '">Invoicing</a></li>';
+						echo '</ul>';
+					echo '</li>';
 					break;
 				}
 				else if($user_menu['Menu'] == 'PROCESSING.MONTH END BILLING.REASONABILITY'){
@@ -174,16 +184,6 @@
 						echo '<a href="#">Month-end Billing</a>';
 						echo '<ul>';
 								echo '<li><a href="' . $path_constants['PROCESSING_MONTH_END_BILLING_REASONABILITY'] . '">Reasonability</a></li>';
-								echo '<li><a href="' . $path_constants['PROCESSING_MONTH_END_BILLING_BILLING'] . '">Invoicing</a></li>';
-						echo '</ul>';
-					echo '</li>';
-					break;
-				}
-				else if($user_menu['Menu'] == 'PROCESSING.MONTH END BILLING.INVOICING'){
-					echo '<li>'; 
-						echo '<a href="#">Month-end Billing</a>';
-						echo '<ul>';
-								echo '<li><a href="' . $path_constants['PROCESSING_MONTH_END_BILLING_REASONABILITY'] . '">Reasonability</a></li>';
 						echo '</ul>';
 					echo '</li>';
 					break;
@@ -196,8 +196,8 @@
 						echo '</ul>';
 					echo '</li>';
 					break;
-				}
-				else if($user_menu['Menu'] == 'PROCESSING.SINGLE BILLING.RESET BILLING'){
+				}	
+				else if($user_menu['Menu'] == 'PROCESSING.SINGLE BILLING'){
 					echo '<li>'; 
 						echo '<a href="#">Single Billing</a>';
 						echo '<ul>';
@@ -215,7 +215,7 @@
 						echo '</ul>';
 					echo '</li>';
 					break;
-				}
+				}				
 				else if($user_menu['Menu'] == 'PROCESSING.SINGLE BILLING.INVOICING'){
 					echo '<li>'; 
 						echo '<a href="#">Single Billing</a>';
@@ -317,16 +317,20 @@
 								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_BILLING_TERMINATIONS_NOT_INVOICE'] . '">Terminations not Invoice</a></li>';
 								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_BILLING_PREVIOUS_BILLING_REPORT'] . '">Previous Billing Report</a></li>';
 								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_BILLING_COMMON_PROPERTY_CALCULATION'] . '">Common Property Calculation</a></li>';
+								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_BILLING_OUTSTANDING_BILLING_LIST'] . '">Outstanding Billing List</a></li>';
+								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_BILLING_OUTSTANDING_BILLING_DETAIL'] . '">Outstanding Billing Detail</a></li>';
 						echo '</ul>';
 					echo '</li>';
 					echo '<li>'; 
 						echo '<a href="#">Credit Management</a>';
-						echo '<ul>';
+						echo '<ul class="credit_management_sub_list">';
 								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_CREDIT_MANAGEMENT_PAYMENT_ARRANGEMENT_LIST'] . '">Payment Arrangement List</a></li>';
 								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_CREDIT_MANAGEMENT_OVERDUE_NOT_NOTIFIED'] . '">Overdue not Notified</a></li>';
 								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_CREDIT_MANAGEMENT_AGREEMENT_NOT_NOTIFIED'] . '">Agreement not Notified</a></li>';
 								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_CREDIT_MANAGEMENT_NOTIFIED_NOT_CUT'] . '">Notified not Cut</a></li>';
 								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_CREDIT_MANAGEMENT_PAID_NOT_RECONNECTED'] . '">Paid not Reconnected</a></li>';
+								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_CREDIT_MANAGEMENT_OUTSTANDING_AGREEMENT'] . '">Outstanding Agreement</a></li>';
+								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_CREDIT_MANAGEMENT_CUSTOMER_NO_CONTACT_DETAIL'] . '">Customer with no Contact Detail</a></li>';
 						echo '</ul>';
 					echo '</li>';
 					echo '<li>'; 
@@ -425,7 +429,7 @@
 					echo '</li>';
 					break;
 				}
-				else if($user_menu['Menu'] == 'QUERY AND REPORTING.METER.INTERNAL PREPAID REASONA'){
+				else if($user_menu['Menu'] == 'QUERY AND REPORTING.METER.INTERNAL PREPAID REASONABILITY'){
 					echo '<li>'; 
 						echo '<a href="#">Meter</a>';
 						echo '<ul>';
@@ -475,7 +479,7 @@
 				else if($user_menu['Menu'] == 'QUERY AND REPORTING.CREDIT MANAGEMENT'){
 					echo '<li>'; 
 						echo '<a href="#">Credit Management</a>';
-						echo '<ul>';
+						echo '<ul class="credit_management_sub_list">';
 								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_CREDIT_MANAGEMENT_PAYMENT_ARRANGEMENT_LIST'] . '">Payment Arrangement List</a></li>';
 								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_CREDIT_MANAGEMENT_OVERDUE_NOT_NOTIFIED'] . '">Overdue not Notified</a></li>';
 								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_CREDIT_MANAGEMENT_AGREEMENT_NOT_NOTIFIED'] . '">Agreement not Notified</a></li>';
@@ -488,7 +492,7 @@
 				else if($user_menu['Menu'] == 'QUERY AND REPORTING.CREDIT MANAGEMENT.PAYMENT ARRANGEMENT LIST'){
 					echo '<li>'; 
 						echo '<a href="#">Credit Management</a>';
-						echo '<ul>';
+						echo '<ul class="credit_management_sub_list">';
 								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_CREDIT_MANAGEMENT_PAYMENT_ARRANGEMENT_LIST'] . '">Payment Arrangement List</a></li>';
 						echo '</ul>';
 					echo '</li>';
@@ -497,7 +501,7 @@
 				else if($user_menu['Menu'] == 'QUERY AND REPORTING.CREDIT MANAGEMENT.OVERDUE NOT NOTIFIED'){
 					echo '<li>'; 
 						echo '<a href="#">Credit Management</a>';
-						echo '<ul>';
+						echo '<ul class="credit_management_sub_list">';
 								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_CREDIT_MANAGEMENT_OVERDUE_NOT_NOTIFIED'] . '">Overdue not Notified</a></li>';
 						echo '</ul>';
 					echo '</li>';
@@ -506,7 +510,7 @@
 				else if($user_menu['Menu'] == 'QUERY AND REPORTING.CREDIT MANAGEMENT.AGREEMENT NOT NOTIFIED'){
 					echo '<li>'; 
 						echo '<a href="#">Credit Management</a>';
-						echo '<ul>';
+						echo '<ul class="credit_management_sub_list">';
 								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_CREDIT_MANAGEMENT_AGREEMENT_NOT_NOTIFIED'] . '">Agreement not Notified</a></li>';
 						echo '</ul>';
 					echo '</li>';
@@ -515,8 +519,7 @@
 				else if($user_menu['Menu'] == 'QUERY AND REPORTING.CREDIT MANAGEMENT.NOTIFIED NOT CUT'){
 					echo '<li>'; 
 						echo '<a href="#">Credit Management</a>';
-						echo '<ul>';
-								
+						echo '<ul class="credit_management_sub_list">';
 								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_CREDIT_MANAGEMENT_NOTIFIED_NOT_CUT'] . '">Notified not Cut</a></li>';
 						echo '</ul>';
 					echo '</li>';
@@ -525,7 +528,7 @@
 				else if($user_menu['Menu'] == 'QUERY AND REPORTING.CREDIT MANAGEMENT.PAID NOT RECONNECTED'){
 					echo '<li>'; 
 						echo '<a href="#">Credit Management</a>';
-						echo '<ul>';
+						echo '<ul class="credit_management_sub_list">';
 								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_CREDIT_MANAGEMENT_PAID_NOT_RECONNECTED'] . '">Paid not Reconnected</a></li>';
 						echo '</ul>';
 					echo '</li>';
@@ -608,6 +611,12 @@
 								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_VALIDATION_RATE_SPECIFIC_METER_WITH_INACTIVE_RATE'] . '">Rate Specific Meter with Inactive Rate</a></li>';
 								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_VALIDATION_RATE_SPECIFIC_METER_WITH_ACTIVE_RATE'] . '">Rate Specific Meter with Active Rate</a></li>';
 								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_VALIDATION_TOTAL_SQUARE_METER_BUILDING_SQM_ALLOCATION'] . '">Total Square Meters for Buildings with SQM Allocation</a></li>';
+								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_VALIDATION_BODY_CORPORATE_UNIT_WITH_SUB_METERS'] . '">Body Corporate Unit with Sub Meters</a></li>';
+								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_VALIDATION_UNITS_WITH_BULK_AND_SERVICE_METERS'] . '">Units with Bulk and Service Meters</a></li>';
+								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_VALIDATION_READING_AFTER_VACANCY_DATE'] . '">Reading After Vacancy Date</a></li>';
+								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_VALIDATION_READING_CURRENT_NEGATIVE_CONSUMPTION'] . '">Reading Current Negative Consumption</a></li>';
+								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_VALIDATION_CUSTOMERS_WITH_OVERLAPPING_OCCUPANCY'] . '">Customers with Overlapping Occupancy</a></li>';
+								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_VALIDATION_CUSTOMERS_OCCUPANCY_OVERLAP_PREPAID'] . '">Customers Occupancy Overlap Prepaid</a></li>';
 						echo '</ul>';
 					echo '</li>';
 					break;
@@ -653,6 +662,60 @@
 						echo '<a href="#">Validation</a>';
 						echo '<ul>';
 								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_VALIDATION_TOTAL_SQUARE_METER_BUILDING_SQM_ALLOCATION'] . '">Total Square Meters for Buildings with SQM Allocation</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'QUERY AND REPORTING.VALIDATION.BODY CORPORATE UNIT WITH SUB METERS'){
+					echo '<li class="Validation_list">'; 
+						echo '<a href="#">Validation</a>';
+						echo '<ul>';
+								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_VALIDATION_BODY_CORPORATE_UNIT_WITH_SUB_METERS'] . '">Body Corporate Unit with Sub Meters</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'QUERY AND REPORTING.VALIDATION.UNITS WITH BULK AND SERVICE METERS'){
+					echo '<li class="Validation_list">'; 
+						echo '<a href="#">Validation</a>';
+						echo '<ul>';
+								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_VALIDATION_UNITS_WITH_BULK_AND_SERVICE_METERS'] . '">Units with Bulk and Service Meters</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'QUERY AND REPORTING.VALIDATION.READING AFTER VACANCY DATE'){
+					echo '<li class="Validation_list">'; 
+						echo '<a href="#">Validation</a>';
+						echo '<ul>';
+								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_VALIDATION_READING_AFTER_VACANCY_DATE'] . '">Reading After Vacancy Date</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'QUERY AND REPORTING.VALIDATION.READING CURRENT NEGATIVE CONSUMPTION'){
+					echo '<li class="Validation_list">'; 
+						echo '<a href="#">Validation</a>';
+						echo '<ul>';
+								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_VALIDATION_READING_CURRENT_NEGATIVE_CONSUMPTION'] . '">Reading Current Negative Consumption</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'QUERY AND REPORTING.VALIDATION.CUSTOMERS WITH OVERLAPPING OCCUPANCY'){
+					echo '<li class="Validation_list">'; 
+						echo '<a href="#">Validation</a>';
+						echo '<ul>';
+								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_VALIDATION_CUSTOMERS_WITH_OVERLAPPING_OCCUPANCY'] . '">Customers with Overlapping Occupancy</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'QUERY AND REPORTING.VALIDATION.CUSTOMERS OCCUPANCY OVERLAP PREPAID'){
+					echo '<li class="Validation_list">'; 
+						echo '<a href="#">Validation</a>';
+						echo '<ul>';
+								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_VALIDATION_CUSTOMERS_OCCUPANCY_OVERLAP_PREPAID'] . '">Customers Occupancy Overlap Prepaid</a></li>';
 						echo '</ul>';
 					echo '</li>';
 					break;
