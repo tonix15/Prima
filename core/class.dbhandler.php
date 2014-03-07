@@ -159,6 +159,10 @@ class DBHandler extends PDOSQLServerdbhandler {
 		return $this->executeQueryStoredProcedure(SP::VAL_METER_IN_ACTIVE_RATE, $params, $isSingleRecord);
 	}
 	
+	public function getMeter($params, $isSingleRecord = false) {
+		return $this->executeQueryStoredProcedure(SP::GET_METER, $params, $isSingleRecord);
+	}
+	
 	public function getMeterActiveRate($params, $isSingleRecord = false) {
 		return $this->executeQueryStoredProcedure(SP::VAL_METER_ACTIVE_RATE, $params, $isSingleRecord);
 	}
@@ -184,6 +188,10 @@ class DBHandler extends PDOSQLServerdbhandler {
 	
 	public function updateRate($params) {
 		return $this->executeNonQueryStoredProcedure(SP::SET_RATE, $params);
+	}
+	
+	public function getReading($params, $isSingleRecord = false) {
+		return $this->executeQueryStoredProcedure(SP::GET_READING, $params, $isSingleRecord);
 	}
 	
 	public function createScale($params) {
@@ -256,6 +264,22 @@ class DBHandler extends PDOSQLServerdbhandler {
 	
 	public function repReadingFactor($params, $isSingleRecord = false){
 		return $this->executeQueryStoredProcedure(SP::READING_FACTOR, $params, $isSingleRecord);
+	}
+	
+	public function repOutstandingAgreement($params, $isSingleRecord = false){
+		return $this->executeQueryStoredProcedure(SP::OUTSTANDING_AGREEMENT, $params, $isSingleRecord);
+	}
+	
+	public function repCustomerNoContactDetail($params, $isSingleRecord = false){
+		return $this->executeQueryStoredProcedure(SP::CUSTOMER_NO_CONTACT_DETAIL, $params, $isSingleRecord);
+	}
+	
+	public function repOutstandingBillingList($params, $isSingleRecord = false){
+		return $this->executeQueryStoredProcedure(SP::OUTSTANDING_BILLING_LIST, $params, $isSingleRecord);
+	}
+	
+	public function repOutstandingBillingDetail($params, $isSingleRecord = false){
+		return $this->executeQueryStoredProcedure(SP::OUTSTANDING_BILLING_DETAIL, $params, $isSingleRecord);
 	}
 	
 	/** Reason */

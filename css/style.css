@@ -346,6 +346,7 @@ width:100%;
 
 /*#menu > ul > li > ul.sub-menu > li > ul { width: 370px; }*/
 li.Validation_list > ul { width: 370px !important; }
+ul.credit_management_sub_list{ width:230px !important; }
 
 .clear {
 clear:both;

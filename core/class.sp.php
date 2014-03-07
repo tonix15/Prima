@@ -147,6 +147,10 @@ class SP {
 	const READING_ESTIMATED_THREE_TIMES = '[rep].[ReadingEstimated3Times]';
 	const READING_EXCEPTIONAL = '[rep].[ReadingExceptional]';
 	const READING_FACTOR = '[rep].[ReadingFactor]';
+	const OUTSTANDING_AGREEMENT = '[rep].[CrManAgreementOutstanding]';
+	const CUSTOMER_NO_CONTACT_DETAIL = '[rep].[CrManCutInstructionNoContactDetail]';
+	const OUTSTANDING_BILLING_LIST = '[rep].[OutstandingBillingList]';
+	const OUTSTANDING_BILLING_DETAIL = '[rep].[OutstandingBillingDetail]';
 	
 	/** Sage **/
 	const SAGE_IMPORT_DEPOSIT = '[sage].[ImportDeposit]';
