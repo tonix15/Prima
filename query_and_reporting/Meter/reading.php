@@ -1,7 +1,5 @@
 <?php
-
 $page_name = 'READING';
-
 require_once '../../init.php';
 
 if(!$User->isUserLogin()){
@@ -68,7 +66,7 @@ if(isset($_GET['View'])){
 	}	
 	
 	$meterPK = $_GET['choose_meter'];
-	$reading_list = $Reading->getReading(array($userPK, 0, $buildingFK, $meterPK));
+	$reading_list = $Reading->getReading(array($userPK, 0, $buildingFK, $meterPK));	
 }
 
 $import_fancy_box = true;
@@ -136,71 +134,155 @@ require DOCROOT . '/template/header.php';
 	echo '<br /><br />';
 
 	if ($view_class === 'show' ) {
-?>            
-<div class="planning-data-list-container">
-	<?php 
-		//Buffer the html table with PHP to be stored in variable
-		ob_start(); 
-	?>
-	<table class="planning-table planning-table-striped planning-table-hover">
-		<thead>
-			<tr>
-				<th></th>
-				<th>Reading Date</th>
-				<th>Reading Amount</th>
-				<th>Geolocation</th>
-				<th>Consumption</th>
-			</tr>
-		</thead>
-		<tbody>	
-			<?php if (!empty($reading_list)) { 
-					foreach ($reading_list as $reading) {  
-						$image_title = Prima::formatToSaveDate($reading['ReadingDate']);
-						$image_file = Prima::getMeterPhoto($reading['MeterFk'], $image_title);
-				
-						$geolocation = $reading['GeoLocation'];
-						if (!empty($geolocation)) {
-							$geo = explode(',', $geolocation);
-							$geoCount = count($geo);
-					
-							if ($geoCount == 2) {
-								$lat = $geo[0];
-								$long = $geo[1];
-							}
-					
-						}           
+?>    
+<div class="tab-container">
+	<ul>
+		<li class="tabs"><a href="#reading" class="current-tab">Reading</a></li>
+		<li class="tabs"><a href="#consumption-graph">Consumption Graph</a></li>
+	</ul>
+</div>  
+<div class="tab-contents-container">  
+	<div id="reading" class="tab-contents">
+		<div class="planning-data-list-container">
+			<?php 
+				//Buffer the html table with PHP to be stored in variable
+				ob_start(); 
 			?>
-						<tr>
-							<td><a href="<?php echo $image_file; ?>" class="fancybox" title="<?php echo $image_title; ?>"><img style="width:40px; height:40px;" src="<?php echo $image_file; ?>"></a></td>
-							<td class="table-column-text-align-right"><?php echo $reading['ReadingDate'];?></td>
-							<td class="table-column-text-align-right"><?php echo number_format($reading['ReadingAmount'], 0, '', ',');?></td>
-							<td class="table-column-text-align-center"><?php echo !empty($geolocation) && !empty($geoCount) && $geoCount == 2 ? "<a href=\"https://maps.google.com/maps?q=$lat,$long&t=m&z=15\" target=\"_new\" style=\"text-decoration:none;\">View Location</a>" : '';?></td>
-							<td class="table-column-text-align-right"><?php echo number_format($reading['Consumption'], 0, '', ',');?></td>
-						</tr>
-			<?php } } ?>	
-		</tbody>
-	</table>
-	<?php
-		//Collect the output buffer into a variable
-		$html = ob_get_contents();
-		ob_end_flush();
-		
-		$title = 'Reading for  ' . ucwords(strtolower($building_names['Name'])) . ' ' . date('Y-m-d');
-		$Session->write('title', $title);
-		$Session->write('content', $html);
-	?>
-	<label>
-		Export as: 
-		<a title="PDF" href="<?php echo DOMAIN_NAME . '/processing/exportAsPdf.php';?>">PDF</a>
-		<a title="SpreadSheet" href="<?php echo DOMAIN_NAME . '/processing/exportAsCSV.php';?>">SpreadSheet</a>
-	</label>
+			<table class="planning-table planning-table-striped planning-table-hover reading-table">
+				<thead>
+					<tr>
+						<th></th>
+						<th>Reading Date</th>
+						<th>Reading Amount</th>
+						<th>Consumption</th>
+						<th>Geolocation</th>				
+					</tr>
+				</thead>
+				<tbody>	
+					<?php if (!empty($reading_list)) { 
+							foreach ($reading_list as $reading) {  
+								$image_title = Prima::formatToSaveDate($reading['ReadingDate']);
+								$image_file = Prima::getMeterPhoto($reading['MeterFk'], $image_title);
+						
+								$geolocation = $reading['GeoLocation'];
+								if (!empty($geolocation)) {
+									$geo = explode(',', $geolocation);
+									$geoCount = count($geo);
+							
+									if ($geoCount == 2) {
+										$lat = $geo[0];
+										$long = $geo[1];
+									}
+							
+								}           
+					?>
+								<tr>
+									<td><a href="<?php echo $image_file; ?>" class="fancybox" title="<?php echo $image_title; ?>"><img style="width:40px; height:40px;" src="<?php echo $image_file; ?>"></a></td>
+									<td class="table-column-text-align-right"><?php echo $reading['ReadingDate'];?></td>
+									<td class="table-column-text-align-right"><?php echo number_format($reading['ReadingAmount'], 0, '', ',');?></td>							
+									<td class="table-column-text-align-right"><?php echo number_format($reading['Consumption'], 0, '', ',');?></td>
+									<td class="table-column-text-align-center"><?php echo !empty($geolocation) && !empty($geoCount) && $geoCount == 2 ? "<a href=\"https://maps.google.com/maps?q=$lat,$long&t=m&z=15\" target=\"_new\" style=\"text-decoration:none;\">View Location</a>" : '';?></td>
+								</tr>
+					<?php } } ?>	
+				</tbody>
+			</table>
+			<?php
+				//Collect the output buffer into a variable
+				$html = ob_get_contents();
+				ob_end_flush();
+				
+				$title = 'Reading for  ' . ucwords(strtolower($building_names['Name'])) . ' ' . date('Y-m-d');
+				$Session->write('title', $title);
+				$Session->write('content', $html);
+			?>
+			<label>
+				Export as: 
+				<a title="PDF" href="<?php echo DOMAIN_NAME . '/processing/exportAsPdf.php';?>">PDF</a>
+				<a title="SpreadSheet" href="<?php echo DOMAIN_NAME . '/processing/exportAsCSV.php';?>">SpreadSheet</a>
+			</label>
+		</div>
+	</div>
+	<div id="consumption-graph" class="tab-contents">
+		<div id="chart_div" style="height:1000px;width:1100px;margin:0 auto;"></div>
+	</div>
 </div>
 <?php
 	}
 ?>
 
-<?php
-require DOCROOT . '/template/footer.php';
-?>
-
-
+<?php require DOCROOT . '/template/footer.php'; ?>
+<script src="<?php echo DOMAIN_NAME; ?>/js/tab-script.js"></script>
+<?php if(!empty($reading_list)): ?>
+	<!--[if lt IE 9]><script language="javascript" type="text/javascript" src="<?php echo DOMAIN_NAME; ?>/res/jqplot/excanvas.min.js"></script><![endif]-->	
+	<script language="javascript" type="text/javascript" src="<?php echo DOMAIN_NAME; ?>/res/jqplot/jquery.jqplot.min.js"></script>
+	<script language="javascript" type="text/javascript" src="<?php echo DOMAIN_NAME; ?>/res/jqplot/plugins/jqplot.barRenderer.min.js"></script>
+	<script language="javascript" type="text/javascript" src="<?php echo DOMAIN_NAME; ?>/res/jqplot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
+	<script language="javascript" type="text/javascript" src="<?php echo DOMAIN_NAME; ?>/res/jqplot/plugins/jqplot.pointLabels.min.js"></script>	
+	<link rel="stylesheet" type="text/css" href="<?php echo DOMAIN_NAME; ?>/res/jqplot/jquery.jqplot.css" />
+	<script type="text/javascript">
+		$(function(){			
+			var date = [];			
+			var amount = [];
+			var consumption = [];
+			var temp;
+			var counter = 0;
+			//Get all the Reading Dates
+			$('.reading-table > tbody > tr > td:nth-child(2)').each(function(){
+				if(counter > 24){ return false; }
+				temp = $(this).text().split(' ');
+				date.push(temp[0].toString());
+				counter++;
+			});	
+			
+			//Get all Reading Amount Date
+			counter = 0;
+			$('.reading-table > tbody > tr > td:nth-child(3)').each(function(){
+				if(counter > 24){ return false; }
+				temp = $(this).text().replace(',', '');
+				amount.push(temp);
+				counter++;
+			});	
+						
+			//Get all the Consumption data
+			counter = 0;
+			$('.reading-table > tbody > tr > td:nth-child(4)').each(function(){
+				if(counter > 24){ return false; }
+				temp = $(this).text().replace(',', '');
+				consumption.push(temp);
+				counter++;
+			});			
+			
+			var ticks = date;
+			var plot1 = $.jqplot('chart_div',[consumption, amount],{
+				seriesDefaults:{
+					renderer:$.jqplot.BarRenderer,
+					rendererOptions: {fillToZero: true}
+				},
+				series:[
+					{label:'Consumption'},
+					{label:'Amount'}
+				],
+				legend: {
+					show: true,
+					placement: 'outsideGrid'
+				},
+				axes: {
+					// Use a category axis on the x axis and use our custom ticks.
+					xaxis: {
+						renderer: $.jqplot.CategoryAxisRenderer,
+						ticks: ticks
+					},
+					// Pad the y axis just a little so bars can get close to, but
+					// not touch, the grid boundaries.  1.2 is the default padding.
+					yaxis: {
+						pad: 1.05,
+						tickOptions: {formatString: '%d'}						
+					}
+				}
+			});					
+			$('.tab-container > ul > li:last-child >a').click(function(){
+				plot1.replot();
+			});						
+		});
+	</script>	
+<?php endif; ?>
