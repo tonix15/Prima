@@ -33,7 +33,7 @@
 		'QUERY_AND_REPORTING_METER_INTERNAL_PREPAID_REASONABILITY' => '#',
 		'QUERY_AND_REPORTING_BILLING_TERMINATIONS_NOT_INVOICE' => '#',
 		'QUERY_AND_REPORTING_BILLING_PREVIOUS_BILLING_REPORT' => '#',
-		'QUERY_AND_REPORTING_BILLING_COMMON_PROPERTY_CALCULATION' => '#',
+		'QUERY_AND_REPORTING_BILLING_COMMON_PROPERTY_CALCULATION' => DOMAIN_NAME . '/query_and_reporting/Billing/common_property_calculation.php',
 		'QUERY_AND_REPORTING_BILLING_OUTSTANDING_BILLING_LIST' => DOMAIN_NAME . '/query_and_reporting/Billing/outstanding_billing_list.php',
 		'QUERY_AND_REPORTING_BILLING_OUTSTANDING_BILLING_DETAIL' => DOMAIN_NAME . '/query_and_reporting/Billing/outstanding_billing_detail.php',
 		'QUERY_AND_REPORTING_CREDIT_MANAGEMENT_PAYMENT_ARRANGEMENT_LIST' => DOMAIN_NAME . '/query_and_reporting/Credit_Management/payment_arrangement_list.php',
@@ -43,6 +43,8 @@
 		'QUERY_AND_REPORTING_CREDIT_MANAGEMENT_PAID_NOT_RECONNECTED' => '#',
 		'QUERY_AND_REPORTING_CREDIT_MANAGEMENT_OUTSTANDING_AGREEMENT' => DOMAIN_NAME . '/query_and_reporting/Credit_Management/outstanding_agreement.php',
 		'QUERY_AND_REPORTING_CREDIT_MANAGEMENT_CUSTOMER_NO_CONTACT_DETAIL' => DOMAIN_NAME . '/query_and_reporting/Credit_Management/customer_with_no_contact_detail.php',
+		'QUERY_AND_REPORTING_CREDIT_MANAGEMENT_CUT_INSTRUCTION_NOT_NOTIFIED' => DOMAIN_NAME . '/query_and_reporting/Credit_Management/cut_instruction_not_notified.php',
+		'QUERY_AND_REPORTING_CREDIT_MANAGEMENT_CUT_INSTRUCTION_NOT_CUT' => DOMAIN_NAME . '/query_and_reporting/Credit_Management/cut_instruction_not_cut.php',
 		'QUERY_AND_REPORTING_READING_IMPORTS_BUILDING_IMPORTS' => DOMAIN_NAME . '/query_and_reporting/Reading_Imports/buildings_import.php',
 		'QUERY_AND_REPORTING_READING_IMPORTS_TEST_METER_REPORT' => DOMAIN_NAME . '/query_and_reporting/Reading_Imports/reading_test_meter.php',
 		'QUERY_AND_REPORTING_READING_IMPORTS_ESTIMATED_READINGS_REPORT' => DOMAIN_NAME . '/query_and_reporting/Reading_Imports/estimated_readings_report.php',
@@ -331,6 +333,8 @@
 								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_CREDIT_MANAGEMENT_PAID_NOT_RECONNECTED'] . '">Paid not Reconnected</a></li>';
 								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_CREDIT_MANAGEMENT_OUTSTANDING_AGREEMENT'] . '">Outstanding Agreement</a></li>';
 								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_CREDIT_MANAGEMENT_CUSTOMER_NO_CONTACT_DETAIL'] . '">Customer with no Contact Detail</a></li>';
+								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_CREDIT_MANAGEMENT_CUT_INSTRUCTION_NOT_NOTIFIED'] . '">Cut Instruction not Notified</a></li>';
+								echo '<li><a href="' . $path_constants['QUERY_AND_REPORTING_CREDIT_MANAGEMENT_CUT_INSTRUCTION_NOT_CUT'] . '">Cut Instruction not Cut</a></li>';
 						echo '</ul>';
 					echo '</li>';
 					echo '<li>'; 

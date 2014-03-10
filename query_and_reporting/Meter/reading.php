@@ -203,7 +203,7 @@ require DOCROOT . '/template/header.php';
 		</div>
 	</div>
 	<div id="consumption-graph" class="tab-contents">
-		<div id="chart_div" style="height:1000px;width:1100px;margin:0 auto;"></div>
+		<div id="chart_div" style="height:500px;width:1100px;margin:0 auto;"></div>
 	</div>
 </div>
 <?php
@@ -218,6 +218,8 @@ require DOCROOT . '/template/header.php';
 	<script language="javascript" type="text/javascript" src="<?php echo DOMAIN_NAME; ?>/res/jqplot/plugins/jqplot.barRenderer.min.js"></script>
 	<script language="javascript" type="text/javascript" src="<?php echo DOMAIN_NAME; ?>/res/jqplot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
 	<script language="javascript" type="text/javascript" src="<?php echo DOMAIN_NAME; ?>/res/jqplot/plugins/jqplot.pointLabels.min.js"></script>	
+	<script language="javascript" type="text/javascript" src="<?php echo DOMAIN_NAME; ?>/res/jqplot/plugins/jqplot.highlighter.min.js"></script>	
+	<script language="javascript" type="text/javascript" src="<?php echo DOMAIN_NAME; ?>/res/jqplot/plugins/jqplot.cursor.min.js"></script>	
 	<link rel="stylesheet" type="text/css" href="<?php echo DOMAIN_NAME; ?>/res/jqplot/jquery.jqplot.css" />
 	<script type="text/javascript">
 		$(function(){			
@@ -251,17 +253,19 @@ require DOCROOT . '/template/header.php';
 				consumption.push(temp);
 				counter++;
 			});			
+			var biggestConsumtionValue = Math.max.apply(Math, consumption);
+			var interval = 0;
+			if(biggestConsumtionValue >= 500 && biggestConsumtionValue < 1000){ interval = 100; }
+			else if(biggestConsumtionValue >= 1000 && biggestConsumtionValue < 10000){ interval = 500; }
+			else if(biggestConsumtionValue >= 10000){ interval = 1000; }
 			
 			var ticks = date;
-			var plot1 = $.jqplot('chart_div',[consumption, amount],{
+			var plot1 = $.jqplot('chart_div',[consumption],{
 				seriesDefaults:{
 					renderer:$.jqplot.BarRenderer,
 					rendererOptions: {fillToZero: true}
 				},
-				series:[
-					{label:'Consumption'},
-					{label:'Amount'}
-				],
+				series:[ {label:'Consumption'} ],
 				legend: {
 					show: true,
 					placement: 'outsideGrid'
@@ -274,11 +278,19 @@ require DOCROOT . '/template/header.php';
 					},
 					// Pad the y axis just a little so bars can get close to, but
 					// not touch, the grid boundaries.  1.2 is the default padding.
-					yaxis: {
+					yaxis: {						
+						//tickOptions: {formatString: '%d'}						
 						pad: 1.05,
-						tickOptions: {formatString: '%d'}						
+						min: 0,
+						tickInterval: interval,
+						max: (biggestConsumtionValue + 100)
 					}
-				}
+				},
+				highlighter: {
+					show: true,
+					sizeAdjust: 7.5
+				},
+				cursor: { show: true }
 			});					
 			$('.tab-container > ul > li:last-child >a').click(function(){
 				plot1.replot();

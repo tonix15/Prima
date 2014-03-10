@@ -282,6 +282,30 @@ class DBHandler extends PDOSQLServerdbhandler {
 		return $this->executeQueryStoredProcedure(SP::OUTSTANDING_BILLING_DETAIL, $params, $isSingleRecord);
 	}
 	
+	public function repCommonPropertyAllocation($params, $isSingleRecord = false){
+		return $this->executeQueryStoredProcedure(SP::COMMON_PROPERTY_ALLOCATION, $params, $isSingleRecord);
+	}
+	
+	public function repCommonPropertyNegativeConsumption($params, $isSingleRecord = false){
+		return $this->executeQueryStoredProcedure(SP::COMMON_PROPERTY_NEGATIVE_CONSUMPTION, $params, $isSingleRecord);
+	}
+	
+	public function repCommonPropertyNoPreviousReading($params, $isSingleRecord = false){
+		return $this->executeQueryStoredProcedure(SP::COMMON_PROPERTY_NO_PREVIOUS_READING, $params, $isSingleRecord);
+	}
+	
+	public function repCommonPropertyUnderRecoveryDetail($params, $isSingleRecord = false){
+		return $this->executeQueryStoredProcedure(SP::COMMON_PROPERTY_UNDER_RECOVERY_DETAIL, $params, $isSingleRecord);
+	}
+	
+	public function repCutInstructionNotNotified($params, $isSingleRecord = false){
+		return $this->executeQueryStoredProcedure(SP::CUT_INSTRUCTION_NOT_NOTIFIED, $params, $isSingleRecord);
+	}
+	
+	public function repCutInstructionNotCut($params, $isSingleRecord = false){
+		return $this->executeQueryStoredProcedure(SP::CUT_INSTRUCTION_NOT_CUT, $params, $isSingleRecord);
+	}
+	
 	/** Reason */
 	public function movendusExportReason($params) {
 		return $this->executeQueryStoredProcedure(SP::MOVENDUS_EXPORT_REASON, $params);
