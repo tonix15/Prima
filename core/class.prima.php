@@ -77,7 +77,7 @@ class Prima {
 		return number_format ($value, 2 , '.', ',');
 	}
 	
-	public static function notifyCustomer($customerEmail, $accountNumber, $outstandingBalance) {
+	public static function mailCustomer($customerEmail, $accountNumber, $outstandingBalance, $type = 'Cut Notification') {
 		// subject
 		$subject = 'Account ' . $accountNumber . ' overdue notice to avoid disconnection';
 		$logo = 'https://viisnovis.zendesk.com/attachments/token/flkkedbhvxpbtbc/?name=image001.png';
@@ -99,7 +99,7 @@ class Prima {
 						<p><u></u>&nbsp;<u></u></p>
 						<p>Account ' . $accountNumber . ' <u></u><u></u></p>
 						<p><u></u>&nbsp;<u></u></p>
-						<p>Good day, this email is a friendly reminder that your account with Triple M Metering is in arrears by R ' . $outstandingBalance . '<u></u><u></u></p>
+						<p>Good day, this email is a friendly reminder that your account with Triple M Metering is in arrears by R' . $outstandingBalance . '<u></u><u></u></p>
 						<p><u></u>&nbsp;<u></u></p>
 						<p>Please settle immediately to avoid disconnection and send proof of payment to <a rel="nofollow" ymailto="mailto:reception@triple-m.co.za" target="_blank" href="mailto:reception@triple-m.co.za" id="yui_3_13_0_ym1_1_1391967060626_2993">reception@triple-m.co.za</a><u></u><u></u></p>
 						<p><u></u>&nbsp;<u></u></p>

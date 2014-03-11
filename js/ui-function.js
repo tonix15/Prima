@@ -7,10 +7,10 @@ $(document).ready(function(e) {
 	/*--- User Company Selection ---*/
 
     $('.tab-menu li').click(function() {
-        tab_name = $(this).closest('ul').prop('id');
+        tab_name = $(this).closest('ul').prop('id');		
         $('#' + tab_name +  ' li' ).each(function() {
             if ($(this).hasClass('tab-menu-selected')) {
-                tab_menu_selected = $(this).prop('id');
+                tab_menu_selected = $(this).prop('id');				
                 return;
             }
         });

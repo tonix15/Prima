@@ -61,7 +61,7 @@ $error_class = 'hidden';
 $submit_result = '';
 $errmsg = '';
 
-if (isset($_POST['Save'])) {  
+if (isset($_POST['Save'])) { 		
     // Get all posted values using dynamic variable creation
     for ($i = 0; $i < $param_len; $i++) {
          ${$parameters[$i] . '_PK'} = !empty($_POST[$parameters[$i] . '_PK']) ? $_POST[$parameters[$i] . '_PK'] : null;
@@ -135,7 +135,6 @@ if (isset($_POST['Save'])) {
     $submit_result = 'success';
     $errmsg = 'Parameter record(s) saved sucessfully';
     $error_class = 'show';
-     
 } else if (isset($_POST['Cancel'])) {
     header('Location: ' . $_SERVER['PHP_SELF']);
     exit;
@@ -165,12 +164,13 @@ for ($i = 0; $i < $param_len; $i++) {
     <ul id="parameters-tab-menu" class="tab-menu">                                                                               
         <li id="parameters-title" class="tab-menu-selected"><a href="#tab-title">Title</a></li>
         <li id="parameters-language" class="tab-menu-item"><a href="#tab-language">Language</a></li>
-        <li id="parameters-building" class="tab-menu-item"><a href="#tab-building">Building Type</a></li>
-        <li id="parameters-team" class="tab-menu-item"><a href="#tab-team">Team</a></li>
-        <li id="parameters-preferred-contact" class="tab-menu-item"><a href="#tab-preferred-contact">Preferred Contact</a></li>
-        <li id="parameters-reason-code" class="tab-menu-item"><a href="#tab-reason-code">Movendus Reason Code</a></li>
+		<li id="parameters-preferred-contact" class="tab-menu-item"><a href="#tab-preferred-contact">Preferred Contact</a></li>
+        <li id="parameters-building" class="tab-menu-item"><a href="#tab-building">Building Type</a></li>		
+        <li id="parameters-team" class="tab-menu-item"><a href="#tab-team">Teams</a></li>        
+        <li id="parameters-reason-code" class="tab-menu-item"><a href="#tab-reason-code">Movendus Estimate Reason</a></li>
+		<li id="parameters-meter-test-result" class="tab-menu-item"><a href="#parameters-meter-test-result-content">Movendus Meter Test Result</a></li>
     </ul>
-    <div class="tab-extra-line" style="width: 210px;"></div>   
+    <div class="tab-extra-line" style="width: 7px;"></div>   
 
     <div id="parameters-title-content" class="show tab-content">
         <ul class="parameters-content-li-2-cols">
@@ -250,6 +250,45 @@ for ($i = 0; $i < $param_len; $i++) {
 		<div class="clear"></div>
     </div> <!-- end of language tab -->
     
+	<div id="parameters-preferred-contact-content" class="hidden tab-content">
+        <ul class="parameters-content-li-2-cols">
+            <li><label>Description</label></li>
+            <li class="center-li-contents">Active</li>
+            <li></li>	
+        </ul>
+        <div id="parameters-contact-add-content">
+        <?php 
+            if (!empty($contact_list)) {
+            foreach ($contact_list as $contact) { 
+            $isActive = $contact['IsActive'] == 1 ? 'checked':'';
+        ?>
+        <ul class="parameters-content-li-2-cols">
+            <li><input type="text" name="contact_value[]" maxlength="50" value="<?php echo $contact['Value']; ?>" class="utility-descr-value"/></li>
+            <li class="center-li-contents">
+                <input type="checkbox" name="contact_isActive_temp[]" <?php echo $isActive; ?> />
+                <input type="hidden" name="contact_isActive_values[]" value="<?php echo $contact['IsActive']; ?>"/>
+            </li>
+            <li><input type="hidden" name="contact_PK[]" value="<?php echo $contact['PreferredContactTypePk']; ?>" class="parameter-pk-value"/></li>	
+        </ul>
+        <?php  } } else { ?>
+        <ul class="parameters-content-li-2-cols">
+            <li><input type="text" name="contact_value[]" maxlength="50" class="utility-descr-value"/></li>
+            <li class="center-li-contents">
+                <input type="checkbox" name="contact_isActive_temp[]" checked/>
+                <input type="hidden" name="contact_isActive_values[]" value="1"/>
+            </li>
+            <li><input type="hidden" name="contact_PK[]" class="parameter-pk-value"/></li>
+        </ul>
+        <?php } ?>
+        </div>
+		<div class="clear"></div>
+		<div class="selection-form-submit float-left">
+            <button id="parameters-contact-add-button" class="parameters-add-button addline-button">Add</button>
+        </div> 
+		<div id="parameters-contact-addline-error-box" class="addline-error-box error-box float-left hidden"></div>
+		<div class="clear"></div>
+    </div> <!-- end of preferred contact tab -->
+	
     <div id="parameters-building-content" class="hidden tab-content">  
         <ul class="parameters-content-li-2-cols">
             <li><label>Description</label></li>
@@ -328,46 +367,46 @@ for ($i = 0; $i < $param_len; $i++) {
 		<div class="clear"></div>  
     </div> <!-- end of team tab -->
     
-    <div id="parameters-preferred-contact-content" class="hidden tab-content">
+    <div id="parameters-reason-code-content" class="hidden tab-content parameters-menu-hover">    
         <ul class="parameters-content-li-2-cols">
             <li><label>Description</label></li>
             <li class="center-li-contents">Active</li>
             <li></li>	
         </ul>
-        <div id="parameters-contact-add-content">
+        <div id="parameters-reason-add-content">
         <?php 
-            if (!empty($contact_list)) {
-            foreach ($contact_list as $contact) { 
-            $isActive = $contact['IsActive'] == 1 ? 'checked':'';
+            if (!empty($reason_list)) {
+            foreach ($reason_list as $reason) { 
+            $isActive = $reason['IsActive'] == 1 ? 'checked':'';
         ?>
         <ul class="parameters-content-li-2-cols">
-            <li><input type="text" name="contact_value[]" maxlength="50" value="<?php echo $contact['Value']; ?>" class="utility-descr-value"/></li>
+            <li><input type="text" name="reason_value[]" maxlength="50" value="<?php echo $reason['Value']; ?>" class="utility-descr-value"/></li>
             <li class="center-li-contents">
-                <input type="checkbox" name="contact_isActive_temp[]" <?php echo $isActive; ?> />
-                <input type="hidden" name="contact_isActive_values[]" value="<?php echo $contact['IsActive']; ?>"/>
+                <input type="checkbox" name="reason_isActive_temp[]" <?php echo $isActive; ?> />
+                <input type="hidden" name="reason_isActive_values[]" value="<?php echo $reason['IsActive']; ?>"/>
             </li>
-            <li><input type="hidden" name="contact_PK[]" value="<?php echo $contact['PreferredContactTypePk']; ?>" class="parameter-pk-value"/></li>	
+            <li><input type="hidden" name="reason_PK[]" value="<?php echo $reason['ReasonTypePk']; ?>" class="parameter-pk-value"/></li>	
         </ul>
         <?php  } } else { ?>
         <ul class="parameters-content-li-2-cols">
-            <li><input type="text" name="contact_value[]" maxlength="50" class="utility-descr-value"/></li>
+            <li><input type="text" name="reason_value[]" maxlength="50" class="utility-descr-value"/></li>
             <li class="center-li-contents">
-                <input type="checkbox" name="contact_isActive_temp[]" checked/>
-                <input type="hidden" name="contact_isActive_values[]" value="1"/>
+                <input type="checkbox" name="reason_isActive_temp[]" checked/>
+                <input type="hidden" name="reason_isActive_values[]" value="1"/>
             </li>
-            <li><input type="hidden" name="contact_PK[]" class="parameter-pk-value"/></li>
+            <li><input type="hidden" name="reason_PK[]" class="parameter-pk-value"/></li>
         </ul>
         <?php } ?>
         </div>
 		<div class="clear"></div>
 		<div class="selection-form-submit float-left">
-            <button id="parameters-contact-add-button" class="parameters-add-button addline-button">Add</button>
+            <button id="parameters-reason-add-button" class="parameters-add-button addline-button">Add</button>
         </div> 
-		<div id="parameters-contact-addline-error-box" class="addline-error-box error-box float-left hidden"></div>
-		<div class="clear"></div>
-    </div> <!-- end of preferred contact tab -->
-    
-    <div id="parameters-reason-code-content" class="hidden tab-content parameters-menu-hover">    
+		<div id="parameters-reason-addline-error-box" class="addline-error-box error-box float-left hidden"></div>
+		<div class="clear"></div>       
+    </div> <!-- end of reason code tab -->
+	
+	<div id="parameters-meter-test-result-content" class="hidden tab-content parameters-menu-hover">    
         <ul class="parameters-content-li-2-cols">
             <li><label>Description</label></li>
             <li class="center-li-contents">Active</li>

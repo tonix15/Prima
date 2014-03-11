@@ -347,7 +347,10 @@ width:100%;
 /*#menu > ul > li > ul.sub-menu > li > ul { width: 370px; }*/
 li.Validation_list > ul { width: 370px !important; }
 ul.credit_management_sub_list{ width:230px !important; }
-
+.customers_sub_list{ width: 235px !important; }
+.meters_sub_list{ width: 260px !important; }
+.rates_sub_list{ width: 230px !important; }
+.building_sub_list{ width: 250px !important; }
 .clear {
 clear:both;
 }
@@ -755,7 +758,7 @@ width:200px;
 border: solid 1px #D2D2D2;
 border-top:none;
 border-radius: 0 0 5px 5px;
-width:850px;
+width:895px;
 }
 
 #parameters .tab-extra-line {

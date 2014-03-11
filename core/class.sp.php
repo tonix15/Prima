@@ -70,6 +70,9 @@ class SP {
 	const GET_CONTACT_PERSON = '[get].[ContactPerson]';
 	const SET_CONTACT_PERSON = '[set].[ContactPerson]';
 	
+	/** Credit Management */
+	const SET_CREDIT_MANAGEMENT = '[set].[CreditManagement]';
+	
 	/** Customer */
 	const GET_CUSTOMER = '[get].[Customer]';
 	const SET_CUSTOMER = '[set].[Customer]';
@@ -79,6 +82,14 @@ class SP {
 	/** Cut Notification */
 	const GET_CUT_NOTIFICATION = '[get].[CutNotification]';
 	const SET_CUT_NOTIFICATION = '[set].[CutNotification]';
+	
+	/** Cut Instruction */ //Kent 1
+	const GET_CUT_INSTRUCTION = '[get].[CutInstruction]';
+	const SET_CUT_INSTRUCTION = '[set].[CutInstruction]';
+	
+	/** Reconnection Instruction */ //Kent 2
+	const GET_RECONNECTION_INSTRUCTION = '[get].[ReconnectionInstruction]';
+	const SET_RECONNECTION_INSTRUCTION = '[set].[ReconnectionInstruction]';
 	
 	/** Invoice */
 	const GET_INVOICE = '[get].[Invoice]';
@@ -151,12 +162,6 @@ class SP {
 	const CUSTOMER_NO_CONTACT_DETAIL = '[rep].[CrManCutInstructionNoContactDetail]';
 	const OUTSTANDING_BILLING_LIST = '[rep].[OutstandingBillingList]';
 	const OUTSTANDING_BILLING_DETAIL = '[rep].[OutstandingBillingDetail]';
-	const COMMON_PROPERTY_ALLOCATION = '[rep].[CommonPropertyAllocation]';
-	const COMMON_PROPERTY_NEGATIVE_CONSUMPTION = '[rep].[CommonPropertyNegativeConsumption]';
-	const COMMON_PROPERTY_NO_PREVIOUS_READING = '[rep].[CommonPropertyNoPreviousReading]';
-	const COMMON_PROPERTY_UNDER_RECOVERY_DETAIL = '[rep].[CommonPropertyUnderRecoveryDetail]';
-	const CUT_INSTRUCTION_NOT_NOTIFIED = '[rep].[CrManCutInstructionNotNotified]';
-	const CUT_INSTRUCTION_NOT_CUT = '[rep].[CrManCutInstructionNotCut]';
 	
 	/** Sage **/
 	const SAGE_IMPORT_DEPOSIT = '[sage].[ImportDeposit]';
