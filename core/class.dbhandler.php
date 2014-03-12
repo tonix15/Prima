@@ -467,8 +467,13 @@ class DBHandler extends PDOSQLServerdbhandler {
 	public function valProvidersNoRates($params, $isSingleRecord = false) {
     	return $this->executeQueryStoredProcedure(SP::VAL_PROVIDERS_NO_RATES, $params, $isSingleRecord);
     }
+	
 	public function valRatesNoBulkorRetail($params, $isSingleRecord = false) {
     	return $this->executeQueryStoredProcedure(SP::VAL_RATES_NO_BULK_OR_RETAIL, $params, $isSingleRecord);
+    }
+	
+	public function valRatesScaleError($params, $isSingleRecord = false) {
+    	return $this->executeQueryStoredProcedure(SP::VAL_SCALE_ERROR, $params, $isSingleRecord);
     }
 }
 ?>

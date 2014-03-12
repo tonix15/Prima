@@ -63,7 +63,7 @@
 		/** System Validation */
 		'SYSTEM_VALIDATION_PROVIDERS_PROVIDERS_WITH_NO_RATES' => DOMAIN_NAME . '/system_validation/Providers/providers_with_no_rates.php',
 		'SYSTEM_VALIDATION_RATES_RATES_WITH_NO_RETAIL_OR_BULK_RATE' => DOMAIN_NAME . '/system_validation/Rates/rates_with_no_retail_or_bulk_rate.php',
-		'SYSTEM_VALIDATION_RATES_RATES_WITH_SCALE_ERRORS' => '#',
+		'SYSTEM_VALIDATION_RATES_RATES_WITH_SCALE_ERRORS' => DOMAIN_NAME . '/system_validation/Rates/rates_with_scale_error.php',
 		'SYSTEM_VALIDATION_RATES_RATES_WITH_NO_PROVIDER' => '#',
 		'SYSTEM_VALIDATION_RATES_RATES_WITH_NO_BUILDINGS' => '#',
 		'SYSTEM_VALIDATION_RATES_RATES_WITH_NO_METERS' => '#',

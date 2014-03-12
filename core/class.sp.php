@@ -202,5 +202,6 @@ class SP {
 	/** Validation */
 	const VAL_PROVIDERS_NO_RATES = '[val].[ProvidersNoRates]';
 	const VAL_RATES_NO_BULK_OR_RETAIL = '[val].[RatesNoBulkOrRetail]';
+	const VAL_SCALE_ERROR = '[val].[RatesScaleError]';
 }
 ?>
