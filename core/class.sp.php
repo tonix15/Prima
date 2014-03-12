@@ -203,5 +203,8 @@ class SP {
 	const VAL_PROVIDERS_NO_RATES = '[val].[ProvidersNoRates]';
 	const VAL_RATES_NO_BULK_OR_RETAIL = '[val].[RatesNoBulkOrRetail]';
 	const VAL_SCALE_ERROR = '[val].[RatesScaleError]';
+	const VAL_RATES_NO_PROVIDER = '[val].[RatesNoProvider]';
+	const VAL_RATES_NO_BUILDINGS = '[val].[RatesNoBuildings]';
+	const VAL_RATES_NO_METERS = '[val].[RatesNoMeters]';
 }
 ?>
