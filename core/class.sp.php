@@ -206,5 +206,6 @@ class SP {
 	const VAL_RATES_NO_PROVIDER = '[val].[RatesNoProvider]';
 	const VAL_RATES_NO_BUILDINGS = '[val].[RatesNoBuildings]';
 	const VAL_RATES_NO_METERS = '[val].[RatesNoMeters]';
+	const VAL_BUILDINGS_NO_PORTFOLIO_MANAGERS = '[val].[BuildingsNoPortfolioManagers]';
 }
 ?>

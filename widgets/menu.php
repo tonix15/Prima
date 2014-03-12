@@ -67,7 +67,7 @@
 		'SYSTEM_VALIDATION_RATES_RATES_WITH_NO_PROVIDER' => DOMAIN_NAME . '/system_validation/Rates/rates_with_no_provider.php',
 		'SYSTEM_VALIDATION_RATES_RATES_WITH_NO_BUILDINGS' => DOMAIN_NAME . '/system_validation/Rates/rates_with_no_buildings.php',
 		'SYSTEM_VALIDATION_RATES_RATES_WITH_NO_METERS' => DOMAIN_NAME . '/system_validation/Rates/rates_with_no_meters.php',
-		'SYSTEM_VALIDATION_BUILDINGS_BUILDINGS_WITH_NO_PORTFOLIO_MANAGER' => '#',
+		'SYSTEM_VALIDATION_BUILDINGS_BUILDINGS_WITH_NO_PORTFOLIO_MANAGER' => '/system_validation/Buildings/buildings_with_no_portfolio_manager.php',
 		'SYSTEM_VALIDATION_BUILDINGS_BUILDINGS_WITH_NO_RATES' => '#',
 		'SYSTEM_VALIDATION_BUILDINGS_BUILDINGS_WITH_INACTIVE_RATES' => DOMAIN_NAME . '/system_validation/Buildings/buildings_with_inactive_rates.php',
 		'SYSTEM_VALIDATION_BUILDINGS_BUILDINGS_WITH_RATE_UTILITY_MISMATCH' => '#',

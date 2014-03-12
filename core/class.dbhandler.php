@@ -487,5 +487,9 @@ class DBHandler extends PDOSQLServerdbhandler {
 	public function valRatesNoMeters($params, $isSingleRecord = false) {
     	return $this->executeQueryStoredProcedure(SP::VAL_RATES_NO_METERS, $params, $isSingleRecord);
     }
+	
+	public function valBuildingsNoPortfolioManagers($params, $isSingleRecord = false) {
+    	return $this->executeQueryStoredProcedure(SP::VAL_BUILDINGS_NO_PORTFOLIO_MANAGERS, $params, $isSingleRecord);
+    }
 }
 ?>
