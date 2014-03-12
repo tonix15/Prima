@@ -462,5 +462,13 @@ class DBHandler extends PDOSQLServerdbhandler {
 	public function getUser($params, $isSingleRecord = false) {
     	return $this->executeQueryStoredProcedure(SP::GET_USER, $params, $isSingleRecord);
     }
+	
+	/** Validation */
+	public function valProvidersNoRates($params, $isSingleRecord = false) {
+    	return $this->executeQueryStoredProcedure(SP::VAL_PROVIDERS_NO_RATES, $params, $isSingleRecord);
+    }
+	public function valRatesNoBulkorRetail($params, $isSingleRecord = false) {
+    	return $this->executeQueryStoredProcedure(SP::VAL_RATES_NO_BULK_OR_RETAIL, $params, $isSingleRecord);
+    }
 }
 ?>

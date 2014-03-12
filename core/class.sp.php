@@ -198,5 +198,9 @@ class SP {
 	const MOVENDUS_EXPORT_UTILITY_TYPE = '[movendus].[ExportUtilityType]';
 	const GET_UTILITY_TYPE = '[get].[UtilityType]';
 	const SET_UTILITY_TYPE = '[set].[UtilityType]';	
+	
+	/** Validation */
+	const VAL_PROVIDERS_NO_RATES = '[val].[ProvidersNoRates]';
+	const VAL_RATES_NO_BULK_OR_RETAIL = '[val].[RatesNoBulkOrRetail]';
 }
 ?>
