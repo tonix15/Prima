@@ -126,7 +126,7 @@ if(isset($_GET['View'])){
 				unset($title);
 				unset($html);
 				
-				require_once DOCROOT . '/widgets/query_and_reporting_pdf.php'
+				require_once DOCROOT . '/widgets/convert_pdf_spreadsheet.php'
 			?>			
 		</div>
 	</div>

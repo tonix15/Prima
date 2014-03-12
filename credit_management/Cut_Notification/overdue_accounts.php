@@ -26,6 +26,11 @@ $userPK = $userCredentials['UserPk'];
 $import_fancy_box = true;
 require DOCROOT . '/template/header.php';
 
+$view_class = 'hidden';
+$buildingPK = !empty($_GET['choose_building']) ? (int) $_GET['choose_building'] : 0;
+$Building = new Building($dbh);
+$building_list = $Building->getBuilding(array($userPK, 0));
+
 //Business Function User Menu
 $BusinessFunctionUserMenu = new BusinessFunctionUserMenu($dbh);
 //Restriction Level = 1; Read, Write and Update
@@ -50,7 +55,11 @@ if(isset($_GET['View'])){
 	$view_type = 'View=View';
 	$buildingPK = $_GET['choose_building'];
 }
-$cut_notification_list = $dbhandler->getCutNotification(array($userPK, 0, $Session->read('user_company_selection_key'),$buildingPK));
+if ($view_class === 'show' ) {
+	$cut_notification_list = $dbhandler->getCutNotification(array($userPK, 0, $Session->read('user_company_selection_key'),$buildingPK));
+} else {
+	$cut_notification_list = NULL;
+}
 
 if (isset($_POST['IsSendNotificaton_isActive_values'])) {
 	

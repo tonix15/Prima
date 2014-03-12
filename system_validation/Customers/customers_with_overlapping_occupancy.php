@@ -34,7 +34,7 @@ $data_list = $dbhandler->getCustomerOverlappingOccupancy($params);
 $errmsg = !empty($data_list) ? '':'<strong>No Entries Found.</strong>';	
 ?>
 
-<div class="sub-menu-title"><h1>Reading Current Negative Consumption Report</h1></div>
+<div class="sub-menu-title"><h1>Customers with Overlapping Occupancy Report</h1></div>
 	<div class="table-wrapper billing-data-list-container">
 		<div class="wrapper-paging">
 			<ul>
@@ -90,7 +90,7 @@ $errmsg = !empty($data_list) ? '':'<strong>No Entries Found.</strong>';
 				unset($title);
 				unset($html);
 				
-				require_once DOCROOT . '/widgets/query_and_reporting_pdf.php'
+				require_once DOCROOT . '/widgets/convert_pdf_spreadsheet.php'
 			?>
 		</div>
 	</div>

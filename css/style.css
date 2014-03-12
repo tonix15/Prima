@@ -343,8 +343,13 @@ width:100%;
 	display: none;
 }
 
+#menu ul li ul li ul li ul{
+	position: absolute;
+	top: -1px;
+	left: 262px;
+	display: none;
+}
 
-/*#menu > ul > li > ul.sub-menu > li > ul { width: 370px; }*/
 li.Validation_list > ul { width: 370px !important; }
 ul.credit_management_sub_list{ width:230px !important; }
 .customers_sub_list{ width: 235px !important; }

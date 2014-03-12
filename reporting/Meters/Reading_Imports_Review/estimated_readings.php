@@ -1,7 +1,7 @@
 <?php
 $page_name = 'Estimated Readings';
 
-require_once '../../init.php';
+require_once '../../../init.php';
 
 //User
 if(!$User->isUserLogin()){
@@ -102,7 +102,7 @@ else if (isset($_POST['Cancel'])) {
 								<td class="table-column-text-align-center"><?php echo $report['DisplayName']; ?></td>
 								<td class="table-column-text-align-right"><?php echo $report['UnitNumber']; ?></td>
 								<td class="table-column-text-align-center"><?php echo $report['UtilityType']; ?></td>
-								<?php $reading_anchor = DOMAIN_NAME . '/query_and_reporting/Meter/reading.php?choose_building=' . $report['BuildingFk'] . '&choose_unit=' . $report['UnitFk'] . '&choose_meter=' . $report['MeterPk'] . '&View=View'; ?>
+								<?php $reading_anchor = DOMAIN_NAME . '/reporting/Meters/reading_review.php?choose_building=' . $report['BuildingFk'] . '&choose_unit=' . $report['UnitFk'] . '&choose_meter=' . $report['MeterPk'] . '&View=View'; ?>
 								<td class="table-column-text-align-right"><?php echo '<a href="' .$reading_anchor . '" target="_blank">' . $report['MeterNumber'] . '</a>'; ?></td>
 								<td class="table-column-text-align-center"><?php echo $report['Reason']; ?></td>
 							</tr>
@@ -120,12 +120,9 @@ else if (isset($_POST['Cancel'])) {
 					
 					unset($title);
 					unset($html);
-				?>
-				<label>
-					Export as: 
-					<a title="PDF" href="<?php echo DOMAIN_NAME . '/query_and_reporting/export_as_pdf.php';?>">PDF</a>
-					<a title="SpreadSheet" href="<?php echo DOMAIN_NAME . '/query_and_reporting/export_as_csv.php';?>">SpreadSheet</a>
-				</label>
+					
+					require_once DOCROOT . '/widgets/convert_pdf_spreadsheet.php'
+				?>				
 			</div>
 		</div>
 <?php 

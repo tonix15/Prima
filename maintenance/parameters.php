@@ -32,28 +32,29 @@ $BusinessFunctionUserMenu = new BusinessFunctionUserMenu($dbh);
 $restriction_level =  $BusinessFunctionUserMenu->getRestrictionLevel($userPK, $userPK, $page_name);
 
 // Utility
-$Utility = new UtilityType($dbh);
+// $Utility = new UtilityType($dbh);
 
 // Title
-$Title = new TitleType($dbh);
+// $Title = new TitleType($dbh);
 
 // Languagae
-$Language = new LanguageType($dbh);
+// $Language = new LanguageType($dbh);
 
 // Preferred Contact
-$Building = new BuildingType($dbh);
+// $Building = new BuildingType($dbh);
 
 // Preferred Contact
-$PreferredContact = new PreferredContactType($dbh);
+// $PreferredContact = new PreferredContactType($dbh);
 
 // Reason Code
-$Reason = new ReasonType($dbh);
+// $Reason = new ReasonType($dbh);
 
 // Team
-$Team = new Team($dbh);
+// $Team = new Team($dbh);
 
 // Parameters
-$parameters = array('title', 'building', 'team', 'language', 'contact', 'reason');
+$parameters = array('title', 'building', 'team', 'language', 'contact', 'estimate_reason', 'test_meter_result');
+$functions = array('TitleType', 'BuildingType', 'Team', 'LanguageType', 'PreferredContactType', 'ReasonType', 'ReasonType');
 $param_len = count($parameters);
 
 // UI
@@ -74,62 +75,38 @@ if (isset($_POST['Save'])) {
          }
      }
 
-    
     for ($i = 0; $i < $param_len; $i++) {
-        $param_PK = ${$parameters[$i] . '_PK'};
+        $param = $parameters[$i];
+    	$param_PK = ${$parameters[$i] . '_PK'};
         $param_value = ${$parameters[$i] . '_value'};
         $param_isActive = ${$parameters[$i] . '_isActive'};
         
-            $len = count($param_PK);
-            for ($j = 0; $j < $len; $j++) {
-                $value = trim($param_value[$j]);
-                if (!empty($value)) { 
-                    
-                    if ($parameters[$i] !== 'contact') {
-                        $class_name = ucfirst($parameters[$i]);
-                    } else {
-                        $class_name = 'PreferredContact';
-                    }
-                    
-                    if ($param_PK[$j] > 0) {
-                    	$update = 'update' . $class_name;	
-                    	if ($parameters[$i] !== 'team') {
-                    		$update .= 'Type';
-                    	}
-                        
-                        // Update type
-                        if ($class_name !== 'Reason') {
-                        	if ($class_name !== 'Utility') {
-                        		$$class_name->$update(array($userPK, $param_PK[$j], $value, $param_isActive[$j]));
-                        	} else {
-                        		$param_erpcode = ${$parameters[$i] . '_erpcode_value'};
-                        		$param_isMetered = ${$parameters[$i] . '_isMetered'};
-                        		$$class_name->$update(array($userPK, $param_PK[$j], $value, $param_erpcode[$j], $param_isMetered[$j], $param_isActive[$j]));
-                        	}
-                        } else {
-                            $$class_name->$update(array($userPK, $param_PK[$j], -1, $value, $param_isActive[$j]));
-                        }
-                    } else {
-                        // Create new type
-                        $create = 'create' . $class_name;
-                        if ($parameters[$i] !== 'team') {
-                        	$create .= 'Type';
-                        }
-                        
-                        if ($class_name !== 'Reason') {
-                        	if ($class_name !== 'Utility') {
-                        		$$class_name->$create(array($userPK, 0, $value, $param_isActive[$j]));
-                        	} else {
-                        		$param_erpcode = ${$parameters[$i] . '_erpcode_value'};
-                        		$param_isMetered = ${$parameters[$i] . '_isMetered'};
-								$$class_name->$create(array($userPK, 0, $value, $param_erpcode[$j], $param_isMetered[$j], $param_isActive[$j]));
-                        	}
-                        } else {
-                            $$class_name->$create(array($userPK, 0, -1, $value, $param_isActive[$j]));
-                        }
-                    }
-                }
-            }      
+        $len = count($param_PK);
+        for ($j = 0; $j < $len; $j++) {
+        	$value = trim($param_value[$j]);
+                
+            if (!empty($value)) {    
+            	if ($param_PK[$j] > 0) { // Update	
+                	$update_function = 'update' . $functions[$i];	
+                
+	                if ($param === 'estimate_reason' || $param === 'test_meter_result') {
+	                	$system_typeFK = $param === 'estimate_reason' ? PrimaDB::SYSTEM_TYPE_ESTIMATE_REASON_PK : PrimaDB::SYSTEM_TYPE_TEST_METER_RESULT_PK;               
+	                    $dbhandler->$update_function(array($userPK, $param_PK[$j], $system_typeFK, $value, $param_isActive[$j]));
+	                } else {
+	                	$dbhandler->$update_function(array($userPK, $param_PK[$j], $value, $param_isActive[$j]));        
+	                }
+             	} else { // Create         
+	             	$create_function = 'create' . $functions[$i];
+	            
+	                if ($param === 'estimate_reason' || $param === 'test_meter_result') {
+	                	$system_typeFK = $param === 'estimate_reason' ? PrimaDB::SYSTEM_TYPE_ESTIMATE_REASON_PK : PrimaDB::SYSTEM_TYPE_TEST_METER_RESULT_PK;
+	                    $dbhandler->$create_function(array($userPK, 0, $system_typeFK, $value, $param_isActive[$j]));
+	                } else {
+	                    $dbhandler->$create_function(array($userPK, 0, $value, $param_isActive[$j])); 
+	             	}
+	         	}	
+      		}
+    	}      
     } 
     
     $submit_result = 'success';
@@ -142,18 +119,8 @@ if (isset($_POST['Save'])) {
 
 // get all parameter list
 for ($i = 0; $i < $param_len; $i++) {
-    $class_name = ucfirst($parameters[$i]);
-    
-    if ($parameters[$i] === 'contact') {
-        $class_name = 'PreferredContact';
-    }
-    
-    $method = 'get' . $class_name;
-    if ($parameters[$i] !== 'team') {
-    	$method .= 'Type';
-    }
-    
-    ${$parameters[$i] . '_list'} = $$class_name->$method(array($userPK, 0));
+    $function = 'get' . $functions[$i];
+    ${$parameters[$i] . '_list'} = $dbhandler->$function(array($userPK, 0));
 }
 ?>
 
@@ -168,7 +135,7 @@ for ($i = 0; $i < $param_len; $i++) {
         <li id="parameters-building" class="tab-menu-item"><a href="#tab-building">Building Type</a></li>		
         <li id="parameters-team" class="tab-menu-item"><a href="#tab-team">Teams</a></li>        
         <li id="parameters-reason-code" class="tab-menu-item"><a href="#tab-reason-code">Movendus Estimate Reason</a></li>
-		<li id="parameters-meter-test-result" class="tab-menu-item"><a href="#parameters-meter-test-result-content">Movendus Meter Test Result</a></li>
+		<li id="parameters-meter-test-result" class="tab-menu-item"><a href="#tab-meter-test-result">Movendus Test Meter Result</a></li>
     </ul>
     <div class="tab-extra-line" style="width: 7px;"></div>   
 
@@ -375,26 +342,37 @@ for ($i = 0; $i < $param_len; $i++) {
         </ul>
         <div id="parameters-reason-add-content">
         <?php 
-            if (!empty($reason_list)) {
-            foreach ($reason_list as $reason) { 
+        	$hasNoEstimateReason = true;
+        	
+	        if (!empty($estimate_reason_list)) {
+	        	foreach ($estimate_reason_list as $reason) {
+	        		if ($reason['SystemTypeFK'] == PrimaDB::SYSTEM_TYPE_ESTIMATE_REASON_PK) {
+	        			$hasNoEstimateReason = false;
+	        			break;
+	        		}
+	        	}
+	        }
+            if (!$hasNoEstimateReason) {
+            foreach ($estimate_reason_list as $reason) { 
+			if ($reason['SystemTypeFK'] == PrimaDB::SYSTEM_TYPE_ESTIMATE_REASON_PK) {
             $isActive = $reason['IsActive'] == 1 ? 'checked':'';
         ?>
         <ul class="parameters-content-li-2-cols">
-            <li><input type="text" name="reason_value[]" maxlength="50" value="<?php echo $reason['Value']; ?>" class="utility-descr-value"/></li>
+            <li><input type="text" name="estimate_reason_value[]" maxlength="50" value="<?php echo $reason['Value']; ?>" class="utility-descr-value"/></li>
             <li class="center-li-contents">
-                <input type="checkbox" name="reason_isActive_temp[]" <?php echo $isActive; ?> />
-                <input type="hidden" name="reason_isActive_values[]" value="<?php echo $reason['IsActive']; ?>"/>
+                <input type="checkbox" name="estimate_reason_isActive_temp[]" <?php echo $isActive; ?> />
+                <input type="hidden" name="estimate_reason_isActive_values[]" value="<?php echo $reason['IsActive']; ?>"/>
             </li>
-            <li><input type="hidden" name="reason_PK[]" value="<?php echo $reason['ReasonTypePk']; ?>" class="parameter-pk-value"/></li>	
+            <li><input type="hidden" name="estimate_reason_PK[]" value="<?php echo $reason['ReasonTypePk']; ?>" class="parameter-pk-value"/></li>	
         </ul>
-        <?php  } } else { ?>
+        <?php  } } } else { ?>
         <ul class="parameters-content-li-2-cols">
-            <li><input type="text" name="reason_value[]" maxlength="50" class="utility-descr-value"/></li>
+            <li><input type="text" name="estimate_reason_value[]" maxlength="50" class="utility-descr-value"/></li>
             <li class="center-li-contents">
-                <input type="checkbox" name="reason_isActive_temp[]" checked/>
-                <input type="hidden" name="reason_isActive_values[]" value="1"/>
+                <input type="checkbox" name="estimate_reason_isActive_temp[]" checked/>
+                <input type="hidden" name="estimate_reason_isActive_values[]" value="1"/>
             </li>
-            <li><input type="hidden" name="reason_PK[]" class="parameter-pk-value"/></li>
+            <li><input type="hidden" name="estimate_reason_PK[]" class="parameter-pk-value"/></li>
         </ul>
         <?php } ?>
         </div>
@@ -412,36 +390,48 @@ for ($i = 0; $i < $param_len; $i++) {
             <li class="center-li-contents">Active</li>
             <li></li>	
         </ul>
-        <div id="parameters-reason-add-content">
+        <div id="parameters-testmeter-add-content">
         <?php 
-            if (!empty($reason_list)) {
-            foreach ($reason_list as $reason) { 
+			$hasNoTestMeterResult = true;
+			
+			if (!empty($test_meter_result_list)) {
+				foreach ($test_meter_result_list as $reason) {
+					if ($reason['SystemTypeFK'] == PrimaDB::SYSTEM_TYPE_TEST_METER_RESULT_PK) {
+						$hasNoTestMeterResult = false;
+						break;
+					}
+				}
+			}  
+        
+            if (!$hasNoTestMeterResult) {
+            foreach ($test_meter_result_list as $reason) { 
+				if ($reason['SystemTypeFK'] == PrimaDB::SYSTEM_TYPE_TEST_METER_RESULT_PK) {
             $isActive = $reason['IsActive'] == 1 ? 'checked':'';
         ?>
         <ul class="parameters-content-li-2-cols">
-            <li><input type="text" name="reason_value[]" maxlength="50" value="<?php echo $reason['Value']; ?>" class="utility-descr-value"/></li>
+            <li><input type="text" name="test_meter_result_value[]" maxlength="50" value="<?php echo $reason['Value']; ?>" class="utility-descr-value"/></li>
             <li class="center-li-contents">
-                <input type="checkbox" name="reason_isActive_temp[]" <?php echo $isActive; ?> />
-                <input type="hidden" name="reason_isActive_values[]" value="<?php echo $reason['IsActive']; ?>"/>
+                <input type="checkbox" name="test_meter_result_isActive_temp[]" <?php echo $isActive; ?> />
+                <input type="hidden" name="test_meter_result_isActive_values[]" value="<?php echo $reason['IsActive']; ?>"/>
             </li>
-            <li><input type="hidden" name="reason_PK[]" value="<?php echo $reason['ReasonTypePk']; ?>" class="parameter-pk-value"/></li>	
+            <li><input type="hidden" name="test_meter_result_PK[]" value="<?php echo $reason['ReasonTypePk']; ?>" class="parameter-pk-value"/></li>	
         </ul>
-        <?php  } } else { ?>
+        <?php  } } } else { ?>
         <ul class="parameters-content-li-2-cols">
-            <li><input type="text" name="reason_value[]" maxlength="50" class="utility-descr-value"/></li>
+            <li><input type="text" name="test_meter_result_value[]" maxlength="50" class="utility-descr-value"/></li>
             <li class="center-li-contents">
-                <input type="checkbox" name="reason_isActive_temp[]" checked/>
-                <input type="hidden" name="reason_isActive_values[]" value="1"/>
+                <input type="checkbox" name="test_meter_result_isActive_temp[]" checked/>
+                <input type="hidden" name="test_meter_result_isActive_values[]" value="1"/>
             </li>
-            <li><input type="hidden" name="reason_PK[]" class="parameter-pk-value"/></li>
+            <li><input type="hidden" name="test_meter_result_PK[]" class="parameter-pk-value"/></li>
         </ul>
         <?php } ?>
         </div>
 		<div class="clear"></div>
 		<div class="selection-form-submit float-left">
-            <button id="parameters-reason-add-button" class="parameters-add-button addline-button">Add</button>
+            <button id="parameters-testmeter-add-button" class="parameters-add-button addline-button">Add</button>
         </div> 
-		<div id="parameters-reason-addline-error-box" class="addline-error-box error-box float-left hidden"></div>
+		<div id="parameters-testmeter-addline-error-box" class="addline-error-box error-box float-left hidden"></div>
 		<div class="clear"></div>       
     </div> <!-- end of reason code tab -->
 </div> <!-- parameters -->

@@ -34,6 +34,7 @@ $(document).ready(function(e) {
         var add_items_container = getContainerNameToAppend(this);
         var parameter_type = add_items_container.split('-')[1];	
 		var error_box = '#parameters-' + parameter_type + '-addline-error-box';
+
 		var hasErrors = false;
         if (!checkInputHasAllValues(add_items_container, 'input[type="text"]')) {
 			$(error_box).html('Input a value before adding');
@@ -88,8 +89,8 @@ $(document).ready(function(e) {
 	
     $('#parameter-save-button').click(function() {
 		// validate parameters
-		var parameters = ['utility', 'title', 'language', 'building', 'team', 'contact', 'reason'];
-		var tab = ['utility', 'title', 'language', 'building', 'team', 'preferred-contact', 'reason-code'];
+		var parameters = ['utility', 'title', 'language', 'building', 'team', 'contact', 'reason', 'testmeter'];
+		var tab = ['utility', 'title', 'language', 'building', 'team', 'preferred-contact', 'reason-code', 'meter-test-result'];
 		var len = parameters.length,
 		add_items_container = '',
 		hasErrors = false;

@@ -1,5 +1,8 @@
 <?php
 class PrimaDB {	
+	/** Table */
+	const BUILDING_RATE_ACCOUNT_TABLE = 'BuildingRateAccount';
+	const BUILDING_TYPE_TABLE = 'BuildingType';
 	const CREDIT_MANAGEMENT_TABLE = 'CreditManagement';
 	const CUSTOMER_TABLE = 'Customer';
 	const UTILITY_TYPE_TABLE = 'UtilityType';	
@@ -9,8 +12,17 @@ class PrimaDB {
 	const BUILDING_TABLE = 'Building';
 	const FIXEDRATE_TABLE = 'FixedRate';
 	const FIXEDFEE_TABLE = 'FixedFee';
-	const BUILDING_RATE_ACCOUNT_TABLE = 'BuildingRateAccount';
+	const LANGUAGE_TYPE_TABLE = 'LanguageType';
+	const PREFERRED_CONTACT_TYPE_TABLE = 'PreferredContactType';
 	const READING_TABLE = 'Reading';
+	const REASON_TYPE_TABLE = 'ReasonType';
+	const TEAM_TABLE = 'Team';
+	const TITLE_TYPE_TABLE = 'TitleType';
+	
+	
+	/** Constant DB values */
+	const SYSTEM_TYPE_ESTIMATE_REASON_PK = 1;
+	const SYSTEM_TYPE_TEST_METER_RESULT_PK = 2;
 	
 	private $db;
     public function __construct($driver, $server, $dbname, $dbuser, $dbpassword) {

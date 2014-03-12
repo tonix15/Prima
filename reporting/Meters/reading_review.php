@@ -191,15 +191,15 @@ require DOCROOT . '/template/header.php';
 				$html = ob_get_contents();
 				ob_end_flush();
 				
-				$title = 'Reading Review for  ' . ucwords(strtolower($building_names['Name'])) . ' ' . date('Y-m-d');
+				$title = 'Reading Review for Building ' . ucwords(strtolower($building_names['Name'])) . ' as of ' . date('Y-m-d');
 				$Session->write('title', $title);
 				$Session->write('content', $html);
-			?>
-			<label>
-				Export as: 
-				<a title="PDF" href="<?php echo DOMAIN_NAME . '/processing/exportAsPdf.php';?>">PDF</a>
-				<a title="SpreadSheet" href="<?php echo DOMAIN_NAME . '/processing/exportAsCSV.php';?>">SpreadSheet</a>
-			</label>
+				
+				unset($title);
+				unset($html);
+				
+				require_once DOCROOT . '/widgets/convert_pdf_spreadsheet.php'
+			?>			
 		</div>
 	</div>
 	<div id="consumption-graph" class="tab-contents">

@@ -26,14 +26,17 @@ $userPK = $userCredentials['UserPk'];
 $import_fancy_box = true;
 require DOCROOT . '/template/header.php';
 
+$view_class = 'hidden';
+$buildingPK = !empty($_GET['choose_building']) ? (int) $_GET['choose_building'] : 0;
+
+$Building = new Building($dbh);
+
+$building_list = $Building->getBuilding(array($userPK, 0));
 //Business Function User Menu
 $BusinessFunctionUserMenu = new BusinessFunctionUserMenu($dbh);
 //Restriction Level = 1; Read, Write and Update
 //Restriction Level = 0; Read Only
 $restriction_level =  $BusinessFunctionUserMenu->getRestrictionLevel($userPK, $userPK, $page_name);
-
-// Cut Notification
-$cut_instruction_list = $dbhandler->getCutInstruction(array($userPK, 0, $Session->read('user_company_selection_key')));
 
 // UI
 $view_class = 'hidden';
@@ -41,30 +44,39 @@ $error_class = 'hidden';
 $submit_result = '';
 $errmsg = '';
 
+// Reconnection Notification
+$buildingPK = 0;
+if(isset($_GET['View_All'])){
+	$view_class = 'show';
+	$view_type = 'View_All=View All';
+}
+if(isset($_GET['View'])){
+	$view_class = 'show';
+	$view_type = 'View=View';
+	$buildingPK = $_GET['choose_building'];
+}
+if ($view_class === 'show' ) {
+	$reconnection_instruction_list = $dbhandler->getReconnectionInstruction(array($userPK, 0, $Session->read('user_company_selection_key'),$buildingPK ));
+} else {
+	$reconnection_instruction_list = NULL;
+}
 if (isset($_POST['Instruct'])) {
-	
 	$today = Prima::getSaveDate();
-
-	$len = count($cut_instruction_list);
+	$len = count($reconnection_instruction_list);
 	$hasNoError = true;
 	for ($i = 0; $i < $len; $i++) {
-		$instruction = $cut_instruction_list[$i];
-		if (isset($_POST['IsSendInstruction_isActive_temp'.$i]) && $instruction['CutInstructionDate'] == '1900-01-01') {
-			if ( !$dbhandler->updateCutInstruction(array($userPK,$instruction['CreditManagementPk'],$today))) {}
+		$instruction = $reconnection_instruction_list[$i];
+		if (isset($_POST['IsSendInstruction_isActive_temp'.$i]) && $instruction['ReconnectionInstructionDate'] == '1900-01-01') {
+			if ( !$dbhandler->updateReconnectionInstruction(array($userPK,$instruction['CreditManagementPk'],$today))) {}
 				//$hasNoError = false;
 		}
 	}
 	
 	if ($hasNoError) {
-		$Session->write('Success', '<strong>Cut instruction</strong> sent.');
-		header('Location:' . DOMAIN_NAME . $_SERVER['PHP_SELF']);
+		$Session->write('Success', '<strong>Reconnection instruction</strong> sent.');
+		header('Location:' . DOMAIN_NAME . $_SERVER['PHP_SELF'] . '?choose_building=' . $buildingPK . '&' . $view_type);
 		exit;
 	} 
-	/*
-	else {
-		$Session->write('Fail', 'Error occured during update.');
-		$hasNoError = false;
-	} */
 }
 
 if (isset($_POST['Cancel'])) {
@@ -74,30 +86,42 @@ if (isset($_POST['Cancel'])) {
 
 ?>
 
-<div class="sub-menu-title"><h1>Cut Instruction</h1></div>
-
+<div class="sub-menu-title"><h1>Reconnection Instruction</h1></div>
+<form method="get" class="hover-cursor-pointer">
+	<div id="meter-critera" class="wrapper-fieldset-forms">
+		<fieldset class="fieldset-forms clear">
+			<legend>Building Selection</legend>
+			<ul class="fieldset-forms-li-2-cols">
+				<li>Building:</li>
+				<li>
+					<select id="meter-selection-building" class="selection-required-input" name="choose_building">
+						<option value="0">Please choose a building</option>
+						<?php 
+						if (!empty($building_list)) { 
+						foreach($building_list as $building) { 
+							$selected = $buildingPK == $building['BuildingPk'] ? 'selected="' . $building['BuildingPk'] . '"':''; ?>
+							<option <?php echo $selected; ?> value="<?php echo $building['BuildingPk']; ?>"><?php echo $building['Name']; ?></option>
+						<?php } } ?>
+					</select>
+				</li>
+			</ul>
+			<div class="selection-form-submit float-left">
+				<input id="meter-selection-view" type="submit" value="View" name="View"/>
+				<input id="meter-selection-view_all" type="submit" value="View All" name="View_All"/>
+			</div> 
+			<div id="meter-selection-error-box" class="selection-error-box error-box float-left hidden"></div>
+		</fieldset>
+	</div> <!-- end of building selection -->
+</form> <!-- end of get form -->
 <?php 
 if ($Session->check('Success')) {
 	echo '<div class="warning insert-success">' . $Session->read('Success') . '</div>';
 	$Session->sessionUnset('Success');
-} else if ($Session->check('Fail')) {
-	echo '<div class="warning warning-box">' . $Session->read('Fail') . '</div>';
-	$Session->sessionUnset('Fail');
-} else if ($Session->check('Fail2')) {
-	echo '<div class="warning warning-box">' . $Session->read('Fail2') . '<br />';
-	var_dump($fail_accounts_sent_mail);
-	echo '</div>';
-	$Session->sessionUnset('Fail2');
-}
-
-if ($Session->check('Fail3')) {
-	echo '<div class="warning warning-box">' . $Session->read('Fail3') . '<br />';
-	var_dump($fail_records_created);
-	echo '</div>';
-	$Session->sessionUnset('Fail3');
-}
+} 
 ?>
+<?php if ($view_class === 'show' ) { ?>   
 <div id="parameter-submit-result-error-box" class="warning insert-success submit-result <?php echo 'submit-result-', $submit_result, ' ', $error_class; ?>"><?php echo $errmsg; ?></div>
+
 <form method="post" >
 	<div class="table-wrapper">
 		<div class="wrapper-paging">
@@ -108,7 +132,7 @@ if ($Session->check('Fail3')) {
 			</ul>
 		</div>
 		<div class="wrapper-panel">			
-			<table id="cut_notification" class="billing scrollable planning-table planning-table-striped planning-table-hover">
+			<table id="Reconnection_notification" class="billing scrollable planning-table planning-table-striped planning-table-hover">
 				<thead>
 					<tr>
 						<th>Customer No.</th>
@@ -120,10 +144,10 @@ if ($Session->check('Fail3')) {
 					</tr>
 				</thead>
 				<tbody>
-					<?php if (!empty($cut_instruction_list)) { 
+					<?php if (!empty($reconnection_instruction_list)) { 
 					$c = 0;
-					foreach ($cut_instruction_list as $customer) { 
-						$isChecked = $customer['CutInstructionDate'] != '1900-01-01' ? 'checked' : ''; ?>
+					foreach ($reconnection_instruction_list as $customer) { 
+						//$isChecked = $customer['ReconnectionInstructionDate'] != '1900-01-01' ? 'checked' : ''; ?>
 						<tr>
 							<td><?php echo $customer['AccountNumber']; ?></td>
 							<td><?php echo $customer['Surname']; ?></td>
@@ -131,7 +155,7 @@ if ($Session->check('Fail3')) {
 							<td><?php echo $customer['Email']; ?></td>
 							<td class="text-align-right"><?php echo Prima::formatDecimal($customer['OutstandingAmount']); ?></td>
 							<td style="text-align: center;">
-								<input type="checkbox" <?php echo $isChecked; ?> name="IsSendInstruction_isActive_temp<?php echo $c++; ?>">
+								<input type="checkbox" name="IsSendInstruction_isActive_temp<?php echo $c++; ?>">
 							</td> 
 						</tr>
 					<?php } } ?>				
@@ -139,9 +163,9 @@ if ($Session->check('Fail3')) {
 			</table>			
 		</div>
 	</div>
-	<?php if (isset($cut_instruction_list) && empty($cut_instruction_list)) { ?>
+	<?php if (isset($reconnection_instruction_list) && empty($reconnection_instruction_list)) { ?>
 	<h3>No Records Found!</h3>
-	<?php } if (!empty($cut_instruction_list)) { ?>
+	<?php } if (!empty($reconnection_instruction_list)) { ?>
 	<div class="wrapper-fieldset-forms ">
 		<div id="parameter-submit-error-box" class="submit-error-box error-box hidden"></div>
 		<div class="form-submit" style="margin-left:35%;">
@@ -151,6 +175,11 @@ if ($Session->check('Fail3')) {
 	</div> 
 	<?php } ?>
 </form>
+
+<?php
+	}
+?>
+
 <?php require DOCROOT . '/template/footer.php'; ?>
 <script src="<?php echo DOMAIN_NAME; ?>/js/pagination.js"></script>
 <script type="text/javascript">

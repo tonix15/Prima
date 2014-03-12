@@ -28,9 +28,7 @@ require DOCROOT . '/template/header.php';
 
 $view_class = 'hidden';
 $buildingPK = !empty($_GET['choose_building']) ? (int) $_GET['choose_building'] : 0;
-
 $Building = new Building($dbh);
-
 $building_list = $Building->getBuilding(array($userPK, 0));
 //Business Function User Menu
 $BusinessFunctionUserMenu = new BusinessFunctionUserMenu($dbh);
@@ -55,7 +53,11 @@ if(isset($_GET['View'])){
 	$view_type = 'View=View';
 	$buildingPK = $_GET['choose_building'];
 }
-$cut_instruction_list = $dbhandler->getCutInstruction(array($userPK, 0, $Session->read('user_company_selection_key'),$buildingPK ));
+if ($view_class === 'show' ) {
+	$cut_instruction_list = $dbhandler->getCutInstruction(array($userPK, 0, $Session->read('user_company_selection_key'),$buildingPK ));
+} else {
+	$cut_instruction_list = NULL;
+}
 
 if (isset($_POST['Instruct'])) {
 	$today = Prima::getSaveDate();
@@ -63,7 +65,7 @@ if (isset($_POST['Instruct'])) {
 	$hasNoError = true;
 	for ($i = 0; $i < $len; $i++) {
 		$instruction = $cut_instruction_list[$i];
-		if (isset($_POST['IsSendInstruction_isActive_temp'.$i]) && $instruction['CutInstructionDate'] == '1900-01-01') {
+		if (isset($_POST['IsSendInstruction_isActive_temp'.$i])) {
 			if ( !$dbhandler->updateCutInstruction(array($userPK,$instruction['CreditManagementPk'],$today))) {}
 				//$hasNoError = false;
 		}
@@ -144,7 +146,7 @@ if ($Session->check('Success')) {
 					<?php if (!empty($cut_instruction_list)) { 
 					$c = 0;
 					foreach ($cut_instruction_list as $customer) { 
-						$isChecked = $customer['CutInstructionDate'] != '1900-01-01' ? 'checked' : ''; ?>
+						//$isChecked = $customer['CutInstructionDate'] != '1900-01-01' ? 'checked' : ''; ?>
 						<tr>
 							<td><?php echo $customer['AccountNumber']; ?></td>
 							<td><?php echo $customer['Surname']; ?></td>
@@ -152,7 +154,7 @@ if ($Session->check('Success')) {
 							<td><?php echo $customer['Email']; ?></td>
 							<td class="text-align-right"><?php echo Prima::formatDecimal($customer['OutstandingAmount']); ?></td>
 							<td style="text-align: center;">
-								<input type="checkbox" <?php echo $isChecked; ?> name="IsSendInstruction_isActive_temp<?php echo $c++; ?>">
+								<input type="checkbox" name="IsSendInstruction_isActive_temp<?php echo $c++; ?>">
 							</td> 
 						</tr>
 					<?php } } ?>				

@@ -130,11 +130,13 @@ $(document).ready(function(e) {
 	setCheckboxOnlickLister = function() {
 		var types = ['utility_isActive_temp', 'title_isActive_temp', 'language_isActive_temp',
 			'contact_isActive_temp', 'meter_isActive_temp', 'allocation_isServiceMeter_temp',
-			'allocation_isCommonProperty_temp', 'allocation_isBulkWater_temp', 'reason_isActive_temp',
+			'allocation_isCommonProperty_temp', 'allocation_isBulkWater_temp', 'estimate_reason_isActive_temp',
 			'allocation_isActive_temp', 'building_isActive_temp', 'team_isActive_temp', 'rate_isActive_temp',
 			'fixed_rate_retail_isVat_temp', 'fixed_rate_bulk_isVat_temp', 'fixed_fee_retail_isVat_temp', 
-			'fixed_fee_bulk_isVat_temp', 'utility_isMetered_temp', 'IsSendNotificaton_isActive_temp'
+			'fixed_fee_bulk_isVat_temp', 'utility_isMetered_temp', 'IsSendNotificaton_isActive_temp',
+			'test_meter_result_isActive_temp'
 		];
+		
 		var len = types.length;
 
 		for (var i = 0; i < len; i++) {

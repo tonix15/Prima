@@ -128,13 +128,15 @@ require DOCROOT . '/template/header.php';
 			$html = ob_get_contents();
 			ob_end_flush();
 			
-			$title = 'Deposit list of ' . ucwords(strtolower($building_names['Name'])) . ' ' . date('Y-m-d');
+			$title = 'Deposit list on Building ' . ucwords(strtolower($building_names['Name'])) . ' as of ' . date('Y-m-d');
 			$Session->write('title', $title);
 			$Session->write('content', $html);
-		?>
-		Export as: 
-			<a title="PDF" href="<?php echo DOMAIN_NAME . '/query_and_reporting/export_as_pdf.php';?>">PDF</a>
-			<a title="SpreadSheet" href="<?php echo DOMAIN_NAME . '/query_and_reporting/export_as_csv.php';?>">SpreadSheet</a>
+			
+			unset($title);
+			unset($html);
+				
+			require_once DOCROOT . '/widgets/convert_pdf_spreadsheet.php'
+		?>		
 	</div>
 </div>
 <?php

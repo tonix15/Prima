@@ -1,7 +1,7 @@
 <?php
 $page_name = 'Readings Imported';
 
-require_once '../../init.php';
+require_once '../../../init.php';
 
 //User
 if(!$User->isUserLogin()){
@@ -119,12 +119,9 @@ else if (isset($_POST['Cancel'])) {
 					
 					unset($title);
 					unset($html);
-				?>
-				<label>
-					Export as: 
-					<a title="PDF" href="<?php echo DOMAIN_NAME . '/query_and_reporting/export_as_pdf.php';?>">PDF</a>
-					<a title="SpreadSheet" href="<?php echo DOMAIN_NAME . '/query_and_reporting/export_as_csv.php';?>">SpreadSheet</a>
-				</label>
+					
+					require_once DOCROOT . '/widgets/convert_pdf_spreadsheet.php'
+				?>				
 			</div>
 		</div>
 <?php 

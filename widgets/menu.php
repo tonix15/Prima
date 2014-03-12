@@ -20,7 +20,7 @@
 		'CREDIT_MANAGEMENT_CUT_NOTIFICATION_OVERDUE_ACCOUNTS' => DOMAIN_NAME . '/credit_management/Cut_Notification/overdue_accounts.php',
 		'CREDIT_MANAGEMENT_CUT_NOTIFICATION_OUTSTANDING_AGREEMENTS' => '#',
 		'CREDIT_MANAGEMENT_CUT_INSTRUCTION' => DOMAIN_NAME . '/credit_management/cut_instruction.php',
-		'CREDIT_MANAGEMENT_RECONNECTION' => '#',
+		'CREDIT_MANAGEMENT_RECONNECTION' => DOMAIN_NAME . '/credit_management/reconnection.php',
 		'CREDIT_MANAGEMENT_DEPOSIT_REVIEW' => '#',
 		/** Reporting */
 		//Providers
@@ -295,7 +295,7 @@
 					echo '<li>'; 
 						echo '<a href="#">Meters</a>';
 						echo '<ul class="meters_sub_list">';
-								echo '<li><a href="#">Reading Imports View</a>';
+								echo '<li><a href="#">Readings Import View</a>';
 									echo '<ul>';
 										echo '<li><a href="' . $path_constants['REPORTING_METERS_READING_IMPORTS_REVIEW_READINGS_IMPORTED'] . '">Readings Imported</a><li>';
 										echo '<li><a href="' . $path_constants['REPORTING_METERS_READING_IMPORTS_REVIEW_METER_TEST_REQUIRED'] . '">Meter Test Required</a><li>';

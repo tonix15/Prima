@@ -21,6 +21,14 @@ class DBHandler extends PDOSQLServerdbhandler {
 		return $this->executeNonQueryStoredProcedure(SP::SET_CUT_INSTRUCTION, $params);
 	}
 	
+	public function getReconnectionInstruction($params) { //kent 3
+    	return $this->executeQueryStoredProcedure(SP::GET_RECONNECTION_INSTRUCTION, $params);
+    }
+
+	public function updateReconnectionInstruction($params) { //kent 4
+		return $this->executeNonQueryStoredProcedure(SP::SET_RECONNECTION_INSTRUCTION, $params);
+	}
+	
     public function getCutNotification($params, $isSingleRecord = false) {
     	return $this->executeQueryStoredProcedure(SP::GET_CUT_NOTIFICATION, $params, $isSingleRecord);
     }
@@ -114,6 +122,20 @@ class DBHandler extends PDOSQLServerdbhandler {
     	return $this->executeQueryStoredProcedure(SP::VAL_BUILDING_SQUARE_METER_ALLOCATION, $params, $isSingleRecord);
     }
     
+    /** Building Type */
+    public function getBuildingType($params, $isSingleRecord = false) {
+    	return $this->executeQueryStoredProcedure(SP::GET_BUILDING_TYPE, $params, $isSingleRecord);
+    }
+    
+    public function createBuildingType($params) {
+    	$this->executeNonQueryStoredProcedure(SP::SET_BUILDING_TYPE, $params);
+    	return $this->getLastInsertId(PrimaDB::BUILDING_TYPE_TABLE);
+    }
+    
+    public function updateBuildingType($params) {
+    	return $this->executeNonQueryStoredProcedure(SP::SET_BUILDING_TYPE, $params);
+    }
+    
     /** Contact Person */
     public function getContactPerson($params, $isSingleRecord = false) {
     	return $this->executeQueryStoredProcedure(SP::GET_CONTACT_PERSON, $params, $isSingleRecord);
@@ -143,6 +165,20 @@ class DBHandler extends PDOSQLServerdbhandler {
 	
 	public function getInvoice($params, $isSingleRecord = false) {
 		return $this->executeQueryStoredProcedure(SP::GET_INVOICE, $params, $isSingleRecord);
+	}
+	
+	/** Language Type */
+	public function getLanguageType($params, $isSingleRecord = false) {
+		return $this->executeQueryStoredProcedure(SP::GET_LANGUAGE_TYPE, $params, $isSingleRecord);
+	}
+	
+	public function createLanguageType($params) {
+		$this->executeNonQueryStoredProcedure(SP::SET_LANGUAGE_TYPE, $params);
+		return $this->getLastInsertId(PrimaDB::LANGUAGE_TYPE_TABLE);
+	}
+	
+	public function updateLanguageType($params) {
+		return $this->executeNonQueryStoredProcedure(SP::SET_LANGUAGE_TYPE, $params);
 	}
 	
 	/** Master */
@@ -182,6 +218,34 @@ class DBHandler extends PDOSQLServerdbhandler {
 	/** Meter Type */
 	public function movendusExportMeterType($params) {
 		return $this->executeQueryStoredProcedure(SP::MOVENDUS_EXPORT_METER_TYPE, $params);
+	}
+	
+	/** Preferred Contact Type */
+	public function getPreferredContactType($params, $isSingleRecord = false) {
+		return $this->executeQueryStoredProcedure(SP::GET_PREFERRED_CONTACT_TYPE, $params, $isSingleRecord);
+	}
+	
+	public function createPreferredContactType($params) {
+		$this->executeNonQueryStoredProcedure(SP::SET_PREFERRED_CONTACT_TYPE, $params);
+		return $this->getLastInsertId(PrimaDB::PREFERRED_CONTACT_TYPE_TABLE);
+	}
+	
+	public function updatePreferredContactType($params) {
+		return $this->executeNonQueryStoredProcedure(SP::SET_PREFERRED_CONTACT_TYPE, $params);
+	}
+	
+	/** Reason Type */
+	public function getReasonType($params, $isSingleRecord = false) {
+		return $this->executeQueryStoredProcedure(SP::GET_REASON_TYPE, $params, $isSingleRecord);
+	}
+	
+	public function createReasonType($params) {
+		$this->executeNonQueryStoredProcedure(SP::SET_REASON_TYPE, $params);
+		return $this->getLastInsertId(PrimaDB::REASON_TYPE_TABLE);
+	}
+	
+	public function updateReasonType($params) {
+		return $this->executeNonQueryStoredProcedure(SP::SET_REASON_TYPE, $params);
 	}
 	
 	/** Rate */
@@ -250,6 +314,22 @@ class DBHandler extends PDOSQLServerdbhandler {
 	}
 	
 	/** Reporting */
+	public function repCommonPropertyNoPreviousReading($params, $isSingleRecord = false){
+		return $this->executeQueryStoredProcedure(SP::COMMON_PROPERTY_NO_PREVIOUS_READING, $params, $isSingleRecord);
+	}
+	
+	public function repCommonPropertyNegativeConsumption($params, $isSingleRecord = false){
+		return $this->executeQueryStoredProcedure(SP::COMMON_PROPERTY_NEGATIVE_CONSUMPTION, $params, $isSingleRecord);
+	}
+	
+	public function repCommonPropertyUnderRecoveryDetail($params, $isSingleRecord = false){
+		return $this->executeQueryStoredProcedure(SP::COMMON_PROPERTY_UNDER_RECOVERY_DETAIL, $params, $isSingleRecord);
+	}
+	
+	public function repCommonPropertyAllocation($params, $isSingleRecord = false){
+		return $this->executeQueryStoredProcedure(SP::COMMON_PROPERTY_ALLOCATION, $params, $isSingleRecord);
+	}
+	
 	public function repReadingImport($params, $isSingleRecord = false){
 		return $this->executeQueryStoredProcedure(SP::READING_IMPORT, $params, $isSingleRecord);
 	}
@@ -290,6 +370,14 @@ class DBHandler extends PDOSQLServerdbhandler {
 		return $this->executeQueryStoredProcedure(SP::OUTSTANDING_BILLING_DETAIL, $params, $isSingleRecord);
 	}
 	
+	public function repCutInstructionNotNotified($params, $isSingleRecord = false){
+		return $this->executeQueryStoredProcedure(SP::CUT_INSTRUCTION_NOT_NOTIFIED, $params, $isSingleRecord);
+	}
+
+	public function repCutInstructionNotCut($params, $isSingleRecord = false){
+		return $this->executeQueryStoredProcedure(SP::CUT_INSTRUCTION_NOT_CUT, $params, $isSingleRecord);
+	}
+	
 	/** Reason */
 	public function movendusExportReason($params) {
 		return $this->executeQueryStoredProcedure(SP::MOVENDUS_EXPORT_REASON, $params);
@@ -299,6 +387,34 @@ class DBHandler extends PDOSQLServerdbhandler {
 	public function movendusImportReading($params) {
 		$this->executeNonQueryStoredProcedure(SP::MOVENDUS_IMPORT_READING, $params);
 		return $this->getLastInsertId(PrimaDB::READING_TABLE);
+	}
+	
+	/** Team */
+	public function getTeam($params, $isSingleRecord = false) {
+		return $this->executeQueryStoredProcedure(SP::GET_TEAM, $params, $isSingleRecord);
+	}
+	
+	public function createTeam($params) {
+		$this->executeNonQueryStoredProcedure(SP::SET_TEAM, $params);
+		return $this->getLastInsertId(PrimaDB::TEAM_TABLE);
+	}
+	
+	public function updateTeam($params) {
+		return $this->executeNonQueryStoredProcedure(SP::SET_TEAM, $params);
+	}
+	
+	/** Title Type */
+	public function getTitleType($params, $isSingleRecord = false) {
+		return $this->executeQueryStoredProcedure(SP::GET_TITLE_TYPE, $params, $isSingleRecord);
+	}
+	
+	public function createTitleType($params) {
+		$this->executeNonQueryStoredProcedure(SP::SET_TITLE_TYPE, $params);
+		return $this->getLastInsertId(PrimaDB::TITLE_TYPE_TABLE);
+	}
+	
+	public function updateTitleType($params) {
+		return $this->executeNonQueryStoredProcedure(SP::SET_TITLE_TYPE, $params);
 	}
 	
 	/** Unit */
