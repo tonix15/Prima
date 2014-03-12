@@ -212,5 +212,10 @@ class SP {
 	const VAL_BUILDINGS_NO_UNITS = '[val].[BuildingsNoUnits]';
 	const VAL_BUILDINGS_NO_METERS = '[val].[BuildingsNoMeters]';
 	const VAL_BUILDINGS_NO_BULK_METERS = '[val].[BuildingsNoBulkMeters]';
+	const VAL_METER_UTILITY_TYPE_UNKNOWN = '[val].[MeterUtilityTypeUnknown]';
+	const VAL_METERS_DUPLICATE = '[val].[MetersDuplicate]';
+	const VAL_METER_OVERLAP_PERIOD = '[val].[MeterOverlapPeriod]';
+	const VAL_METER_DECOMMISSIONED_ISACTIVE = '[val].[MeterDecommisionedIsActive]';
+	const VAL_METER_DECOMMISSIONED_WITHOUT_REPLACEMENT = '[val].[MeterDecommisionedWithoutReplacement]';
 }
 ?>

@@ -511,5 +511,25 @@ class DBHandler extends PDOSQLServerdbhandler {
 	public function valBuildingsNoBulkMeters($params, $isSingleRecord = false) {
     	return $this->executeQueryStoredProcedure(SP::VAL_BUILDINGS_NO_BULK_METERS, $params, $isSingleRecord);
     }
+	
+	public function valMeterUtilityTypeUnknown($params, $isSingleRecord = false) {
+    	return $this->executeQueryStoredProcedure(SP::VAL_METER_UTILITY_TYPE_UNKNOWN, $params, $isSingleRecord);
+    }
+	
+	public function valMetersDuplicate($params, $isSingleRecord = false) {
+    	return $this->executeQueryStoredProcedure(SP::VAL_METERS_DUPLICATE, $params, $isSingleRecord);
+    }
+	
+	public function valMeterOverlapPeriod($params, $isSingleRecord = false) {
+    	return $this->executeQueryStoredProcedure(SP::VAL_METER_OVERLAP_PERIOD, $params, $isSingleRecord);
+    }
+	
+	public function valMeterDecommissionedIsActive($params, $isSingleRecord = false) {
+    	return $this->executeQueryStoredProcedure(SP::VAL_METER_DECOMMISSIONED_ISACTIVE, $params, $isSingleRecord);
+    }
+	
+	public function valMeterDecommissionedWithoutReplacement($params, $isSingleRecord = false) {
+    	return $this->executeQueryStoredProcedure(SP::VAL_METER_DECOMMISSIONED_WITHOUT_REPLACEMENT, $params, $isSingleRecord);
+    }
 }
 ?>
