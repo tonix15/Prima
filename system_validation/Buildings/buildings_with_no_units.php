@@ -65,7 +65,7 @@ $errmsg = !empty($data_list) ? '':'<strong>No Entries Found.</strong>';
 								<td><?php echo $report['BuildingName']; ?></td>
 							</tr>
 					<?php endforeach; 
-						else: echo '<tr><td colspan="7"' . $errmsg . '</td></tr>';
+						else: echo '<tr><td colspan="2"' . $errmsg . '</td></tr>';
 						endif;
 					?>
 				</tbody>

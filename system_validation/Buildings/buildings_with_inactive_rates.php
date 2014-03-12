@@ -75,7 +75,7 @@ $errmsg = !empty($data_list) ? '':'<strong>No Entries Found.</strong>';
 								<td><?php echo $report['ChkTotal'] == 0 ? 'Error':''; ?></td>
 							</tr>
 					<?php endforeach; 
-						else: echo '<tr><td colspan="6"' . $errmsg . '</td></tr>';
+						else: echo '<tr><td colspan="7"' . $errmsg . '</td></tr>';
 						endif;
 					?>
 				</tbody>

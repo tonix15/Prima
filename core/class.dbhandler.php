@@ -491,5 +491,25 @@ class DBHandler extends PDOSQLServerdbhandler {
 	public function valBuildingsNoPortfolioManagers($params, $isSingleRecord = false) {
     	return $this->executeQueryStoredProcedure(SP::VAL_BUILDINGS_NO_PORTFOLIO_MANAGERS, $params, $isSingleRecord);
     }
+	
+	public function valBuildingsNoRates($params, $isSingleRecord = false) {
+    	return $this->executeQueryStoredProcedure(SP::VAL_BUILDINGS_NO_RATES, $params, $isSingleRecord);
+    }
+	
+	public function valBuildingsRateAccountUtilityNotMatching($params, $isSingleRecord = false) {
+    	return $this->executeQueryStoredProcedure(SP::VAL_BUILDINGS_RATE_ACCOUNT_UTILITY_NOT_MATCHING, $params, $isSingleRecord);
+    }
+	
+	public function valBuildingsNoUnits($params, $isSingleRecord = false) {
+    	return $this->executeQueryStoredProcedure(SP::VAL_BUILDINGS_NO_UNITS, $params, $isSingleRecord);
+    }
+	
+	public function valBuildingsNoMeters($params, $isSingleRecord = false) {
+    	return $this->executeQueryStoredProcedure(SP::VAL_BUILDINGS_NO_METERS, $params, $isSingleRecord);
+    }
+	
+	public function valBuildingsNoBulkMeters($params, $isSingleRecord = false) {
+    	return $this->executeQueryStoredProcedure(SP::VAL_BUILDINGS_NO_BULK_METERS, $params, $isSingleRecord);
+    }
 }
 ?>

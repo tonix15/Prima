@@ -207,5 +207,10 @@ class SP {
 	const VAL_RATES_NO_BUILDINGS = '[val].[RatesNoBuildings]';
 	const VAL_RATES_NO_METERS = '[val].[RatesNoMeters]';
 	const VAL_BUILDINGS_NO_PORTFOLIO_MANAGERS = '[val].[BuildingsNoPortfolioManagers]';
+	const VAL_BUILDINGS_NO_RATES = '[val].[BuildingsNoRates]';
+	const VAL_BUILDINGS_RATE_ACCOUNT_UTILITY_NOT_MATCHING = '[val].[BuildingRateAccountUtilityNotMatching]';
+	const VAL_BUILDINGS_NO_UNITS = '[val].[BuildingsNoUnits]';
+	const VAL_BUILDINGS_NO_METERS = '[val].[BuildingsNoMeters]';
+	const VAL_BUILDINGS_NO_BULK_METERS = '[val].[BuildingsNoBulkMeters]';
 }
 ?>
