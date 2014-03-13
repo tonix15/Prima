@@ -51,9 +51,9 @@ $errmsg = !empty($data_list) ? '':'<strong>No Entries Found.</strong>';
 			<table class="billing scrollable planning-table planning-table-striped planning-table-hover">
 				<thead>
 					<tr>
-						<th>Service</th>
-						<th>Building</th>
-						<th>Total Square Meter</th>
+						<th style="width:40%;">Building</th>
+						<th style="width:30%;">Service</th>						
+						<th style="width:30%;">Total Square Meter</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -61,10 +61,10 @@ $errmsg = !empty($data_list) ? '':'<strong>No Entries Found.</strong>';
 						if(!empty($data_list)):
 							foreach($data_list as $report):
 					?>
-							<tr>
-								<td><?php echo $report['Service']; ?></td>
-								<td><?php echo $report['Building']; ?></td>								
-								<td><?php echo $report['TotalSqm']; ?></td>
+							<tr>								
+								<td style="width:40%;"><?php echo $report['Building']; ?></td>								
+								<td style="width:30%;"><?php echo $report['Service']; ?></td>
+								<td style="width:30%;" class="table-column-text-align-right"><?php echo number_format($report['TotalSqm'], 0, '', ','); ?></td>
 							</tr>
 					<?php endforeach; 
 						else: echo '<tr><td colspan="3"' . $errmsg . '</td></tr>';
