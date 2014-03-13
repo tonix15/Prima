@@ -382,6 +382,10 @@ class DBHandler extends PDOSQLServerdbhandler {
 		return $this->executeQueryStoredProcedure(SP::BUILDING_PORTFOLIO_MANAGER_LIST, $params, $isSingleRecord);
 	}
 	
+	public function repInternalPrepaidMeterList($params, $isSingleRecord = false){
+		return $this->executeQueryStoredProcedure(SP::INTERNAL_PREPAID_METER_LIST, $params, $isSingleRecord);
+	}
+	
 	/** Reason */
 	public function movendusExportReason($params) {
 		return $this->executeQueryStoredProcedure(SP::MOVENDUS_EXPORT_REASON, $params);

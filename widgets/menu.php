@@ -47,7 +47,7 @@
 		'REPORTING_METERS_READING_REVIEW' => DOMAIN_NAME . '/reporting/Meters/reading_review.php',
 		'REPORTING_METERS_METERS_ESTIMATED_THREE_TIMES' => DOMAIN_NAME . '/reporting/Meters/reading_estimated_three_times.php',
 		'REPORTING_METERS_READING_VARIANCE_PARAMETER_ANALYSIS' => DOMAIN_NAME . '/reporting/Meters/reading_variance_parameter_analysis.php',
-		'REPORTING_METERS_INTERNAL_PREPAID_METER_LIST' => '#',
+		'REPORTING_METERS_INTERNAL_PREPAID_METER_LIST' => DOMAIN_NAME . '/reporting/Meters/internal_prepaid_meter_list.php',
 		'REPORTING_METERS_INTERNAL_PREPAID_METER_REASONABILITY' => '#',
 		'REPORTING_METERS_RATE_SPECIFIC_METER_LIST' => DOMAIN_NAME . '/reporting/Meters/rate_specific_meter_list.php',
 		'REPORTING_BILLING_OUTSTANDING_BILLING_LIST' => DOMAIN_NAME . '/reporting/Billing/outstanding_billing_list.php',

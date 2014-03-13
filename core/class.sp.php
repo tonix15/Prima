@@ -169,6 +169,7 @@ class SP {
 	const CUT_INSTRUCTION_NOT_NOTIFIED = '[rep].[CrManCutInstructionNotNotified]';
 	const CUT_INSTRUCTION_NOT_CUT = '[rep].[CrManCutInstructionNotCut]';
 	const BUILDING_PORTFOLIO_MANAGER_LIST = '[rep].[BuildingPortfolioManagerList]';
+	const INTERNAL_PREPAID_METER_LIST = '[rep].[InternalPrepaidMeterList]';
 	
 	/** Sage **/
 	const SAGE_IMPORT_DEPOSIT = '[sage].[ImportDeposit]';

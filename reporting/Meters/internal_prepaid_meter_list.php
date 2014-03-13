@@ -1,5 +1,5 @@
 <?php
-$page_name = 'Portfolio Manager List';
+$page_name = 'Internal Prepaid Meter List';
 
 require_once '../../init.php';
 
@@ -30,11 +30,11 @@ $params = array(
 	$userPK,
 	$Session->read('user_company_selection_key')
 );
-$data_list = $dbhandler->repBuildingPortfolioManagerList($params);
+$data_list = $dbhandler->repInternalPrepaidMeterList($params);
 $errmsg = !empty($data_list) ? '':'<strong>No Entries Found.</strong>';	
 ?>
 
-<div class="sub-menu-title"><h1>Portfolio Manager List Report</h1></div>
+<div class="sub-menu-title"><h1>Internal Prepaid Meter List Report</h1></div>
 	<div class="table-wrapper billing-data-list-container">
 		<div class="wrapper-paging">
 			<ul>
@@ -52,10 +52,9 @@ $errmsg = !empty($data_list) ? '':'<strong>No Entries Found.</strong>';
 				<thead>
 					<tr>
 						<th>Building Name</th>
-						<th>Portfolio Manager</th>
-						<th>Standard Deposit</th>
-						<th>Number of Units</th>							
-						<th>Building Type</th>
+						<th>Unit Number</th>
+						<th>Sub Meter Number</th>
+						<th>Prepaid Meter Number</th>							
 					</tr>
 				</thead>
 				<tbody>
@@ -65,13 +64,12 @@ $errmsg = !empty($data_list) ? '':'<strong>No Entries Found.</strong>';
 					?>
 							<tr>
 								<td><?php echo $report['Name']; ?></td>								
-								<td class="table-column-text-align-center"><?php echo $report['DisplayName']; ?></td>
-								<td class="table-column-text-align-right"><?php echo number_format($report['StandardDeposit'], 2, '.', ','); ?></td>
-								<td class="table-column-text-align-center"><?php echo $report['NoOfUnits']; ?></td>
-								<td class="table-column-text-align-center"><?php echo $report['Value']; ?></td>
+								<td class="table-column-text-align-center"><?php echo $report['UnitNumber']; ?></td>
+								<td><?php echo $report['SubMeterNumber']; ?></td>
+								<td><?php echo $report['PrepaidMeterNumber']; ?></td>
 							</tr>
 					<?php endforeach; 
-						else: echo '<tr><td colspan="5"' . $errmsg . '</td></tr>';
+						else: echo '<tr><td colspan="4"' . $errmsg . '</td></tr>';
 						endif;
 					?>
 				</tbody>
@@ -81,7 +79,7 @@ $errmsg = !empty($data_list) ? '':'<strong>No Entries Found.</strong>';
 				$html = ob_get_contents();
 				ob_end_flush();
 				
-				$title = 'Portfolio Manager List Report';
+				$title = 'Internal Prepaid Meter List Report';
 				$Session->write('title', $title);
 				$Session->write('content', $html);
 				
