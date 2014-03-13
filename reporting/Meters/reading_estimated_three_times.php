@@ -53,6 +53,7 @@ $errmsg = !empty($data_list) ? '':'<strong>No Entries Found.</strong>';
 					<tr>
 						<th>Building</th>
 						<th>Unit Number</th>
+						<th>Utility Type</th>
 						<th>Meter Number</th>
 						<th>Last Estimate Date</th>							
 						<th>First Estimate Date</th>
@@ -67,6 +68,7 @@ $errmsg = !empty($data_list) ? '':'<strong>No Entries Found.</strong>';
 							<tr>
 								<td class="table-column-text-align-center"><?php echo $report['BuildingName']; ?></td>
 								<td class="table-column-text-align-right"><?php echo $report['UnitNo']; ?></td>
+								<td class="table-column-text-align-center"><?php echo $report['UtilityType']; ?></td>
 								<td class="table-column-text-align-right"><?php echo $report['MeterNo']; ?></td>
 								<td class="table-column-text-align-center"><?php echo $report['LastEstimate']; ?></td>
 								<td class="table-column-text-align-center"><?php echo $report['FirtsEstimate']; ?></td>
