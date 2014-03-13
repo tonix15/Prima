@@ -34,7 +34,7 @@ $data_list = $dbhandler->repBuildingPortfolioManagerList($params);
 $errmsg = !empty($data_list) ? '':'<strong>No Entries Found.</strong>';	
 ?>
 
-<div class="sub-menu-title"><h1>Portfolio Manager List Consumption</h1></div>
+<div class="sub-menu-title"><h1>Portfolio Manager List Report</h1></div>
 	<div class="table-wrapper billing-data-list-container">
 		<div class="wrapper-paging">
 			<ul>
