@@ -89,6 +89,7 @@ else if (isset($_POST['Cancel'])) {
 							<th>Meter Reader</th>
 							<th>Building</th>
 							<th>Unit Number</th>
+							<th>Utility Type</th>
 							<th>Meter Number</th>
 						</tr>
 					</thead>
@@ -99,6 +100,7 @@ else if (isset($_POST['Cancel'])) {
 								<td class="table-column-text-align-center"><?php echo $report['DisplayName']; ?></td>
 								<td class="table-column-text-align-center"><?php echo $report['Name']; ?></td>
 								<td class="table-column-text-align-right"><?php echo $report['UnitNumber']; ?></td>
+								<td class="table-column-text-align-center"><?php echo $report['UtilityType']; ?></td>
 								<?php $reading_anchor = DOMAIN_NAME . '/query_and_reporting/Meter/reading.php?choose_building=' . $report['BuildingFk'] . '&choose_unit=' . $report['UnitFk'] . '&choose_meter=' . $report['MeterPk'] . '&View=View'; ?>
 								<td class="table-column-text-align-right"><?php echo '<a href="' .$reading_anchor . '" target="_blank">' . $report['MeterNumber'] . '</a>'; ?></td>
 							</tr>
