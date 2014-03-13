@@ -197,23 +197,23 @@ if(!empty($billing_account_list)){
 				<table class="billing scrollable planning-table planning-table-striped planning-table-hover">
 					<thead>
 						<tr>
-							<th>Transaction Date</th>
+							<th>Date</th>
 							<th>Line Description</th>
 							<th>Meter Number</th>
 							<th>Start Reading</th>
 							<th>End Reading</th>
 							<th>Consumption</th>
 							<th>Price Ex Vat</th>
-							<th>Line Amount Ex Vat</th>
+							<th>Total ex Vat</th>
 							<th>Vat</th>
-							<th>Price In Vat</th>
+							<th>Total In Vat</th>
 						</tr>
 					</thead>
 					<tbody>
 						<?php foreach($invoice_list as $invoice):?>
 							<tr>
 								<td class="table-column-text-align-center"><?php echo $invoice['TxDate']; ?></td>
-								<td class="table-column-text-align-center"><?php echo $invoice['cDescription']; ?></td>
+								<td><?php echo $invoice['cDescription']; ?></td>
 								<td class="table-column-text-align-center"><?php echo $invoice['ucIDInvTxSTMeterNo']; ?></td>
 								<td class="table-column-text-align-right"><?php echo number_format($invoice['ufIDInvTxSTLastRead'], 0, '', ','); ?></td>
 								<td class="table-column-text-align-right"><?php echo number_format($invoice['ufIDInvTxSTThisRead'], 0, '', ','); ?></td>
@@ -226,7 +226,7 @@ if(!empty($billing_account_list)){
 						<?php 
 							$line_amount_ex_vat_total += $invoice['fQuantityLineTotExcl'];
 							$vat_total += $invoice['fQuantityLineTaxAmount'];
-							$line_amount_in_vat = $invoice['fQuantityLineTotIncl'];
+							$line_amount_in_vat += $invoice['fQuantityLineTotIncl'];
 							endforeach; 
 						?>
 						<tr>
@@ -254,12 +254,9 @@ if(!empty($billing_account_list)){
 					
 					unset($title);
 					unset($html);
-				?>
-				<label>
-					Export as: 
-					<a title="PDF" href="<?php echo DOMAIN_NAME . '/processing/exportAsPdf.php';?>">PDF</a>
-					<a title="SpreadSheet" href="<?php echo DOMAIN_NAME . '/processing/exportAsCSV.php';?>">SpreadSheet</a>
-				</label>
+					
+					require_once DOCROOT . '/widgets/convert_pdf_spreadsheet.php'
+				?>				
 			</div>
 		</div>
 
