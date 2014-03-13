@@ -1,5 +1,5 @@
 <?php
-$page_name = 'Cut Instruction not Notified';
+$page_name = 'Overdue Accounts not Notified';
 
 require_once '../../init.php';
 
@@ -46,7 +46,7 @@ if(isset($_GET['View'])) {
 }
 ?>
 
-<div class="sub-menu-title"><h1>Cut Instruction not Notified Report</h1></div>
+<div class="sub-menu-title"><h1>Overdue Accounts not Notified Report</h1></div>
 <form method="get">
 	<div id="rate-selection" class="wrapper-fieldset-forms hover-cursor-pointer">
 		<fieldset class="fieldset-forms">
@@ -121,7 +121,7 @@ if(isset($_GET['View'])) {
 				$html = ob_get_contents();
 				ob_end_flush();
 				
-				$title = 'Cut Instruction Not Notified Report';
+				$title = 'Overdue Accounts not Notified Report';
 				$Session->write('title', $title);
 				$Session->write('content', $html);
 				
