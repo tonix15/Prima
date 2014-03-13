@@ -152,7 +152,7 @@ require DOCROOT . '/template/header.php';
 				<thead>
 					<tr>
 						<th></th>
-						<th>Reading Date</th>
+						<th>Date</th>
 						<th>Reading Amount</th>
 						<th>Consumption</th>
 						<th>Geolocation</th>				
@@ -178,7 +178,7 @@ require DOCROOT . '/template/header.php';
 					?>
 								<tr>
 									<td><a href="<?php echo $image_file; ?>" class="fancybox" title="<?php echo $image_title; ?>"><img style="width:40px; height:40px;" src="<?php echo $image_file; ?>"></a></td>
-									<td class="table-column-text-align-right"><?php echo $reading['ReadingDate'];?></td>
+									<td class="table-column-text-align-center"><?php echo $reading['ReadingDate'];?></td>
 									<td class="table-column-text-align-right"><?php echo number_format($reading['ReadingAmount'], 0, '', ',');?></td>							
 									<td class="table-column-text-align-right"><?php echo number_format($reading['Consumption'], 0, '', ',');?></td>
 									<td class="table-column-text-align-center"><?php echo !empty($geolocation) && !empty($geoCount) && $geoCount == 2 ? "<a href=\"https://maps.google.com/maps?q=$lat,$long&t=m&z=15\" target=\"_new\" style=\"text-decoration:none;\">View Location</a>" : '';?></td>
