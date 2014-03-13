@@ -72,9 +72,9 @@ $errmsg = !empty($data_list) ? '':'<strong>No Entries Found.</strong>';
 								<td><?php echo $report['Meter']; ?></td>
 								<td class="table-column-text-align-center"><?php echo $report['LastReadingDate']; ?></td>
 								<td class="table-column-text-align-center"><?php echo $report['PreviousReadingDate']; ?></td>
-								<td class="table-column-text-align-right"><?php echo round($report['LastReading'], 0); ?></td>
-								<td class="table-column-text-align-right"><?php echo round($report['PreviousReading'], 0); ?></td>
-								<td class="table-column-text-align-right"><?php echo round($report['Consumption'], 0); ?></td>
+								<td class="table-column-text-align-right"><?php echo number_format($report['LastReading'], 0, '', ','); ?></td>
+								<td class="table-column-text-align-right"><?php echo number_format($report['PreviousReading'], 0, '', ','); ?></td>
+								<td class="table-column-text-align-right"><?php echo number_format($report['Consumption'], 0, '', ','); ?></td>
 							</tr>
 					<?php endforeach; 
 						else: echo '<tr><td colspan="8"' . $errmsg . '</td></tr>';
