@@ -39,7 +39,7 @@ if(isset($_GET['View'])){
 		$Session->read('user_company_selection_key')
 	);
 	$data_list = $dbhandler->repOutstandingAgreement($params);
-	$errmsg = !empty($data_list) ? '':'<strong>No Entries Found.</strong>';	
+	$errmsg = !empty($data_list) ? '':'<h2>No Entries Found.</h2>';	
 }
 else if(isset($_GET['View_All'])){ 
 	$buildingPK = 0;
@@ -49,7 +49,7 @@ else if(isset($_GET['View_All'])){
 		$Session->read('user_company_selection_key')
 	);
 	$data_list = $dbhandler->repOutstandingAgreement($params);
-	$errmsg = !empty($data_list) ? '':'<strong>No Entries Found.</strong>';	
+	$errmsg = !empty($data_list) ? '':'<h2>No Entries Found.</h2>';	
 }
 ?>
 
@@ -80,7 +80,7 @@ else if(isset($_GET['View_All'])){
 			</fieldset>
 		</div> <!-- end of building selection -->
 	</form> <!-- end of get form -->
-	
+<?php if(!empty($data_list)):?>	
 	<div class="table-wrapper billing-data-list-container">
 		<div class="wrapper-paging">
 			<ul>
@@ -142,7 +142,9 @@ else if(isset($_GET['View_All'])){
 			?>			
 		</div>
 	</div>
-		
+<?php 
+	else: echo $errmsg;
+	endif; ?>	
 <?php require DOCROOT . '/template/footer.php'; ?>
 <script src="<?php echo DOMAIN_NAME; ?>/js/pagination.js"></script>
 <script type="text/javascript">$(function(){ TABLE.paginate('.billing', 10); });</script>
