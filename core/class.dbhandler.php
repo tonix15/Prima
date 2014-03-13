@@ -378,6 +378,10 @@ class DBHandler extends PDOSQLServerdbhandler {
 		return $this->executeQueryStoredProcedure(SP::CUT_INSTRUCTION_NOT_CUT, $params, $isSingleRecord);
 	}
 	
+	public function repBuildingPortfolioManagerList($params, $isSingleRecord = false){
+		return $this->executeQueryStoredProcedure(SP::BUILDING_PORTFOLIO_MANAGER_LIST, $params, $isSingleRecord);
+	}
+	
 	/** Reason */
 	public function movendusExportReason($params) {
 		return $this->executeQueryStoredProcedure(SP::MOVENDUS_EXPORT_REASON, $params);

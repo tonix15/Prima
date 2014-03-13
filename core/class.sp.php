@@ -168,6 +168,7 @@ class SP {
 	const OUTSTANDING_BILLING_DETAIL = '[rep].[OutstandingBillingDetail]';
 	const CUT_INSTRUCTION_NOT_NOTIFIED = '[rep].[CrManCutInstructionNotNotified]';
 	const CUT_INSTRUCTION_NOT_CUT = '[rep].[CrManCutInstructionNotCut]';
+	const BUILDING_PORTFOLIO_MANAGER_LIST = '[rep].[BuildingPortfolioManagerList]';
 	
 	/** Sage **/
 	const SAGE_IMPORT_DEPOSIT = '[sage].[ImportDeposit]';

@@ -30,7 +30,7 @@
 		//Buildings
 		'REPORTING_BUILDING_BUILDING_RATE_LIST' => DOMAIN_NAME . '/reporting/Buildings/building_rate_list.php',
 		'REPORTING_BUILDING_SQM_METER_ALLOCATION_LIST' => DOMAIN_NAME . '/reporting/Buildings/sqm_meter_allocation_list.php',
-		'REPORTING_BUILDING_PORTFOLIO_MANAGER_LIST' => '#',
+		'REPORTING_BUILDING_PORTFOLIO_MANAGER_LIST' => DOMAIN_NAME . '/reporting/Buildings/portfolio_manager_list.php',
 		//Units
 		'REPORTING_UNITS' => '#',
 		//Customers
