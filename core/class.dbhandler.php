@@ -13,19 +13,19 @@ class DBHandler extends PDOSQLServerdbhandler {
     	return $this->executeQueryStoredProcedure(SP::GET_ADDRESS, $params, $isSingleRecord);
     }
     
-	public function getCutInstruction($params) { //kent 1
+	public function getCutInstruction($params) { 
     	return $this->executeQueryStoredProcedure(SP::GET_CUT_INSTRUCTION, $params);
     }
 
-	public function updateCutInstruction($params) { //kent 2
+	public function updateCutInstruction($params) { 
 		return $this->executeNonQueryStoredProcedure(SP::SET_CUT_INSTRUCTION, $params);
 	}
 	
-	public function getReconnectionInstruction($params) { //kent 3
+	public function getReconnectionInstruction($params) {
     	return $this->executeQueryStoredProcedure(SP::GET_RECONNECTION_INSTRUCTION, $params);
     }
 
-	public function updateReconnectionInstruction($params) { //kent 4
+	public function updateReconnectionInstruction($params) {
 		return $this->executeNonQueryStoredProcedure(SP::SET_RECONNECTION_INSTRUCTION, $params);
 	}
 	
@@ -234,6 +234,12 @@ class DBHandler extends PDOSQLServerdbhandler {
 		return $this->executeNonQueryStoredProcedure(SP::SET_PREFERRED_CONTACT_TYPE, $params);
 	}
 	
+	/** Prepaid Transactions */
+	public function createPrepaidTransactions($params) {
+		return $this->executeNonQueryStoredProcedure(SP::SET_PREPAID_TRANSACTIONS, $params);
+		// $this->getLastInsertId(PrimaDB::PREPAID_TRANSACTIONS_TABLE);
+	}
+	
 	/** Reason Type */
 	public function getReasonType($params, $isSingleRecord = false) {
 		return $this->executeQueryStoredProcedure(SP::GET_REASON_TYPE, $params, $isSingleRecord);
@@ -372,7 +378,7 @@ class DBHandler extends PDOSQLServerdbhandler {
 	
 	public function repCutInstructionNotNotified($params, $isSingleRecord = false){
 		return $this->executeQueryStoredProcedure(SP::CUT_INSTRUCTION_NOT_NOTIFIED, $params, $isSingleRecord);
-	}
+	}	
 
 	public function repCutInstructionNotCut($params, $isSingleRecord = false){
 		return $this->executeQueryStoredProcedure(SP::CUT_INSTRUCTION_NOT_CUT, $params, $isSingleRecord);

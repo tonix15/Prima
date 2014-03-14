@@ -83,11 +83,11 @@ class SP {
 	const GET_CUT_NOTIFICATION = '[get].[CutNotification]';
 	const SET_CUT_NOTIFICATION = '[set].[CutNotification]';
 	
-	/** Cut Instruction */ //Kent 1
+	/** Cut Instruction */
 	const GET_CUT_INSTRUCTION = '[get].[CutInstruction]';
 	const SET_CUT_INSTRUCTION = '[set].[CutInstruction]';
 	
-	/** Reconnection Instruction */ //Kent 2
+	/** Reconnection Instruction */ 
 	const GET_RECONNECTION_INSTRUCTION = '[get].[ReconnectionInstruction]';
 	const SET_RECONNECTION_INSTRUCTION = '[set].[ReconnectionInstruction]';
 	
@@ -126,6 +126,9 @@ class SP {
 	/** Preferred Contact Type */
 	const GET_PREFERRED_CONTACT_TYPE = '[get].[PreferredContactType]';
 	const SET_PREFERRED_CONTACT_TYPE = '[set].[PreferredContactType]';
+	
+	/** Prepaid Transactions */
+	const SET_PREPAID_TRANSACTIONS = '[set].[PrepaidTransactions]';
 	
 	/** Provider */
 	const GET_PROVIDER = '[get].[Provider]';

@@ -38,9 +38,11 @@ if(isset($_GET['View'])){
 		$buildingPK,
 		$Session->read('user_company_selection_key')
 	);
+
 	$data_list = $dbhandler->repOutstandingAgreement($params);
 	$errmsg = !empty($data_list) ? '':'<h2>No Entries Found.</h2>';	
 }
+
 else if(isset($_GET['View_All'])){ 
 	$buildingPK = 0;
 	$params = array(
@@ -48,39 +50,40 @@ else if(isset($_GET['View_All'])){
 		$buildingPK,
 		$Session->read('user_company_selection_key')
 	);
+
 	$data_list = $dbhandler->repOutstandingAgreement($params);
 	$errmsg = !empty($data_list) ? '':'<h2>No Entries Found.</h2>';	
 }
 ?>
 
 <div class="sub-menu-title"><h1>Outstanding Agreement List Report</h1></div>
-	<form method="get" class="hover-cursor-pointer">		
-		<div id="meter-critera" class="wrapper-fieldset-forms">
-			<fieldset class="fieldset-forms clear">
-				<legend>Building Selection</legend>
-				<ul class="fieldset-forms-li-2-cols">
-					<li>Building:</li>
-					<li>
-						<select id="meter-selection-building" class="selection-required-input" name="choose_building">
-							<option value="0">Please choose a building</option>
-							<?php 
-							if (!empty($building_list)) { 
-							foreach($building_list as $building) { 
-								$selected = $buildingPK == $building['BuildingPk'] ? 'selected="' . $building['BuildingPk'] . '"':''; ?>
-								<option <?php echo $selected; ?> value="<?php echo $building['BuildingPk']; ?>"><?php echo $building['Name']; ?></option>
-							<?php } } ?>
-						</select>
-					</li>
-				</ul>
-				<div class="selection-form-submit float-left">
-					<input id="meter-selection-view" type="submit" value="View" name="View"/>
-					<input id="meter-selection-view_all" type="submit" value="View All" name="View_All"/>
-				</div> 
-				<div id="meter-selection-error-box" class="selection-error-box error-box float-left hidden"></div>
-			</fieldset>
-		</div> <!-- end of building selection -->
-	</form> <!-- end of get form -->
-<?php if(!empty($data_list)):?>	
+<form method="get" class="hover-cursor-pointer">		
+	<div id="meter-critera" class="wrapper-fieldset-forms">
+		<fieldset class="fieldset-forms clear">
+			<legend>Building Selection</legend>
+			<ul class="fieldset-forms-li-2-cols">
+				<li>Building:</li>
+				<li>
+					<select id="meter-selection-building" class="selection-required-input" name="choose_building">
+						<option value="0">Please choose a building</option>
+						<?php 
+						if (!empty($building_list)) { 
+						foreach($building_list as $building) { 
+							$selected = $buildingPK == $building['BuildingPk'] ? 'selected="' . $building['BuildingPk'] . '"':''; ?>
+							<option <?php echo $selected; ?> value="<?php echo $building['BuildingPk']; ?>"><?php echo $building['Name']; ?></option>
+						<?php } } ?>
+					</select>
+				</li>
+			</ul>
+			<div class="selection-form-submit float-left">
+				<input id="meter-selection-view" type="submit" value="View" name="View"/>
+				<input id="meter-selection-view_all" type="submit" value="View All" name="View_All"/>
+			</div> 
+			<div id="meter-selection-error-box" class="selection-error-box error-box float-left hidden"></div>
+		</fieldset>
+	</div> <!-- end of building selection -->
+</form> <!-- end of get form -->
+<?php if(!empty($data_list)):?>
 	<div class="table-wrapper billing-data-list-container">
 		<div class="wrapper-paging">
 			<ul>
@@ -112,11 +115,11 @@ else if(isset($_GET['View_All'])){
 							foreach($data_list as $report):
 					?>
 							<tr>
-								<td><?php echo $report['Name']; ?></td>								
+								<td><?php echo $report['BuildingName']; ?></td>								
 								<td class="table-column-text-align-center"><?php echo $report['ERPCode']; ?></td>
 								<td><?php echo $report['Surname']; ?></td>
 								<td><?php echo $report['Initials']; ?></td>
-								<td><?php echo $report['Name']; ?></td>
+								<td><?php echo $report['CustomerName']; ?></td>
 								<td><?php echo $report['Cellphone']; ?></td>
 								<td class="table-column-text-align-center"><?php echo $report['OccupancyDate']; ?></td>
 							</tr>
@@ -142,9 +145,11 @@ else if(isset($_GET['View_All'])){
 			?>			
 		</div>
 	</div>
+		
 <?php 
 	else: echo $errmsg;
-	endif; ?>	
-<?php require DOCROOT . '/template/footer.php'; ?>
+	endif;
+require DOCROOT . '/template/footer.php'; 
+?>
 <script src="<?php echo DOMAIN_NAME; ?>/js/pagination.js"></script>
 <script type="text/javascript">$(function(){ TABLE.paginate('.billing', 10); });</script>

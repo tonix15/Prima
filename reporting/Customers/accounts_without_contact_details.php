@@ -64,7 +64,7 @@ $errmsg = !empty($data_list) ? '':'<strong>No Entries Found.</strong>';
 							<tr>								
 								<td class="table-column-text-align-center"><?php echo $report['AccountNumber']; ?></td>
 								<td><?php echo $report['Surname']; ?></td>
-								<td><?php echo $report['OutstandingAmount']; ?></td>
+								<td class="table-column-text-align-center"><?php echo number_format($report['OutstandingAmount'], 0, '', ','); ?></td>
 							</tr>
 					<?php endforeach; 
 						else: echo '<tr><td colspan="3"' . $errmsg . '</td></tr>';

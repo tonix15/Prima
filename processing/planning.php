@@ -74,18 +74,20 @@ if (isset($_REQUEST['Update'])) {
 	}
 	
 	$len = count($building_termination_period_list);
-	if ($len === count($termination_period_PK)) {
+	// if ($len === count($termination_period_PK)) {
+		$_SESSION['char'] = "";
 		for ($i = 0; $i < $len; $i++) { // Termination
-			if ($building_termination_period_list[$i]['BuildingTerminationPeriodPk'] == $termination_period_PK[$i]) {
+			//$_SESSION['char'] .= "building_termination_period_list[".$i."]['BuildingTerminationPeriodPk'] = ". $building_termination_period_list[$i]['BuildingTerminationPeriodPk'] . "_____" . "REQUEST['termination_period_PK".$i."'] = " . $_REQUEST['termination_period_PK'.$i] . "<br />";
+			if ($building_termination_period_list[$i]['BuildingTerminationPeriodPk'] == $_REQUEST['termination_period_PK'.$i]) {
 				if ($dbhandler->updateBuildingTerminationPeriod(array(
 					$userPK,
 					$building_termination_period_list[$i]['BuildingTerminationPeriodPk'],
 					$building_termination_period_list[$i]['BuildingFk'],
 					$building_termination_period_list[$i]['UnitFk'],
-					$termination_team_PK[$i] > 0 ? $termination_team_PK[$i] : -1,
-					$termination_reading_day[$i],
+					$_REQUEST['termination_team_PK'.$i] > 0 ? $_REQUEST['termination_team_PK'.$i] : -1,
+					$_REQUEST['termination_reading_day'.$i],
 					$building_termination_period_list[$i]['BillingPeriod'],
-					$termination_sequence[$i]
+					$_REQUEST['termination_sequence'.$i]
 				))) {
 					$x[$i] = $i.' - Updated';
 				} else {
@@ -93,9 +95,9 @@ if (isset($_REQUEST['Update'])) {
 				}
 			} 
 		} 
-	} else {
-		$Session->write('Fail', 'Building Termination Period did not update successfully.');
-	}
+	// } else {
+		// $Session->write('Fail', 'Building Termination Period did not update successfully.');
+	// }
 
 	if (!$Session->read('Fail')) {
 		$Session->write('Success', '<strong>Planning and Termination</strong> updated successfully.');
@@ -115,6 +117,7 @@ $building_billing_period_list = $dbhandler->getBuildingBillingPeriod(array($user
 <form id="form-planning" action="" method="post" name="">
 	<div class="sub-menu-title"><h1>Planning</h1></div>
 	<?php 
+		//echo $_SESSION['char'];
 		if ($Session->check('Success')) { 
 			echo '<div class="warning insert-success">' . $Session->read('Success') . '</div>';
 			$Session->sessionUnset('Success');
@@ -269,11 +272,11 @@ $building_billing_period_list = $dbhandler->getBuildingBillingPeriod(array($user
 					<tr>
 						<td>
 							<?php echo $termination_period['BuildingName']; ?>
-							<input type="hidden" name="termination_period_PK[]" value="<?php echo $termination_period['BuildingTerminationPeriodPk']; ?>">
+							<input type="hidden" name="termination_period_PK<?php echo $ctr; ?>" value="<?php echo $termination_period['BuildingTerminationPeriodPk']; ?>">
 						</td>
 						<td><?php echo $termination_period['UnitNumberBk']; ?></td>					
 						<td>						
-							<select name="termination_team_PK[]" id="termination_team_<?php echo $ctr; ?>" class="termination_team" style="width: 150px;">
+							<select name="termination_team_PK<?php echo $ctr; ?>" id="termination_team_<?php echo $ctr; ?>" class="termination_team" style="width: 150px;">
 								<option value="0">Please select...</option>
 								<?php if (!empty($team_list)) { 
 									foreach ($team_list as $team) { 
@@ -282,10 +285,10 @@ $building_billing_period_list = $dbhandler->getBuildingBillingPeriod(array($user
 								<?php } }?>
 							</select>
 						</td>
-						<td><input type="date" id="termination_reading_day_<?php echo $ctr; ?>" class="termination_reading_day" name="termination_reading_day[]" value="<?php echo $termination_period['ReadingDay'];?>"></td>
-						<td><input type="text" class="input-integer billing_sequence" name="termination_sequence[]" value="<?php echo $termination_period['Sequence']; ?>" style="margin-top: 5px;width: 55px;"/></td>
+						<td><input type="date" id="termination_reading_day_<?php echo $ctr; ?>" class="termination_reading_day" name="termination_reading_day<?php echo $ctr; ?>" value="<?php echo $termination_period['ReadingDay'];?>"></td>
+						<td><input type="text" class="input-integer billing_sequence" name="termination_sequence<?php echo $ctr; ?>" value="<?php echo $termination_period['Sequence']; ?>" style="margin-top: 5px;width: 55px;"/></td>
 					</tr>
-					<?php $ctr++; } } }?>
+					<?php } $ctr++; } }?>
 				</tbody>
 			</table>
 			<?php if (empty($building_termination_period_list)) { ?>
@@ -304,6 +307,7 @@ $building_billing_period_list = $dbhandler->getBuildingBillingPeriod(array($user
 				Export as: 
 				<a title="PDF" href="<?php echo DOMAIN_NAME . '/processing/exportAsPdf.php?tab=termination'; ?>">PDF</a> 
 				<a title="SpreadSheet" href="<?php echo DOMAIN_NAME . '/processing/exportAsCSV.php?tab=termination';?>">SpreadSheet</a>
+				<a title="SpreadSheet" href="<?php echo DOMAIN_NAME . '/processing/PDF.php';?>">Cut Notice PDF</a>
 			</label>
 			<?php 
 				//Buffer the html table with PHP to be stored in variable
@@ -322,16 +326,24 @@ $building_billing_period_list = $dbhandler->getBuildingBillingPeriod(array($user
 				<tbody>
 					<?php if (!empty($building_termination_period_list)) { 
 						$ctr = 0;
-					foreach ($building_termination_period_list as $termination_period) { 
-						if ( $termination_period['IsCutInstruction'] && !$termination_period['IsReconnection'] )  {?>
+						$i = 0;
+						$_SESSION['cut_instruction_pdf'] = Array();
+						foreach ($building_termination_period_list as $termination_period) { 
+							if ( $termination_period['IsCutInstruction'] && !$termination_period['IsReconnection'] )  {
+								$_SESSION['cut_instruction_pdf'][$i++] = array('CuttingDay'=>$termination_period['ReadingDay'] ,
+																									   'ClientName'=>$termination_period['ClientName'] ,
+																									   'BuildingName'=>$termination_period['BuildingName'] ,
+																									   'UnitNumberBk'=>$termination_period['UnitNumberBk'] ,
+																									   'OutstandingAmount'=>$termination_period['OutstandingAmount']);
+					?>
 					<tr>
 						<td>
 							<?php echo $termination_period['BuildingName']; ?>
-							<input type="hidden" name="termination_period_PK[]" value="<?php echo $termination_period['BuildingTerminationPeriodPk']; ?>">
+							<input type="hidden" name="termination_period_PK<?php echo $ctr; ?>" value="<?php echo $termination_period['BuildingTerminationPeriodPk']; ?>">
 						</td>
 						<td><?php echo $termination_period['UnitNumberBk']; ?></td>					
 						<td>						
-							<select name="termination_team_PK[]" id="termination_team_<?php echo $ctr; ?>" class="termination_team" style="width: 150px;">
+							<select name="termination_team_PK<?php echo $ctr; ?>" id="termination_team_<?php echo $ctr; ?>" class="termination_team" style="width: 150px;">
 								<option value="0">Please select...</option>
 								<?php if (!empty($team_list)) { 
 									foreach ($team_list as $team) { 
@@ -340,10 +352,10 @@ $building_billing_period_list = $dbhandler->getBuildingBillingPeriod(array($user
 								<?php } }?>
 							</select>
 						</td>
-						<td><input type="date" id="termination_reading_day_<?php echo $ctr; ?>" class="termination_reading_day" name="termination_reading_day[]" value="<?php echo $termination_period['ReadingDay'];?>"></td>
-						<td><input type="text" class="input-integer billing_sequence" name="termination_sequence[]" value="<?php echo $termination_period['Sequence']; ?>" style="margin-top: 5px;width: 55px;"/></td>
+						<td><input type="date" id="termination_reading_day_<?php echo $ctr; ?>" class="termination_reading_day" name="termination_reading_day<?php echo $ctr; ?>" value="<?php echo $termination_period['ReadingDay'];?>"></td>
+						<td><input type="text" class="input-integer billing_sequence" name="termination_sequence<?php echo $ctr; ?>" value="<?php echo $termination_period['Sequence']; ?>" style="margin-top: 5px;width: 55px;"/></td>
 					</tr>
-					<?php $ctr++; } } }?>
+					<?php } $ctr++; } }?>
 				</tbody>
 			</table>
 			<?php if (empty($building_termination_period_list)) { ?>
@@ -385,11 +397,11 @@ $building_billing_period_list = $dbhandler->getBuildingBillingPeriod(array($user
 					<tr>
 						<td>
 							<?php echo $termination_period['BuildingName']; ?>
-							<input type="hidden" name="termination_period_PK[]" value="<?php echo $termination_period['BuildingTerminationPeriodPk']; ?>">
+							<input type="hidden" name="termination_period_PK<?php echo $ctr; ?>" value="<?php echo $termination_period['BuildingTerminationPeriodPk']; ?>">
 						</td>
 						<td><?php echo $termination_period['UnitNumberBk']; ?></td>					
 						<td>						
-							<select name="termination_team_PK[]" id="termination_team_<?php echo $ctr; ?>" class="termination_team" style="width: 150px;">
+							<select name="termination_team_PK<?php echo $ctr; ?>" id="termination_team_<?php echo $ctr; ?>" class="termination_team" style="width: 150px;">
 								<option value="0">Please select...</option>
 								<?php if (!empty($team_list)) { 
 									foreach ($team_list as $team) { 
@@ -398,10 +410,10 @@ $building_billing_period_list = $dbhandler->getBuildingBillingPeriod(array($user
 								<?php } }?>
 							</select>
 						</td>
-						<td><input type="date" id="termination_reading_day_<?php echo $ctr; ?>" class="termination_reading_day" name="termination_reading_day[]" value="<?php echo $termination_period['ReadingDay'];?>"></td>
-						<td><input type="text" class="input-integer billing_sequence" name="termination_sequence[]" value="<?php echo $termination_period['Sequence']; ?>" style="margin-top: 5px;width: 55px;"/></td>
+						<td><input type="date" id="termination_reading_day_<?php echo $ctr; ?>" class="termination_reading_day" name="termination_reading_day<?php echo $ctr; ?>" value="<?php echo $termination_period['ReadingDay'];?>"></td>
+						<td><input type="text" class="input-integer billing_sequence" name="termination_sequence<?php echo $ctr; ?>" value="<?php echo $termination_period['Sequence']; ?>" style="margin-top: 5px;width: 55px;"/></td>
 					</tr>
-					<?php $ctr++; } } }?>
+					<?php } $ctr++; } }?>
 				</tbody>
 			</table>
 			<?php if (empty($building_termination_period_list)) { ?>

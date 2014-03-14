@@ -100,7 +100,7 @@ else if (isset($_POST['Cancel'])) {
 								<td class="table-column-text-align-center"><?php echo $report['DisplayName']; ?></td>
 								<td class="table-column-text-align-center"><?php echo $report['Name']; ?></td>
 								<td class="table-column-text-align-right"><?php echo $report['UnitNumber']; ?></td>
-								<td class="table-column-text-align-center"><?php echo $report['UtilityType']; ?></td>
+								<td><?php echo $report['UtilityType']; ?></td>
 								<?php $reading_anchor = DOMAIN_NAME . '/reporting/Meters/reading_review.php?choose_building=' . $report['BuildingFk'] . '&choose_unit=' . $report['UnitPk'] . '&choose_meter=' . $report['MeterPk'] . '&View=View'; ?>
 								<td class="table-column-text-align-right"><?php echo '<a href="' .$reading_anchor . '" target="_blank">' . $report['MeterNumber'] . '</a>'; ?></td>
 							</tr>

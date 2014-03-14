@@ -14,6 +14,7 @@ class PrimaDB {
 	const FIXEDFEE_TABLE = 'FixedFee';
 	const LANGUAGE_TYPE_TABLE = 'LanguageType';
 	const PREFERRED_CONTACT_TYPE_TABLE = 'PreferredContactType';
+	const PREPAID_TRANSACTIONS_TABLE= 'PrepaidTransactions';
 	const READING_TABLE = 'Reading';
 	const REASON_TYPE_TABLE = 'ReasonType';
 	const TEAM_TABLE = 'Team';

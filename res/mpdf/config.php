@@ -137,7 +137,7 @@ $this->ICCProfile = '';				// Colour profile OutputIntent
 
 
 // DEBUGGING & DEVELOPERS
-$this->showStats = false;
+$this->showStats =false;
 $this->debug = false;
 $this->debugfonts = false;	// Checks and reports on errors when parsing TTF files - adds significantly to processing time
 $this->showImageErrors = false;

@@ -1220,7 +1220,7 @@ $(document).ready(function(e) {
     		}
     		
     	} else {
-    		alert('An error occured in the planning page.');
+    		//alert('An error occured in the planning-billing page.');
     	}
     	
     	team_list = $('select[name="termination_team_PK[]"]');
@@ -1244,7 +1244,7 @@ $(document).ready(function(e) {
     		}
     		
     	} else {
-    		alert('An error occured in the planning page.');
+    		//alert('An error occured in the planning-termination page.');
     	}
    
     	
@@ -1259,7 +1259,7 @@ $(document).ready(function(e) {
     	} 
     	
     	return billingHasNoError && terminationHasNoError;
-    });
+    });     /** End Save Planning */
     
     $('.planning-period-selection').change(function() {
     	removeErrorInput('#billing_period_month');

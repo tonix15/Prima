@@ -28,9 +28,9 @@
 		$mpdf->charset_in = 'UTF-8';
 		
 		$mpdf->SetImportUse();	
-		$img = $mpdf->SetSourceFile(DOCROOT . '/res/Logo.pdf');	
-		$id = $mpdf->ImportPage($img);	
-		$mpdf->UseTemplate($id);	
+		//$img = $mpdf->SetSourceFile(DOCROOT . '/res/Logo.pdf');	
+		//$id = $mpdf->ImportPage($img);	
+		//$mpdf->UseTemplate($id);	
 		
 		//Set title of PDF
 		$pdfTitle = $Session->read('title');
