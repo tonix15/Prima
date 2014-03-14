@@ -48,7 +48,7 @@ $errmsg = !empty($data_list) ? '':'<strong>No Entries Found.</strong>';
 				//Buffer the html table with PHP to be stored in variable
 				ob_start(); 
 			?>
-			<table class="billing scrollable planning-table planning-table-striped planning-table-hover">
+			<table class="billing scrollable planning-table planning-table-striped planning-table-hover" style="width:65%;">
 				<thead>
 					<tr>
 						<th>Building</th>												

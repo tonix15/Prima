@@ -48,7 +48,7 @@ $errmsg = !empty($data_list) ? '':'<strong>No Entries Found.</strong>';
 				//Buffer the html table with PHP to be stored in variable
 				ob_start(); 
 			?>
-			<table class="billing scrollable planning-table planning-table-striped planning-table-hover">
+			<table class="billing scrollable planning-table planning-table-striped planning-table-hover" style="width:77%;">
 				<thead>
 					<tr>
 						<th>Segment</th>
@@ -64,7 +64,7 @@ $errmsg = !empty($data_list) ? '':'<strong>No Entries Found.</strong>';
 							foreach($data_list as $report):
 					?>
 							<tr>
-								<td class="table-column-text-align-center"><?php echo $report['Segment']; ?></td>
+								<td><?php echo $report['Segment']; ?></td>
 								<?php
 									$percent_average = $report['average'] * 100;
 									$percent_minimum = $report['minimum'] * 100;
