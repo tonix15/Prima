@@ -90,6 +90,8 @@ class SP {
 	/** Reconnection Instruction */ 
 	const GET_RECONNECTION_INSTRUCTION = '[get].[ReconnectionInstruction]';
 	const SET_RECONNECTION_INSTRUCTION = '[set].[ReconnectionInstruction]';
+	const GET_INSTANT_RECONNECTION_INSTRUCTION = '[get].[InstantReconnectionInstruction]';
+	const SET_INSTANT_RECONNECTION_INSTRUCTION = '[set].[InstantReconnectionInstruction]';
 	
 	/** Invoice */
 	const GET_INVOICE = '[get].[Invoice]';

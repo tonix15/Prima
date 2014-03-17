@@ -16,6 +16,7 @@
 		'PROCESSING_PLANNING' => DOMAIN_NAME . '/processing/planning.php',
 		'PROCESSING_REASONABILITY' => DOMAIN_NAME . '/processing/reasonability.php',
 		'PROCESSING_INVOICING' => DOMAIN_NAME . '/processing/invoicing.php',
+		'PROCESSING_IMPORT_PREPAID_TRANSACTIONS' => DOMAIN_NAME . '/processing/import/prepaid_transactions.php',
 		//Credit Management		
 		'CREDIT_MANAGEMENT_CUT_NOTIFICATION_OVERDUE_ACCOUNTS' => DOMAIN_NAME . '/credit_management/Cut_Notification/overdue_accounts.php',
 		'CREDIT_MANAGEMENT_CUT_NOTIFICATION_OUTSTANDING_AGREEMENTS' => '#',
@@ -49,6 +50,7 @@
 		'REPORTING_METERS_READING_VARIANCE_PARAMETER_ANALYSIS' => DOMAIN_NAME . '/reporting/Meters/reading_variance_parameter_analysis.php',
 		'REPORTING_METERS_INTERNAL_PREPAID_METER_LIST' => DOMAIN_NAME . '/reporting/Meters/internal_prepaid_meter_list.php',
 		'REPORTING_METERS_INTERNAL_PREPAID_METER_REASONABILITY' => '#',
+		// 'QUERY AND REPORTING.METER.IMPORT FILE ANALYSIS
 		'REPORTING_METERS_RATE_SPECIFIC_METER_LIST' => DOMAIN_NAME . '/reporting/Meters/rate_specific_meter_list.php',
 		'REPORTING_BILLING_OUTSTANDING_BILLING_LIST' => DOMAIN_NAME . '/reporting/Billing/outstanding_billing_list.php',
 		'REPORTING_BILLING_OUTSTANDING_BILLING_DETAIL' => DOMAIN_NAME . '/reporting/Billing/outstanding_billing_detail.php',
@@ -177,6 +179,12 @@
 					echo '<li><a href="' . $path_constants['PROCESSING_PLANNING'] . '">Planning</a></li>'; 
 					echo '<li><a href="' . $path_constants['PROCESSING_REASONABILITY'] . '">Reasonability</a></li>';
 					echo '<li><a href="' . $path_constants['PROCESSING_INVOICING'] . '">Invoicing</a></li>';
+					echo '<li>'; 
+						echo '<a href="#">Import</a>';
+						echo '<ul>';
+								echo '<li><a href="' . $path_constants['PROCESSING_IMPORT_PREPAID_TRANSACTIONS'] . '">Prepaid Transactions</a></li>';
+						echo '</ul>';
+					echo '</li>';
 					break;
 				}
 				else if($user_menu['Menu'] == 'PROCESSING.PLANNING'){
@@ -260,7 +268,7 @@
         <ul class="sub-menu">
 		<?php 
 			foreach($business_function_user_menu_data as $user_menu){		
-				if($user_menu['Menu'] == 'QUERY AND REPORTING'){
+				if($user_menu['Menu'] == 'REPORTING'){
 					echo '<li><a href="' . $path_constants['REPORTING_PROVIDERS'] . '">Providers</a></li>';
 					
 					echo '<li>'; 

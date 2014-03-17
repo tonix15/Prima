@@ -25,6 +25,14 @@ class DBHandler extends PDOSQLServerdbhandler {
     	return $this->executeQueryStoredProcedure(SP::GET_RECONNECTION_INSTRUCTION, $params);
     }
 
+	public function updateInstantReconnectionInstruction($params) {
+		return $this->executeNonQueryStoredProcedure(SP::SET_INSTANT_RECONNECTION_INSTRUCTION, $params);
+	}
+	
+	public function getInstantReconnectionInstruction($params) {
+    	return $this->executeQueryStoredProcedure(SP::GET_INSTANT_RECONNECTION_INSTRUCTION, $params);
+    }
+
 	public function updateReconnectionInstruction($params) {
 		return $this->executeNonQueryStoredProcedure(SP::SET_RECONNECTION_INSTRUCTION, $params);
 	}

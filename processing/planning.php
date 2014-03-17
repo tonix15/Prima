@@ -304,10 +304,15 @@ $building_billing_period_list = $dbhandler->getBuildingBillingPeriod(array($user
 		<!-- -----CUT INSTRUCTION----- -->
 		<div id="planning-cut_instruction-content" class="hidden tab-content">
 			<label>
-				Export as: 
-				<a title="PDF" href="<?php echo DOMAIN_NAME . '/processing/exportAsPdf.php?tab=termination'; ?>">PDF</a> 
+				Export as: &nbsp;
+				<a title="PDF" href="<?php echo DOMAIN_NAME . '/processing/exportAsPdf.php?tab=termination'; ?>">PDF</a> &nbsp;
 				<a title="SpreadSheet" href="<?php echo DOMAIN_NAME . '/processing/exportAsCSV.php?tab=termination';?>">SpreadSheet</a>
-				<a title="SpreadSheet" href="<?php echo DOMAIN_NAME . '/processing/PDF.php';?>">Cut Notice PDF</a>
+			</label>
+			<br />
+			<label>
+				Print Disconnection Notice to: &nbsp;
+				<a title="PDF File" href="#">PDF</a> &nbsp;
+				<a title="Direct to Printer" href="<?php echo DOMAIN_NAME . '/processing/print_disconnection.php';?>">Printer</a>
 			</label>
 			<?php 
 				//Buffer the html table with PHP to be stored in variable
