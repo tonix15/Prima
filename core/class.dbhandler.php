@@ -280,6 +280,10 @@ class DBHandler extends PDOSQLServerdbhandler {
 		return $this->executeQueryStoredProcedure(SP::GET_READING, $params, $isSingleRecord);
 	}
 	
+	public function getReadingAdjust($params, $isSingleRecord = false) {
+		return $this->executeQueryStoredProcedure(SP::GET_READING_ADJUST, $params, $isSingleRecord);
+	}
+	
 	public function createScale($params) {
 		$this->executeNonQueryStoredProcedure(SP::SET_SCALE, $params);
 		return $this->getLastInsertId(PrimaDB::SCALE_TABLE);
@@ -398,6 +402,10 @@ class DBHandler extends PDOSQLServerdbhandler {
 	
 	public function repInternalPrepaidMeterList($params, $isSingleRecord = false){
 		return $this->executeQueryStoredProcedure(SP::INTERNAL_PREPAID_METER_LIST, $params, $isSingleRecord);
+	}
+	
+	public function repStandbyCutList($params, $isSingleRecord = false){
+		return $this->executeQueryStoredProcedure(SP::STANDBY_CUT_LIST, $params, $isSingleRecord);
 	}
 	
 	/** Reason */

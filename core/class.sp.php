@@ -115,6 +115,7 @@ class SP {
 	const MOVENDUS_EXPORT_TERMINATION_METER = '[movendus].[ExportTerminationMeter]';
 	const GET_READING = '[get].[Reading]';
 	const SET_READING = '[set].[Reading]';
+	const GET_READING_ADJUST = '[get].[ReadingAdjust]';
 	const GET_METER = '[get].[Meter]';
 	const SET_METER = '[set].[Meter]';
 	const VAL_METER_IN_ACTIVE_RATE = '[val].[MeterInActiveRate]';
@@ -146,9 +147,6 @@ class SP {
 	const GET_SCALE = '[get].[Scale]';
 	const SET_SCALE = '[set].[Scale]';
 	
-	const READING_AFTER_VACANCY_DATE = '[val].[ReadingAfterVacancyDate]';
-	const READING_NEGATIVE = '[val].[ReadingNegative]';
-	
 	/** Reason */
 	const MOVENDUS_EXPORT_REASON = '[movendus].[ExportReason]';
 	
@@ -175,6 +173,7 @@ class SP {
 	const CUT_INSTRUCTION_NOT_CUT = '[rep].[CrManCutInstructionNotCut]';
 	const BUILDING_PORTFOLIO_MANAGER_LIST = '[rep].[BuildingPortfolioManagerList]';
 	const INTERNAL_PREPAID_METER_LIST = '[rep].[InternalPrepaidMeterList]';
+	const STANDBY_CUT_LIST = '[rep].[StandbyCutList]';
 	
 	/** Sage **/
 	const SAGE_IMPORT_DEPOSIT = '[sage].[ImportDeposit]';
@@ -224,5 +223,7 @@ class SP {
 	const VAL_METER_OVERLAP_PERIOD = '[val].[MeterOverlapPeriod]';
 	const VAL_METER_DECOMMISSIONED_ISACTIVE = '[val].[MeterDecommisionedIsActive]';
 	const VAL_METER_DECOMMISSIONED_WITHOUT_REPLACEMENT = '[val].[MeterDecommisionedWithoutReplacement]';
+	const READING_AFTER_VACANCY_DATE = '[val].[ReadingAfterVacancyDate]';
+	const READING_NEGATIVE = '[val].[ReadingNegative]';
 }
 ?>

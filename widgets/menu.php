@@ -62,6 +62,7 @@
 		'REPORTING_CREDIT_MANAGEMENT_AGREEMENT_OUTSTANDING_NOT_NOTIFIED' => '#',
 		'REPORTING_CREDIT_MANAGEMENT_NOTIFIED_ACCOUNTS_NOT_CUT' => DOMAIN_NAME . '/reporting/Credit_Management/notified_accounts_not_cut.php',
 		'REPORTING_CREDIT_MANAGEMENT_SETTLED_ACCOUNTS_NOT_RECONNECTED' => '#',
+		'REPORTING_CREDIT_MANAGEMENT_STANDBY_CUT_LIST' => DOMAIN_NAME . '/reporting/Credit_Management/standby_cut_list.php',
 		/** System Validation */
 		'SYSTEM_VALIDATION_PROVIDERS_PROVIDERS_WITH_NO_RATES' => DOMAIN_NAME . '/system_validation/Providers/providers_with_no_rates.php',
 		'SYSTEM_VALIDATION_RATES_RATES_WITH_NO_RETAIL_OR_BULK_RATE' => DOMAIN_NAME . '/system_validation/Rates/rates_with_no_retail_or_bulk_rate.php',
@@ -92,7 +93,8 @@
 		'SYSTEM_ADMINISTRATION_PARAMETERS' => DOMAIN_NAME . '/sysadmin/parameters.php',
 		'SYSTEM_ADMINISTRATION_COMPANY'=> DOMAIN_NAME . '/sysadmin/company.php',
 		'SYSTEM_ADMINISTRATION_BUSINESS_FUNCTION' => DOMAIN_NAME . '/sysadmin/business.php',
-		'SYSTEM_ADMINISTRATION_USER' => DOMAIN_NAME . '/sysadmin/user.php'
+		'SYSTEM_ADMINISTRATION_USER' => DOMAIN_NAME . '/sysadmin/user.php',
+		'SYSTEM_ADMINISTRATION_MANUAL_READING_ADJUSTMENT' => DOMAIN_NAME . '/sysadmin/manual_reading_adjustment.php'
 	);
 	
 	//Business Function Menu
@@ -268,7 +270,7 @@
         <ul class="sub-menu">
 		<?php 
 			foreach($business_function_user_menu_data as $user_menu){		
-				if($user_menu['Menu'] == 'REPORTING'){
+				if($user_menu['Menu'] == 'QUERY AND REPORTING'){
 					echo '<li><a href="' . $path_constants['REPORTING_PROVIDERS'] . '">Providers</a></li>';
 					
 					echo '<li>'; 
@@ -338,6 +340,7 @@
 								echo '<li><a href="' . $path_constants['REPORTING_CREDIT_MANAGEMENT_AGREEMENT_OUTSTANDING_NOT_NOTIFIED'] . '">Agreement Outstanding not Notified</a><li>';
 								echo '<li><a href="' . $path_constants['REPORTING_CREDIT_MANAGEMENT_NOTIFIED_ACCOUNTS_NOT_CUT'] . '">Notified Accounts not Cut</a><li>';
 								echo '<li><a href="' . $path_constants['REPORTING_CREDIT_MANAGEMENT_SETTLED_ACCOUNTS_NOT_RECONNECTED'] . '">Settled Accounts not Reconnected</a><li>';
+								echo '<li><a href="' . $path_constants['REPORTING_CREDIT_MANAGEMENT_STANDBY_CUT_LIST'] . '">Standby Cut List</a><li>';
 						echo '</ul>';
 					echo '</li>';
 					break;
@@ -415,7 +418,7 @@
     </li><!-- end of System Validation -->
 	
     <li><a href="#">System Administration</a>
-		<ul class="sub-menu">      
+		<ul class="sub-menu" style="width: 197px;">      
 		<?php 
 			foreach($business_function_user_menu_data as $user_menu){	
 				if($user_menu['Menu'] == 'SYSTEM ADMINISTRATION' || $userPK == 1){
@@ -423,6 +426,7 @@
 					echo '<li><a href="' . $path_constants['SYSTEM_ADMINISTRATION_COMPANY'] . '">Company</a></li>'; 
 					echo '<li><a href="' . $path_constants['SYSTEM_ADMINISTRATION_BUSINESS_FUNCTION'] . '">Business Function</a></li>'; 
 					echo '<li><a href="' . $path_constants['SYSTEM_ADMINISTRATION_USER'] . '">User</a></li>';
+					echo '<li><a href="' . $path_constants['SYSTEM_ADMINISTRATION_MANUAL_READING_ADJUSTMENT'] . '">Manual Reading Adjustment</a></li>';
 					break;
 				}
 				else if($user_menu['Menu'] == 'SYSTEM ADMINISTRATION.PARAMETERS'){
@@ -439,6 +443,10 @@
 				}
 				else if($user_menu['Menu'] == 'SYSTEM ADMINISTRATION.USER'){
 					echo '<li><a href="' . $path_constants['SYSTEM_ADMINISTRATION_USER'] . '">User</a></li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'SYSTEM ADMINISTRATION.MANUAL READING ADJUSTMENT'){
+					echo '<li><a href="' . $path_constants['SYSTEM_ADMINISTRATION_MANUAL_READING_ADJUSTMENT'] . '">Manual Reading Adjustment</a></li>';
 					break;
 				}
 			}	

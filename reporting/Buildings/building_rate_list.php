@@ -95,8 +95,7 @@ $errmsg = !empty($data_list) ? '':'<strong>No Entries Found.</strong>';
 				require_once DOCROOT . '/widgets/convert_pdf_spreadsheet.php'
 			?>			
 		</div>
-	</div>
-		
+	</div>		
 <?php require DOCROOT . '/template/footer.php'; ?>
 <script src="<?php echo DOMAIN_NAME; ?>/js/modernizr.custom.min.js"></script>
 <script src="<?php echo DOMAIN_NAME; ?>/js/input.date.sniffer.js"></script>
