@@ -157,7 +157,7 @@ require DOCROOT . '/template/header.php';
 						<tr>
 							<?php $temp = explode(' ', $report['ReadingDate']); ?>
 							<td class="table-column-text-align-center"><?php echo $temp[0]; ?></td>								
-							<td class="table-column-text-align-right"><?php echo $report['ReadingAmount']; ?></td>
+							<td class="table-column-text-align-right"><?php echo number_format($report['ReadingAmount'], 0, '', ','); ?></td>
 							<td class="table-column-text-align-center"><?php echo $report['IsBilled']; ?></td>
 							<td class="table-column-text-align-right"><?php echo $report['GeoLocation']; ?></td>
 						</tr>
