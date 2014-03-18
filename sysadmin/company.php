@@ -69,6 +69,10 @@ $company_cost_sales_account = '';
 $company_deposit_erp_segment = '';
 $company_notification_erp_segment = '';
 $company_reconnection_erp_segment = '';
+$company_provision_account = '';
+$company_provision_batch_id = '';
+$company_debtors_control_account = '';
+$company_tax_control_account = '';
 
 // UI
 $view_class = 'hidden';
@@ -122,6 +126,10 @@ if(isset($_GET['View'])){
 	$company_deposit_erp_segment = $company_data['DepositERPSegment'];
 	$company_notification_erp_segment = $company_data['NotificationERPSegment'];
 	$company_reconnection_erp_segment = $company_data['ReconnectionERPSegment'];
+	$company_provision_account = $company_data['ProvisionAccount'];
+	$company_provision_batch_id = $company_data['ProvisionBatchId'];
+	$company_debtors_control_account = $company_data['DebtorsControlAccount'];
+	$company_tax_control_account = $company_data['TaxControlAccount'];
 }
 
 //Create Button Actions(HTTP GET METHOD)
@@ -217,6 +225,14 @@ if(isset($_POST['Create'])){
 	$company_notification_erp_segment = !empty($_POST['Notification_ERP_Segment']) ? Sanitize::sanitizeStr($_POST['Notification_ERP_Segment']) : NULL;
 	//Cost of Sales Account
 	$company_reconnection_erp_segment = !empty($_POST['Reconnection_ERP_Segment']) ? Sanitize::sanitizeStr($_POST['Reconnection_ERP_Segment']) : NULL;
+	//Provision Account
+	$company_provision_account = !empty($_POST['Reconnection_ERP_Segment']) ? $_POST['Reconnection_ERP_Segment'] : NULL;
+	//Provision Batch Id
+	$company_provision_batch_id = !empty($_POST['Reconnection_ERP_Segment']) ? $_POST['Reconnection_ERP_Segment'] : 0;
+	//Debtors Control Account
+	$company_debtors_control_account = !empty($_POST['Reconnection_ERP_Segment']) ? $_POST['Reconnection_ERP_Segment'] : 0;
+	//Tax Control Account
+	$company_tax_control_account = !empty($_POST['Reconnection_ERP_Segment']) ? $_POST['Reconnection_ERP_Segment'] : 0;
 	
 	//Address
 	$address_params = array(
@@ -261,17 +277,21 @@ if(isset($_POST['Create'])){
 		$company_cost_sales_account,
 		$company_deposit_erp_segment,
 		$company_notification_erp_segment,
-		$company_reconnection_erp_segment
+		$company_reconnection_erp_segment,
+		$company_provision_account,
+		$company_provision_batch_id,
+		$company_debtors_control_account,
+		$company_tax_control_account
 	);
 	
 	//Get Last Inserted Id for Company
-	/* $CompanyLastInsertedId = $Company->createCompany($company_params);
+	$CompanyLastInsertedId = $Company->createCompany($company_params);
 	
 	if(!empty($CompanyLastInsertedId) || $CompanyLastInsertedId > 0){
 		$Session->write('Success', '<strong>' . $company_name . '</strong> created successfully.');
 		header('Location:' . DOMAIN_NAME . Sanitize::sanitizeStr($_SERVER['PHP_SELF']));		
 		exit();		
-	} */
+	}
 }
 
 //Update Button Action
@@ -326,8 +346,12 @@ else if(isset($_POST['Update'])){
 	$company_cost_sales_account = !empty($_POST['cost_sales_account']) ? Sanitize::sanitizeStr($_POST['cost_sales_account']) : '';
 	$company_deposit_erp_segment = !empty($_POST['deposit_erp_segment']) ? Sanitize::sanitizeStr($_POST['deposit_erp_segment']) : '';
 	$company_notification_erp_segment = !empty($_POST['notification_erp_segment']) ? Sanitize::sanitizeStr($_POST['notification_erp_segment']) : '';
-	$company_reconnection_erp_segment = !empty($_POST['reconnection_erp_segment']) ? Sanitize::sanitizeStr($_POST['reconnection_erp_segment']) : '';
-
+	$company_reconnection_erp_segment = !empty($_POST['reconnection_erp_segment']) ? Sanitize::sanitizeStr($_POST['reconnection_erp_segment']) : '';	
+	$company_provision_account = !empty($_POST['Reconnection_ERP_Segment']) ? Sanitize::sanitizeStr($_POST['Reconnection_ERP_Segment']) : NULL;
+	$company_provision_batch_id = !empty($_POST['Reconnection_ERP_Segment']) ? $_POST['Reconnection_ERP_Segment'] : 0;
+	$company_debtors_control_account = !empty($_POST['Reconnection_ERP_Segment']) ? $_POST['Reconnection_ERP_Segment'] : 0;
+	$company_tax_control_account = !empty($_POST['Reconnection_ERP_Segment']) ? $_POST['Reconnection_ERP_Segment'] : 0;
+	
 	$address_params = array(
 		$userPK,
 		$company_data['CompanyAddressFk'],
@@ -368,7 +392,11 @@ else if(isset($_POST['Update'])){
 		$company_cost_sales_account,
 		$company_deposit_erp_segment,
 		$company_notification_erp_segment,
-		$company_reconnection_erp_segment
+		$company_reconnection_erp_segment,
+		$company_provision_account,
+		$company_provision_batch_id,
+		$company_debtors_control_account,
+		$company_tax_control_account
 	);
 	
 	$updateStatus = $Company->updateCompany($company_params);
@@ -541,6 +569,14 @@ else if (isset($_POST['Cancel'])) {
 				<li><input type="text" class="Notification_ERP_Segment" name="notification_erp_segment" value="<?php echo $company_notification_erp_segment; ?>" /></li>
 				<li><label>Reconnection ERP Segment:</label></li>
 				<li><input type="text" class="Reconnection_ERP_Segment" name="reconnection_erp_segment" value="<?php echo $company_reconnection_erp_segment; ?>" /></li>
+				<li><label>Provision Account:</label></li>
+				<li><input type="text" class="provision_account" name="provision_account" value="<?php echo $company_provision_account; ?>" /></li>
+				<li><label>Provision Batch Id:</label></li>
+				<li><input type="text" class="provision_batch_id" name="provision_batch_id" value="<?php echo $company_provision_batch_id; ?>" /></li>
+				<li><label>Debtors Control Account:</label></li>
+				<li><input type="text" class="debtors_control_account" name="debtors_control_account" value="<?php echo $company_debtors_control_account; ?>" /></li>
+				<li><label>Tax Control Account:</label></li>
+				<li><input type="text" class="tax_control_account" name="tax_control_account" value="<?php echo $company_tax_control_account; ?>" /></li>
 			</ul>
 		</fieldset>
 	</div><!-- end of #company-global-charges -->

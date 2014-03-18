@@ -37,6 +37,7 @@ $user_data = '';
 $user_login = '';
 $user_name = '';
 $user_password = '';
+$user_cellphone = '';
 $user_isActive = '';
 $user_isAbsent = '';
 $user_isSystemGeneratedPassword = 0;
@@ -96,6 +97,7 @@ if(isset($_GET['View'])){
 	$user_login = $user_data['UserEmail'];
 	$user_name = $user_data['DisplayName'];
 	$user_password = $user_data['Password'];	
+	$user_cellphone = $user_data['Cellphone'];
 	$user_isActive = $user_data['IsActive'] == 1 ? 'checked':'';
 	$user_isAbsent = $user_data['IsAbsent'] == 1 ? 'checked':'';
 	$TeamFK = $user_data['TeamFk'];
@@ -133,6 +135,7 @@ if(isset($_POST['Create'])) {
 	$user_name = Sanitize::sanitizeStr($_POST['user_name']);
 	$user_password_plaintext = Sanitize::sanitizeStr($_POST['password']);	
 	$user_password = Bcrypt::hash($user_password_plaintext, 32);
+	$user_cellphone = $_POST['user_cellphone'];
 	$user_isActive = $_POST['user_isActive_value'];
 	$user_isAbsent = $_POST['user_isAbsent_value'];	
 	$TeamFK = !empty($_POST['user_team']) ? $_POST['user_team'] : -1;
@@ -148,7 +151,8 @@ if(isset($_POST['Create'])) {
 		$user_isActive,
 		$user_isAbsent,
 		$user_isSystemGeneratedPassword,
-		$TeamFK
+		$TeamFK,
+		$user_cellphone
 	);
 	//Get id of newly created user
 	$UserLastInsertedId = $User->createUser($user_params);
@@ -223,6 +227,7 @@ if(isset($_POST['Update'])) {
 	$user_isSystemGeneratedPassword = 0;		
 	
 	$TeamFK = $_POST['user_team'];
+	$user_cellphone = $_POST['user_cellphone'];
 	
 	$user_erp_code = Sanitize::sanitizeStr($_POST['user_ERP_code']);
 	
@@ -237,7 +242,8 @@ if(isset($_POST['Update'])) {
 		$user_isActive,
 		$user_isAbsent,
 		$user_isSystemGeneratedPassword,
-		$TeamFK
+		$TeamFK,
+		$user_cellphone
 	);	
 	$updateStatus = $User->updateUser($user_params);
 		
@@ -351,6 +357,8 @@ else if (isset($_POST['Cancel'])) {
 				<li><input type="text" maxlength="100" class="user_name" name="user_name" value="<?php echo $user_name; ?>" /></li>
 				<li><label>Password:</label></li>
 				<li><input type="password" maxlength="100" class="user_password" name="password" placeholder="Password" /></li>
+				<li><label>Cellphone:</label></li>
+				<li><input type="text" maxlength="50" class="user_cellphone" name="user_cellphone" value="<?php echo $user_cellphone; ?>" /></li>
 				<li><label>Active:</label></li>
 				<li>
 					<input type="checkbox" name="isActive" <?php echo $user_isActive; ?> class="isActive" />
