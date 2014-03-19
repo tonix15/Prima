@@ -8,17 +8,27 @@
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
 	<title>Viis Novis Prima</title>
+	<script src="<?php echo DOMAIN_NAME; ?>/js/jquery/jquery-1.10.2.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="<?php echo DOMAIN_NAME; ?>/css/style.css" media="all, print" />
 	<?php if (!empty($import_fancy_box)) { ?>
 	<link rel="stylesheet" type="text/css" href="<?php echo DOMAIN_NAME; ?>/css/jquery.fancybox.css?v=2.1.5" media="screen" />
 	<?php } ?>
-	<style type="text/css" media="print">
-		@page { 
-			margin: 0;
+	<style type="text/css" >
+		.a4_bond {
+		height: 9in;
+		width: 7.067in;
+		padding: .85in .6in .85in .6in;
+		background-color: white;
+		border: solid 1px;   
 		}
-		#ad{ display:none;}
-		#leftbar{ display:none;}
-		#contentarea{ width:100%;}
+		.pdf-logo {
+		height:0.76in;
+		width:3.72in;
+		}
+		.pdf-bulb {
+		height:1.67in;
+		width:2.02in;
+		}
 	</style>
 	</head>
 	<body style="padding:0;background-color: #6C6C50;">
@@ -26,7 +36,7 @@
 			foreach ($_SESSION['cut_instruction_pdf'] as $cut_instruction) {
 		?>
 
-		<div class="short_bond" >
+		<div class="a4_bond" style="">
 			<img class="pdf-logo" src="<?php echo DOMAIN_NAME; ?>/images/triple-m-logo.JPG">
 			<p class="MsoNormal" style="text-align:justify; margin:0"><span style="color:navy">Reg. No. 2004/085107/23</span></p>
 			<p class="MsoNormal" style="text-align:justify; margin:0"><span style="color:navy">VAT No. 4730214733</span></p>
@@ -73,7 +83,7 @@
 			<p class="MsoNormal" style="text-align:justify; margin:0"><?php echo $cut_instruction['BuildingName']; ?></p>
 			<p class="MsoNormal" style="text-align:justify; margin:0">Unit <?php echo $cut_instruction['UnitNumberBk']; ?></p>
 			<p class="MsoNormal" style="text-align:justify; margin:0"><span lang="EN-US" style="font-size:14.0pt;color:navy">&nbsp;</span></p>
-			<p class="MsoNormal" style="text-align:left; margin:0">Good day, this email is a friendly reminder that your account with Triple M Metering is in arrears by <u>R<?php echo $cut_instruction['OutstandingAmount']; ?></u>. and your power supply has been suspended.</p>
+			<p class="MsoNormal" style="text-align:left; margin:0">Good day, this email is a friendly reminder that your account with Triple M Metering is in arrears by <u>R<?php echo Prima::formatDecimal($cut_instruction['OutstandingAmount']); ?></u>. and your power supply has been suspended.</p>
 			<p class="MsoNormal" style="text-align:justify; margin:0"><span lang="EN-US" style="font-size:14.0pt;color:navy">&nbsp;</span></p>
 			<p class="MsoNormal" style="text-align:left; margin:0">To be reconnected, urgently make payment and send proof of payment to <a href="#">reception@triple-m.co.za</a> or phone our offices at 012 653 0600.  </p>
 			<p class="MsoNormal" style="text-align:justify; margin:0"><span lang="EN-US" style="font-size:14.0pt;color:navy">&nbsp;</span></p>
@@ -95,8 +105,10 @@
 			}
 		?>
 		<script type="text/javascript">
-			 window.print();
-			 window.history.back();
+			$('img').load(function() {
+				window.print();
+				window.history.back();
+			});
 		</script>
 	</body>
 </html>

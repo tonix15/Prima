@@ -29,7 +29,7 @@ if (isset($_POST['data'])) {
 				$meter->ReasonCode,
 				$meter->IsRemoved,
 				$meter->IsExceptionalReading,
-				$meter->IsTestReading,
+				$meter->IsMeterTestRequired,
 				$meter->Geolocation
 			));
 			

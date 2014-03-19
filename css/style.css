@@ -1646,12 +1646,13 @@ cursor:url(../images/hover-disable.png), default;
 }
 
 /* Cut Notification Printing */
-.short_bond {
-height: 9.8in;
-width: 6.7in;
-padding: 0.9in;
-padding-top: 0.7in;
-background-color: white;
+.a4_bond {
+height: 9in;
+width: 7.067in;
+background-color: green;
+border-style: solid;
+border-width: 1px;
+border: solid 1px #9C9C9C;   
 }
 .pdf-logo {
 height:0.76in;

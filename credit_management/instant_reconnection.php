@@ -60,15 +60,45 @@ if ($view_class === 'show' ) {
 } else {
 	$reconnection_instruction_list = NULL;
 }
+
 if (isset($_POST['Instruct'])) {
+	$user_list = $dbhandler->getUser(array($userPK, 0, $Session->read('user_company_selection_key')));
+	$building_termination_period_list = $dbhandler->getBuildingTerminationPeriod(array($userPK, 0));
+	$billing_account_list = $dbhandler->getBillingAccount(array($userPK, 0));
+	$bulk_sms = array();
 	$today = Prima::getSaveDate();
 	$len = count($reconnection_instruction_list);
 	$hasNoError = true;
 	for ($i = 0; $i < $len; $i++) {
 		$instruction = $reconnection_instruction_list[$i];
 		if (isset($_POST['IsSendInstruction_isActive_temp'.$i]) && $instruction['ReconnectionInstructionDate'] == '1900-01-01') {
-			if ( !$dbhandler->updateReconnectionInstruction(array($userPK,$instruction['CreditManagementPk'],$today))) {}
+			if ( !$dbhandler->updateReconnectionInstruction(array($userPK,$instruction['CreditManagementPk'],$today))) 
+			else { 
+				//BillingAccount: Get  BiilingAccountPk
+				foreach ( $billing_account_list as $billing_account ) {
+					if ( $instruction['BillingAccountFk'] == $billing_account['BillingAccountPk'] ) {
+						//BuilingTerminationPeriod: Get BuildingFk and UnitFk
+						foreach ( $building_termination_period_list as $building_termination ) {
+							if ( $building_termination['BuildingFk'] == $billing_account['BuildingFk'] && $builing_termination['UnitFk'] == $billing_account['UnitFk'] ) {
+								foreach ( $user_list as $user ) {
+									if ($user['TeamFk'] == $building_termination
+									$text_message = 'Good day, your account ' . $account_number . ' with Triple M Metering is in arrears by R' . $outstanding_amount . ' ,please settle immediately to avoid disconnection. Thank you Tel: 012 653 0600';
+									$bulk_sms[] = array(Prima::formatCellphoneNumber($notification['Cellphone']), $text_message);
+								}
+								break;
+							}
+						}
+						break;
+					}
+				}
+				//determine what team
+
+				//determine what user 
+				
+				//determine user cellphone no
+			}
 				//$hasNoError = false;
+				
 		}
 	}
 	

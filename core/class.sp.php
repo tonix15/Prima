@@ -147,6 +147,9 @@ class SP {
 	const GET_SCALE = '[get].[Scale]';
 	const SET_SCALE = '[set].[Scale]';
 	
+	const READING_AFTER_VACANCY_DATE = '[val].[ReadingAfterVacancyDate]';
+	const READING_NEGATIVE = '[val].[ReadingNegative]';
+	
 	/** Reason */
 	const MOVENDUS_EXPORT_REASON = '[movendus].[ExportReason]';
 	
@@ -223,7 +226,5 @@ class SP {
 	const VAL_METER_OVERLAP_PERIOD = '[val].[MeterOverlapPeriod]';
 	const VAL_METER_DECOMMISSIONED_ISACTIVE = '[val].[MeterDecommisionedIsActive]';
 	const VAL_METER_DECOMMISSIONED_WITHOUT_REPLACEMENT = '[val].[MeterDecommisionedWithoutReplacement]';
-	const READING_AFTER_VACANCY_DATE = '[val].[ReadingAfterVacancyDate]';
-	const READING_NEGATIVE = '[val].[ReadingNegative]';
 }
 ?>

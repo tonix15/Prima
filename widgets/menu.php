@@ -270,7 +270,7 @@
         <ul class="sub-menu">
 		<?php 
 			foreach($business_function_user_menu_data as $user_menu){		
-				if($user_menu['Menu'] == 'QUERY AND REPORTING'){
+				if($user_menu['Menu'] == 'REPORTING'){
 					echo '<li><a href="' . $path_constants['REPORTING_PROVIDERS'] . '">Providers</a></li>';
 					
 					echo '<li>'; 
