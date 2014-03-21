@@ -26,10 +26,9 @@ $userPK = $userCredentials['UserPk'];
 
 require DOCROOT . '/template/header.php';
 
-$BusinessFunctionUserMenu = new BusinessFunctionUserMenu($dbh);
 //Restriction Level = 1; Read, Write and Update
 //Restriction Level = 0; Read Only
-$restriction_level =  $BusinessFunctionUserMenu->getRestrictionLevel($userPK, $userPK, $page_name);
+$restriction_level = $dbhandler->getRestrictionLevel($page_name);
 
 // Building
 $Building = new Building($dbh);

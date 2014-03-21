@@ -61,48 +61,57 @@ if ($view_class === 'show' ) {
 	$reconnection_instruction_list = NULL;
 }
 
-if (isset($_POST['Instruct'])) {
+if (isset($_POST['Update'])) {
+	$reconnection_instruction_list = $dbhandler->getInstantReconnectionInstruction(array($userPK, 0, $Session->read('user_company_selection_key'),$buildingPK ));
 	$user_list = $dbhandler->getUser(array($userPK, 0, $Session->read('user_company_selection_key')));
-	$building_termination_period_list = $dbhandler->getBuildingTerminationPeriod(array($userPK, 0));
-	$billing_account_list = $dbhandler->getBillingAccount(array($userPK, 0));
 	$bulk_sms = array();
 	$today = Prima::getSaveDate();
-	$len = count($reconnection_instruction_list);
+	$fail_records_updated = array();
 	$hasNoError = true;
-	for ($i = 0; $i < $len; $i++) {
-		$instruction = $reconnection_instruction_list[$i];
-		if (isset($_POST['IsSendInstruction_isActive_temp'.$i]) && $instruction['ReconnectionInstructionDate'] == '1900-01-01') {
-			if ( !$dbhandler->updateReconnectionInstruction(array($userPK,$instruction['CreditManagementPk'],$today))) 
+	$c = 0;
+	$pass = 'Failed';
+	foreach ( $reconnection_instruction_list as $instruction ) {
+		if (isset($_POST['IsSendInstruction_isActive_temp'.$c]) && $instruction['ReconnectionInstructionDate'] == '1900-01-01') {	
+			if ( !$dbhandler->updateInstantReconnectionInstruction(array($userPK,$instruction['CreditManagementPk'],$today))) 
+				$fail_records_updated[] = $instruction['CreditManagementPk'];
 			else { 
-				//BillingAccount: Get  BiilingAccountPk
-				foreach ( $billing_account_list as $billing_account ) {
-					if ( $instruction['BillingAccountFk'] == $billing_account['BillingAccountPk'] ) {
-						//BuilingTerminationPeriod: Get BuildingFk and UnitFk
-						foreach ( $building_termination_period_list as $building_termination ) {
-							if ( $building_termination['BuildingFk'] == $billing_account['BuildingFk'] && $builing_termination['UnitFk'] == $billing_account['UnitFk'] ) {
-								foreach ( $user_list as $user ) {
-									if ($user['TeamFk'] == $building_termination
-									$text_message = 'Good day, your account ' . $account_number . ' with Triple M Metering is in arrears by R' . $outstanding_amount . ' ,please settle immediately to avoid disconnection. Thank you Tel: 012 653 0600';
-									$bulk_sms[] = array(Prima::formatCellphoneNumber($notification['Cellphone']), $text_message);
-								}
-								break;
-							}
-						}
-						break;
+				$pass = 'Success';
+				//BillingAccount: Get  Biiling Account Row
+				$billing_account_list = $dbhandler->getBillingAccount(array($userPK, $instruction['BillingAccountFk']));
+				$billing_account = $billing_account_list[0];
+				//Building Termination Period: Get  Team
+				$building_termination_period_list = $dbhandler->getBuildingTerminationPeriod(array($userPK, 0, $billing_account['BuildingFk'], $billing_account['UnitFk']));
+				$building_termination = $building_termination_period_list[0];
+				//Unit: Get all users under that team
+				foreach ( $user_list as $user ) {
+					if ($user['TeamFk'] == $building_termination['TeamFk']) {
+					$text_message = 'Hi ' . $user['DisplayName'] . '. This is for reconnection: \n\n Client:  ' . $instruction['Surname'] . '\nBuilding:  ' . $building_termination['BuildingName'] . '\nUnit:  ' . $building_termination['UnitNumberBk'];
+					$bulk_sms[] = array(Prima::formatCellphoneNumber($user['Cellphone']), $text_message);
 					}
 				}
-				//determine what team
-
-				//determine what user 
-				
-				//determine user cellphone no
 			}
-				//$hasNoError = false;
-				
 		}
+		$c++;
+	}
+	$_SESSION['p'] = $pass ;
+	if (!empty($fail_records_updated)) {
+		$Session->write('Fail1', 'One or more records did not updated in the database<br />');
+		$hasNoError = false;
 	}
 	
+	if (!empty($bulk_sms)) {
+		if (!Prima::send_csv_mail($bulk_sms, null)) {
+			$Session->write('Fail2', 'Fail to send Bulk SMS.');
+			$hasNoError = false;
+		}
+	} else {
+		$Session->write('Fail3', 'There are no users to send.');
+		$hasNoError = false;
+	}
+			
 	if ($hasNoError) {
+		$_SESSION['smstest'] = $bulk_sms;
+		
 		$Session->write('Success', '<strong>Reconnection instruction</strong> sent.');
 		header('Location:' . DOMAIN_NAME . $_SERVER['PHP_SELF'] . '?choose_building=' . $buildingPK . '&' . $view_type);
 		exit;
@@ -116,7 +125,7 @@ if (isset($_POST['Cancel'])) {
 
 ?>
 
-<div class="sub-menu-title"><h1>Reconnection Instruction</h1></div>
+<div class="sub-menu-title"><h1>Instant Reconnection Instruction</h1></div>
 <form method="get" class="hover-cursor-pointer">
 	<div id="meter-critera" class="wrapper-fieldset-forms">
 		<fieldset class="fieldset-forms clear">
@@ -144,10 +153,33 @@ if (isset($_POST['Cancel'])) {
 	</div> <!-- end of building selection -->
 </form> <!-- end of get form -->
 <?php 
+
 if ($Session->check('Success')) {
 	echo '<div class="warning insert-success">' . $Session->read('Success') . '</div>';
 	$Session->sessionUnset('Success');
+						echo 'Final Pass = ' . $_SESSION['p'] . '<br >';
+					unset($_SESSION['p']);
 } 
+if ($Session->check('Fail1')) {
+	echo '<div class="warning warning-box">' . $Session->read('Fail1') . '<br />';
+	var_dump($fail_records_updated);
+	echo '</div>';
+	$Session->sessionUnset('Fail1');
+}
+if ($Session->check('Fail2')) {
+	echo '<div class="warning warning-box">' . $Session->read('Fail2') . '<br />';
+	var_dump($bulk_sms);
+	echo '</div>';
+	$Session->sessionUnset('Fail2');
+}
+if ($Session->check('Fail3')) {
+	echo '<div class="warning warning-box">' . $Session->read('Fail3') . '<br />';
+	var_dump($bulk_sms);
+						echo 'Final Pass = ' . $_SESSION['p'] . '<br >';
+					unset($_SESSION['p']);
+	echo '</div>';
+	$Session->sessionUnset('Fail3');
+}
 ?>
 <?php if ($view_class === 'show' ) { ?>   
 <div id="parameter-submit-result-error-box" class="warning insert-success submit-result <?php echo 'submit-result-', $submit_result, ' ', $error_class; ?>"><?php echo $errmsg; ?></div>

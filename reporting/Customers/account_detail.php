@@ -189,7 +189,7 @@ else if (isset($_POST['Cancel'])) {
 			<tbody>			
 				<?php foreach($import_account_detail as $account_detail){ 
 					if ( $account_detail['EntryType'] == 'INV' ) {
-						$ref = '<a title="view invoice detail" href="' . DOMAIN_NAME  . '/query_and_reporting/customer/invoice_detail.php?'.
+						$ref = '<a title="view invoice detail" href="' . DOMAIN_NAME  . '/reporting/Customers/invoice_detail.php?'.
 						'choose_building=' . $_GET['choose_building'] . '&' .
 						'choose_unit=' . $_GET['choose_unit'] .  '&' .
 						'choose_tenant=' . $_GET['choose_tenant'] .  '&' .

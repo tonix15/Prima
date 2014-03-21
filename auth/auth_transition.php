@@ -25,20 +25,24 @@
 					$Session->write('UserPk', $ResultSet['UserPk']);
 					$Session->write('DisplayName', $ResultSet['DisplayName']);
 					
-					//find out the business function that is associated with the authenticated user
-					$BusinessFunctionUser = new BusinessFunctionUser($dbh);
-					$business_function_user_data = $BusinessFunctionUser->getBusinessFunctionUser(array($ResultSet['UserPk'], 0));
+					//find out the business function that is associated with the authenticated user					
+					$business_function_user_data = $dbhandler->getBusinessFunctionUserMenu(array($ResultSet['UserPk'], 0));
 					
-					$associated_business_function = 0;
+					$associated_business_function = array();
+					$MenuFk = array();
+					$IsWritable = array();
 					
 					foreach($business_function_user_data as $business_function_user){
 						if($ResultSet['UserPk'] == $business_function_user['BusinessUserFk']){
-							$associated_business_function = $business_function_user['BusinessFunctionFk'];
-							break;
+							$associated_business_function[] = $business_function_user['Menu'];							
+							$MenuFk[] = $business_function_user['MenuFk'];
+							$IsWritable[] = $business_function_user['IsWritable'];
 						}
 					}
 					
 					$Session->write('BusinessFunctionUser', $associated_business_function);
+					$Session->write('MenuFk', $MenuFk);
+					$Session->write('IsWritable', $IsWritable);
 					
 					header('Location:' . DOMAIN_NAME . '/sysadmin/user-company-selection.php');
 					exit();

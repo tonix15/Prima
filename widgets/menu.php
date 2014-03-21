@@ -22,6 +22,7 @@
 		'CREDIT_MANAGEMENT_CUT_NOTIFICATION_OUTSTANDING_AGREEMENTS' => '#',
 		'CREDIT_MANAGEMENT_CUT_INSTRUCTION' => DOMAIN_NAME . '/credit_management/cut_instruction.php',
 		'CREDIT_MANAGEMENT_RECONNECTION' => DOMAIN_NAME . '/credit_management/reconnection.php',
+		'CREDIT_MANAGEMENT_INSTANT_RECONNECTION' => DOMAIN_NAME . '/credit_management/instant_reconnection.php',
 		'CREDIT_MANAGEMENT_DEPOSIT_REVIEW' => '#',
 		/** Reporting */
 		//Providers
@@ -46,11 +47,10 @@
 		'REPORTING_METERS_READING_IMPORTS_REVIEW_ESTIMATED_READINGS' => DOMAIN_NAME . '/reporting/Meters/Reading_Imports_Review/estimated_readings.php',
 		'REPORTING_METERS_READING_IMPORTS_REVIEW_EXCEPTIONAL_READINGS' => DOMAIN_NAME . '/reporting/Meters/Reading_Imports_Review/exceptional_readings.php',
 		'REPORTING_METERS_READING_REVIEW' => DOMAIN_NAME . '/reporting/Meters/reading_review.php',
-		'REPORTING_METERS_METERS_ESTIMATED_THREE_TIMES' => DOMAIN_NAME . '/reporting/Meters/reading_estimated_three_times.php',
+		'REPORTING_METERS_METERS_ESTIMATED_THREE_TIMES' => DOMAIN_NAME . '/reporting/Meters/meters_estimated_three_times.php',
 		'REPORTING_METERS_READING_VARIANCE_PARAMETER_ANALYSIS' => DOMAIN_NAME . '/reporting/Meters/reading_variance_parameter_analysis.php',
 		'REPORTING_METERS_INTERNAL_PREPAID_METER_LIST' => DOMAIN_NAME . '/reporting/Meters/internal_prepaid_meter_list.php',
-		'REPORTING_METERS_INTERNAL_PREPAID_METER_REASONABILITY' => '#',
-		// 'QUERY AND REPORTING.METER.IMPORT FILE ANALYSIS
+		'REPORTING_METERS_INTERNAL_PREPAID_METER_REASONABILITY' => '#',		
 		'REPORTING_METERS_RATE_SPECIFIC_METER_LIST' => DOMAIN_NAME . '/reporting/Meters/rate_specific_meter_list.php',
 		'REPORTING_BILLING_OUTSTANDING_BILLING_LIST' => DOMAIN_NAME . '/reporting/Billing/outstanding_billing_list.php',
 		'REPORTING_BILLING_OUTSTANDING_BILLING_DETAIL' => DOMAIN_NAME . '/reporting/Billing/outstanding_billing_detail.php',
@@ -58,7 +58,7 @@
 		'REPORTING_BILLING_PREVIOUS_BILLING' => '#',
 		//Credit Management
 		'REPORTING_CREDIT_MANAGEMENT_PAYMENT_ARRANGEMENT_LIST' => DOMAIN_NAME . '/reporting/Credit_Management/payment_arrangement_list.php',
-		'REPORTING_CREDIT_MANAGEMENT_OVERDUE_ACCOUNT_NOT_NOTIFIED' => DOMAIN_NAME . '/reporting/Credit_Management/overdue_account_not_notified.php',
+		'REPORTING_CREDIT_MANAGEMENT_OVERDUE_ACCOUNT_NOT_NOTIFIED' => DOMAIN_NAME . '/reporting/Credit_Management/overdue_accounts_not_notified.php',
 		'REPORTING_CREDIT_MANAGEMENT_AGREEMENT_OUTSTANDING_NOT_NOTIFIED' => '#',
 		'REPORTING_CREDIT_MANAGEMENT_NOTIFIED_ACCOUNTS_NOT_CUT' => DOMAIN_NAME . '/reporting/Credit_Management/notified_accounts_not_cut.php',
 		'REPORTING_CREDIT_MANAGEMENT_SETTLED_ACCOUNTS_NOT_RECONNECTED' => '#',
@@ -201,6 +201,24 @@
 					echo '<li><a href="' . $path_constants['PROCESSING_INVOICING'] . '">Invoicing</a></li>';
 					break;
 				}				
+				else if($user_menu['Menu'] == 'PROCESSING.IMPORT'){
+					echo '<li>'; 
+						echo '<a href="#">Import</a>';
+						echo '<ul>';
+								echo '<li><a href="' . $path_constants['PROCESSING_IMPORT_PREPAID_TRANSACTIONS'] . '">Prepaid Transactions</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'PROCESSING.IMPORT.PREPAID TRANSACTIONS'){
+					echo '<li>'; 
+						echo '<a href="#">Import</a>';
+						echo '<ul>';
+								echo '<li><a href="' . $path_constants['PROCESSING_IMPORT_PREPAID_TRANSACTIONS'] . '">Prepaid Transactions</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
 			  }//end of foreach
 		?>
         </ul>
@@ -219,6 +237,7 @@
 					echo '</li>';
 					echo '<li><a href="' . $path_constants['CREDIT_MANAGEMENT_CUT_INSTRUCTION'] . '">Cut Instruction</a></li>';
 					echo '<li><a href="' . $path_constants['CREDIT_MANAGEMENT_RECONNECTION'] . '">Reconnection</a></li>'; 
+					echo '<li><a href="' . $path_constants['CREDIT_MANAGEMENT_INSTANT_RECONNECTION'] . '">Instant Reconnection</a></li>'; 
 					echo '<li><a href="' . $path_constants['CREDIT_MANAGEMENT_DEPOSIT_REVIEW'] . '">Deposit Review</a></li>';
 					break;
 				}
@@ -336,7 +355,7 @@
 						echo '<a href="#">Credit Management</a>';
 						echo '<ul style="width:250px;">';
 								echo '<li><a href="' . $path_constants['REPORTING_CREDIT_MANAGEMENT_PAYMENT_ARRANGEMENT_LIST'] . '">Payment Arrangement List</a></li>';								
-								echo '<li><a href="' . $path_constants['REPORTING_CREDIT_MANAGEMENT_OVERDUE_ACCOUNT_NOT_NOTIFIED'] . '">Overdue Account not Notified</a><li>';
+								echo '<li><a href="' . $path_constants['REPORTING_CREDIT_MANAGEMENT_OVERDUE_ACCOUNT_NOT_NOTIFIED'] . '">Overdue Accounts not Notified</a><li>';
 								echo '<li><a href="' . $path_constants['REPORTING_CREDIT_MANAGEMENT_AGREEMENT_OUTSTANDING_NOT_NOTIFIED'] . '">Agreement Outstanding not Notified</a><li>';
 								echo '<li><a href="' . $path_constants['REPORTING_CREDIT_MANAGEMENT_NOTIFIED_ACCOUNTS_NOT_CUT'] . '">Notified Accounts not Cut</a><li>';
 								echo '<li><a href="' . $path_constants['REPORTING_CREDIT_MANAGEMENT_SETTLED_ACCOUNTS_NOT_RECONNECTED'] . '">Settled Accounts not Reconnected</a><li>';
@@ -344,7 +363,389 @@
 						echo '</ul>';
 					echo '</li>';
 					break;
-				}				
+				}	
+				else if($user_menu['Menu'] == 'REPORTING.PROVIDERS'){
+					echo '<li><a href="' . $path_constants['REPORTING_PROVIDERS'] . '">Providers</a></li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'REPORTING.RATES'){
+					echo '<li>'; 
+						echo '<a href="#">Rates</a>';
+						echo '<ul>';
+								echo '<li><a href="' . $path_constants['REPORTING_RATE_RATE_REPORT'] . '">Rate Report</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'REPORTING.RATES.RATE REPORT'){
+					echo '<li>'; 
+						echo '<a href="#">Rates</a>';
+						echo '<ul>';
+								echo '<li><a href="' . $path_constants['REPORTING_RATE_RATE_REPORT'] . '">Rate Report</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'REPORTING.BUILDINGS'){
+					echo '<li>'; 
+						echo '<a href="#">Buildings</a>';
+						echo '<ul>';
+								echo '<li><a href="' . $path_constants['REPORTING_BUILDING_BUILDING_RATE_LIST'] . '">Building Rate List</a></li>';
+								echo '<li><a href="' . $path_constants['REPORTING_BUILDING_SQM_METER_ALLOCATION_LIST'] . '">Sqm Meter Allocation List</a></li>';
+								echo '<li><a href="' . $path_constants['REPORTING_BUILDING_PORTFOLIO_MANAGER_LIST'] . '">Portfolio Manager List</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'REPORTING.BUILDINGS.BUILDING RATE LIST'){
+					echo '<li>'; 
+						echo '<a href="#">Buildings</a>';
+						echo '<ul>';
+								echo '<li><a href="' . $path_constants['REPORTING_BUILDING_BUILDING_RATE_LIST'] . '">Building Rate List</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'REPORTING.BUILDINGS.SQM METER ALLOCATION LIST'){
+					echo '<li>'; 
+						echo '<a href="#">Buildings</a>';
+						echo '<ul>';
+								echo '<li><a href="' . $path_constants['REPORTING_BUILDING_SQM_METER_ALLOCATION_LIST'] . '">Sqm Meter Allocation List</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'REPORTING.BUILDINGS.PORTFOLIO MANAGER LIST'){
+					echo '<li>'; 
+						echo '<a href="#">Buildings</a>';
+						echo '<ul>';
+								echo '<li><a href="' . $path_constants['REPORTING_BUILDING_PORTFOLIO_MANAGER_LIST'] . '">Portfolio Manager List</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'REPORTING.UNITS'){
+					echo '<li><a href="' . $path_constants['REPORTING_UNITS'] . '">Units</a></li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'REPORTING.CUSTOMERS'){
+					echo '<li class="Customer_list">'; 
+						echo '<a href="#">Customers</a>';
+						echo '<ul class="customers_sub_list">';
+								echo '<li><a href="' . $path_constants['REPORTING_CUSTOMERS_DEPOSIT_LIST'] . '">Deposit List</a></li>';
+								echo '<li><a href="' . $path_constants['REPORTING_CUSTOMERS_ACCOUNT_DETAIL'] . '">Account Detail</a></li>';
+								echo '<li><a href="' . $path_constants['REPORTING_CUSTOMERS_INVOICE_DETAIL'] . '">Invoice Detail</a></li>';
+								echo '<li><a href="' . $path_constants['REPORTING_CUSTOMERS_ACCOUNTS_WITHOUT_CONTACT_DETAILS'] . '">Accounts without Contact Details</a></li>';
+								echo '<li><a href="' . $path_constants['REPORTING_CUSTOMERS_OUTSTANDING_AGREEMENT_LIST'] . '">Outstanding Agreement List</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'REPORTING.CUSTOMERS.DEPOSIT LIST'){
+					echo '<li class="Customer_list">'; 
+						echo '<a href="#">Customers</a>';
+						echo '<ul class="customers_sub_list">';
+								echo '<li><a href="' . $path_constants['REPORTING_CUSTOMERS_DEPOSIT_LIST'] . '">Deposit List</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'REPORTING.CUSTOMERS.ACCOUNT DETAIL'){
+					echo '<li class="Customer_list">'; 
+						echo '<a href="#">Customers</a>';
+						echo '<ul class="customers_sub_list">';
+								echo '<li><a href="' . $path_constants['REPORTING_CUSTOMERS_ACCOUNT_DETAIL'] . '">Account Detail</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'REPORTING.CUSTOMERS.INVOICE DETAIL'){
+					echo '<li class="Customer_list">'; 
+						echo '<a href="#">Customers</a>';
+						echo '<ul class="customers_sub_list">';
+								echo '<li><a href="' . $path_constants['REPORTING_CUSTOMERS_INVOICE_DETAIL'] . '">Invoice Detail</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'REPORTING.CUSTOMERS.ACCOUNTS WITHOUT CONTACT DETAILS'){
+					echo '<li class="Customer_list">'; 
+						echo '<a href="#">Customers</a>';
+						echo '<ul class="customers_sub_list">';
+								echo '<li><a href="' . $path_constants['REPORTING_CUSTOMERS_ACCOUNTS_WITHOUT_CONTACT_DETAILS'] . '">Accounts without Contact Details</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'REPORTING.CUSTOMERS.OUTSTANDING AGREEMENT LIST'){
+					echo '<li class="Customer_list">'; 
+						echo '<a href="#">Customers</a>';
+						echo '<ul class="customers_sub_list">';
+								echo '<li><a href="' . $path_constants['REPORTING_CUSTOMERS_OUTSTANDING_AGREEMENT_LIST'] . '">Outstanding Agreement List</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'REPORTING.METERS'){
+					echo '<li>'; 
+						echo '<a href="#">Meters</a>';
+						echo '<ul class="meters_sub_list">';
+								echo '<li><a href="#">Readings Import View</a>';
+									echo '<ul>';
+										echo '<li><a href="' . $path_constants['REPORTING_METERS_READING_IMPORTS_REVIEW_READINGS_IMPORTED'] . '">Readings Imported</a><li>';
+										echo '<li><a href="' . $path_constants['REPORTING_METERS_READING_IMPORTS_REVIEW_METER_TEST_REQUIRED'] . '">Meter Test Required</a><li>';
+										echo '<li><a href="' . $path_constants['REPORTING_METERS_READING_IMPORTS_REVIEW_ESTIMATED_READINGS'] . '">Estimated Readings</a><li>';
+										echo '<li><a href="' . $path_constants['REPORTING_METERS_READING_IMPORTS_REVIEW_EXCEPTIONAL_READINGS'] . '">Exceptional Readings</a><li>';
+									echo '</ul>';
+								echo '</li>';								
+								echo '<li><a href="' . $path_constants['REPORTING_METERS_READING_REVIEW'] . '">Reading Review</a><li>';
+								echo '<li><a href="' . $path_constants['REPORTING_METERS_METERS_ESTIMATED_THREE_TIMES'] . '">Meters Estimated Three Times</a><li>';
+								echo '<li><a href="' . $path_constants['REPORTING_METERS_READING_VARIANCE_PARAMETER_ANALYSIS'] . '">Reading Variance Parameter Analysis</a><li>';
+								echo '<li><a href="' . $path_constants['REPORTING_METERS_INTERNAL_PREPAID_METER_LIST'] . '">Internal Prepaid Meter List</a><li>';
+								echo '<li><a href="' . $path_constants['REPORTING_METERS_INTERNAL_PREPAID_METER_REASONABILITY'] . '">Internal Prepaid Meter Reasonability</a><li>';
+								echo '<li><a href="' . $path_constants['REPORTING_METERS_RATE_SPECIFIC_METER_LIST'] . '">Rate Specific Meter List</a><li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'REPORTING.METERS.REPORTING.METERS.READINGS IMPORT VIEW'){
+					echo '<li>'; 
+						echo '<a href="#">Meters</a>';
+						echo '<ul class="meters_sub_list">';
+								echo '<li><a href="#">Readings Import View</a>';
+									echo '<ul>';
+										echo '<li><a href="' . $path_constants['REPORTING_METERS_READING_IMPORTS_REVIEW_READINGS_IMPORTED'] . '">Readings Imported</a><li>';
+										echo '<li><a href="' . $path_constants['REPORTING_METERS_READING_IMPORTS_REVIEW_METER_TEST_REQUIRED'] . '">Meter Test Required</a><li>';
+										echo '<li><a href="' . $path_constants['REPORTING_METERS_READING_IMPORTS_REVIEW_ESTIMATED_READINGS'] . '">Estimated Readings</a><li>';
+										echo '<li><a href="' . $path_constants['REPORTING_METERS_READING_IMPORTS_REVIEW_EXCEPTIONAL_READINGS'] . '">Exceptional Readings</a><li>';
+									echo '</ul>';
+								echo '</li>';																
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'REPORTING.METERS.REPORTING.METERS.READINGS IMPORT VIEW.READINGS IMPORTED'){
+					echo '<li>'; 
+						echo '<a href="#">Meters</a>';
+						echo '<ul class="meters_sub_list">';
+								echo '<li><a href="#">Readings Import View</a>';
+									echo '<ul>';
+										echo '<li><a href="' . $path_constants['REPORTING_METERS_READING_IMPORTS_REVIEW_READINGS_IMPORTED'] . '">Readings Imported</a><li>';
+									echo '</ul>';
+								echo '</li>';																
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'REPORTING.METERS.REPORTING.METERS.READINGS IMPORT VIEW.METER TEST REQUIRED'){
+					echo '<li>'; 
+						echo '<a href="#">Meters</a>';
+						echo '<ul class="meters_sub_list">';
+								echo '<li><a href="#">Readings Import View</a>';
+									echo '<ul>';
+										echo '<li><a href="' . $path_constants['REPORTING_METERS_READING_IMPORTS_REVIEW_METER_TEST_REQUIRED'] . '">Meter Test Required</a><li>';
+									echo '</ul>';
+								echo '</li>';																
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'REPORTING.METERS.REPORTING.METERS.READINGS IMPORT VIEW.ESTIMATED READINGS'){
+					echo '<li>'; 
+						echo '<a href="#">Meters</a>';
+						echo '<ul class="meters_sub_list">';
+								echo '<li><a href="#">Readings Import View</a>';
+									echo '<ul>';
+										echo '<li><a href="' . $path_constants['REPORTING_METERS_READING_IMPORTS_REVIEW_ESTIMATED_READINGS'] . '">Estimated Readings</a><li>';
+									echo '</ul>';
+								echo '</li>';																
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'REPORTING.METERS.REPORTING.METERS.READINGS IMPORT VIEW.EXCEPTIONAL READINGS'){
+					echo '<li>'; 
+						echo '<a href="#">Meters</a>';
+						echo '<ul class="meters_sub_list">';
+								echo '<li><a href="#">Readings Import View</a>';
+									echo '<ul>';
+										echo '<li><a href="' . $path_constants['REPORTING_METERS_READING_IMPORTS_REVIEW_EXCEPTIONAL_READINGS'] . '">Exceptional Readings</a><li>';
+									echo '</ul>';
+								echo '</li>';																
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'REPORTING.METERS.REPORTING.METERS.READING REVIEW'){
+					echo '<li>'; 
+						echo '<a href="#">Meters</a>';
+						echo '<ul class="meters_sub_list">';								
+								echo '<li><a href="' . $path_constants['REPORTING_METERS_READING_REVIEW'] . '">Reading Review</a><li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'REPORTING.METERS.REPORTING.METERS.METER ESTIMATED THREE TIMES'){
+					echo '<li>'; 
+						echo '<a href="#">Meters</a>';
+						echo '<ul class="meters_sub_list">';								
+								echo '<li><a href="' . $path_constants['REPORTING_METERS_METERS_ESTIMATED_THREE_TIMES'] . '">Meters Estimated Three Times</a><li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'REPORTING.METERS.REPORTING.METERS.READING VARIANCE PARAMETER ANALYSIS'){
+					echo '<li>'; 
+						echo '<a href="#">Meters</a>';
+						echo '<ul class="meters_sub_list">';								
+								echo '<li><a href="' . $path_constants['REPORTING_METERS_READING_VARIANCE_PARAMETER_ANALYSIS'] . '">Reading Variance Parameter Analysis</a><li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'REPORTING.METERS.REPORTING.METERS.INTERNAL PREPAID METER LIST'){
+					echo '<li>'; 
+						echo '<a href="#">Meters</a>';
+						echo '<ul class="meters_sub_list">';								
+								echo '<li><a href="' . $path_constants['REPORTING_METERS_INTERNAL_PREPAID_METER_LIST'] . '">Internal Prepaid Meter List</a><li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'REPORTING.METERS.REPORTING.METERS.INTERNAL PREPAID METER REASONABILITY'){
+					echo '<li>'; 
+						echo '<a href="#">Meters</a>';
+						echo '<ul class="meters_sub_list">';								
+								echo '<li><a href="' . $path_constants['REPORTING_METERS_INTERNAL_PREPAID_METER_REASONABILITY'] . '">Internal Prepaid Meter Reasonability</a><li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'REPORTING.METERS.REPORTING.METERS.RATE SPECIFIC METER LIST'){
+					echo '<li>'; 
+						echo '<a href="#">Meters</a>';
+						echo '<ul class="meters_sub_list">';								
+								echo '<li><a href="' . $path_constants['REPORTING_METERS_RATE_SPECIFIC_METER_LIST'] . '">Rate Specific Meter List</a><li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'REPORTING.BILLING'){
+					echo '<li>'; 
+						echo '<a href="#">Billing</a>';
+						echo '<ul>';
+								echo '<li><a href="' . $path_constants['REPORTING_BILLING_OUTSTANDING_BILLING_LIST'] . '">Outstanding Billing List</a></li>';								
+								echo '<li><a href="' . $path_constants['REPORTING_BILLING_OUTSTANDING_BILLING_DETAIL'] . '">Outstanding Billing Detail</a><li>';
+								echo '<li><a href="' . $path_constants['REPORTING_BILLING_COMMON_PROPERTY_ALLOCATION'] . '">Common Property Allocation</a><li>';
+								echo '<li><a href="' . $path_constants['REPORTING_BILLING_PREVIOUS_BILLING'] . '">Previous Billing</a><li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'REPORTING.BILLING.OUTSTANDING BILLING LIST'){
+					echo '<li>'; 
+						echo '<a href="#">Billing</a>';
+						echo '<ul>';
+								echo '<li><a href="' . $path_constants['REPORTING_BILLING_OUTSTANDING_BILLING_LIST'] . '">Outstanding Billing List</a></li>';								
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'REPORTING.BILLING.OUTSTANDING BILLING DETAIL'){
+					echo '<li>'; 
+						echo '<a href="#">Billing</a>';
+						echo '<ul>';
+								echo '<li><a href="' . $path_constants['REPORTING_BILLING_OUTSTANDING_BILLING_DETAIL'] . '">Outstanding Billing Detail</a><li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'REPORTING.BILLING.COMMON PROPERTY ALLOCATION'){
+					echo '<li>'; 
+						echo '<a href="#">Billing</a>';
+						echo '<ul>';
+								echo '<li><a href="' . $path_constants['REPORTING_BILLING_COMMON_PROPERTY_ALLOCATION'] . '">Common Property Allocation</a><li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'REPORTING.BILLING.PREVIOUS BILLING'){
+					echo '<li>'; 
+						echo '<a href="#">Billing</a>';
+						echo '<ul>';
+								echo '<li><a href="' . $path_constants['REPORTING_BILLING_PREVIOUS_BILLING'] . '">Previous Billing</a><li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'REPORTING.CREDIT MANAGEMENT'){
+					echo '<li>'; 
+						echo '<a href="#">Credit Management</a>';
+						echo '<ul style="width:250px;">';
+								echo '<li><a href="' . $path_constants['REPORTING_CREDIT_MANAGEMENT_PAYMENT_ARRANGEMENT_LIST'] . '">Payment Arrangement List</a></li>';								
+								echo '<li><a href="' . $path_constants['REPORTING_CREDIT_MANAGEMENT_OVERDUE_ACCOUNT_NOT_NOTIFIED'] . '">Overdue Accounts not Notified</a><li>';
+								echo '<li><a href="' . $path_constants['REPORTING_CREDIT_MANAGEMENT_AGREEMENT_OUTSTANDING_NOT_NOTIFIED'] . '">Agreement Outstanding not Notified</a><li>';
+								echo '<li><a href="' . $path_constants['REPORTING_CREDIT_MANAGEMENT_NOTIFIED_ACCOUNTS_NOT_CUT'] . '">Notified Accounts not Cut</a><li>';
+								echo '<li><a href="' . $path_constants['REPORTING_CREDIT_MANAGEMENT_SETTLED_ACCOUNTS_NOT_RECONNECTED'] . '">Settled Accounts not Reconnected</a><li>';
+								echo '<li><a href="' . $path_constants['REPORTING_CREDIT_MANAGEMENT_STANDBY_CUT_LIST'] . '">Standby Cut List</a><li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'REPORTING.CREDIT MANAGEMENT.PAYMENT ARRANGEMENT LIST'){
+					echo '<li>'; 
+						echo '<a href="#">Credit Management</a>';
+						echo '<ul style="width:250px;">';
+								echo '<li><a href="' . $path_constants['REPORTING_CREDIT_MANAGEMENT_PAYMENT_ARRANGEMENT_LIST'] . '">Payment Arrangement List</a></li>';								
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'REPORTING.CREDIT MANAGEMENT.OVERDUE ACCOUNTS NOT NOTIFIED'){
+					echo '<li>'; 
+						echo '<a href="#">Credit Management</a>';
+						echo '<ul style="width:250px;">';
+								echo '<li><a href="' . $path_constants['REPORTING_CREDIT_MANAGEMENT_OVERDUE_ACCOUNT_NOT_NOTIFIED'] . '">Overdue Accounts not Notified</a><li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'REPORTING.CREDIT MANAGEMENT.AGREEMENT OUTSTANDING NOT NOTIFIED'){
+					echo '<li>'; 
+						echo '<a href="#">Credit Management</a>';
+						echo '<ul style="width:250px;">';
+								echo '<li><a href="' . $path_constants['REPORTING_CREDIT_MANAGEMENT_AGREEMENT_OUTSTANDING_NOT_NOTIFIED'] . '">Agreement Outstanding not Notified</a><li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'REPORTING.CREDIT MANAGEMENT.NOTIFIED ACCOUNTS NOT CUT'){
+					echo '<li>'; 
+						echo '<a href="#">Credit Management</a>';
+						echo '<ul style="width:250px;">';
+								echo '<li><a href="' . $path_constants['REPORTING_CREDIT_MANAGEMENT_NOTIFIED_ACCOUNTS_NOT_CUT'] . '">Notified Accounts not Cut</a><li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'REPORTING.CREDIT MANAGEMENT.SETTLED ACCOUNTS NOT RECONNECTED'){
+					echo '<li>'; 
+						echo '<a href="#">Credit Management</a>';
+						echo '<ul style="width:250px;">';
+								echo '<li><a href="' . $path_constants['REPORTING_CREDIT_MANAGEMENT_SETTLED_ACCOUNTS_NOT_RECONNECTED'] . '">Settled Accounts not Reconnected</a><li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if($user_menu['Menu'] == 'REPORTING.CREDIT MANAGEMENT.STANDBY CUT LIST'){
+					echo '<li>'; 
+						echo '<a href="#">Credit Management</a>';
+						echo '<ul style="width:250px;">';
+								echo '<li><a href="' . $path_constants['REPORTING_CREDIT_MANAGEMENT_STANDBY_CUT_LIST'] . '">Standby Cut List</a><li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
 			}//end of foreach
 		?>
      
@@ -355,7 +756,7 @@
 		<ul class="sub-menu">      
 		<?php 
 			foreach($business_function_user_menu_data as $user_menu){	
-				if($user_menu['Menu'] == 'SYSTEM ADMINISTRATION' ||  $userPK == 1){
+				if($user_menu['Menu'] == 'SYSTEM VALIDATION'){
 					echo '<li><a href="#">Providers</a>'; 					
 						echo '<ul>';
 							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_PROVIDERS_PROVIDERS_WITH_NO_RATES'] . '">Providers with no Rates</a></li>';
@@ -411,14 +812,82 @@
 						echo '</ul>';
 					echo '</li>';
 					break;
-				}				
+				}	
+				else if(if($user_menu['Menu'] == 'SYSTEM VALIDATION.PROVIDERS'){
+					echo '<li><a href="#">Providers</a>'; 					
+						echo '<ul>';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_PROVIDERS_PROVIDERS_WITH_NO_RATES'] . '">Providers with no Rates</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if(if($user_menu['Menu'] == 'SYSTEM VALIDATION.PROVIDERS.PROVIDERS WITH NO RATES'){
+					echo '<li><a href="#">Providers</a>'; 					
+						echo '<ul>';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_PROVIDERS_PROVIDERS_WITH_NO_RATES'] . '">Providers with no Rates</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if(if($user_menu['Menu'] == 'SYSTEM VALIDATION.RATES'){
+					echo '<li><a href="#">Rates</a>'; 					
+						echo '<ul class="rates_sub_list">';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_RATES_RATES_WITH_NO_RETAIL_OR_BULK_RATE'] . '">Rates with no Retail or Bulk Rate</a></li>';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_RATES_RATES_WITH_SCALE_ERRORS'] . '">Rates with Scale Error</a></li>';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_RATES_RATES_WITH_NO_PROVIDER'] . '">Rates with no Provider</a></li>';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_RATES_RATES_WITH_NO_BUILDINGS'] . '">Rates with no Buildings</a></li>';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_RATES_RATES_WITH_NO_METERS'] . '">Rates with no Meters</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if(if($user_menu['Menu'] == 'SYSTEM VALIDATION.RATES.RATES WITH NO RETAIL OR BULK RATE'){
+					echo '<li><a href="#">Rates</a>'; 					
+						echo '<ul class="rates_sub_list">';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_RATES_RATES_WITH_NO_RETAIL_OR_BULK_RATE'] . '">Rates with no Retail or Bulk Rate</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if(if($user_menu['Menu'] == 'SYSTEM VALIDATION.RATES.RATES WITH SCALE ERROR'){
+					echo '<li><a href="#">Rates</a>'; 					
+						echo '<ul class="rates_sub_list">';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_RATES_RATES_WITH_SCALE_ERRORS'] . '">Rates with Scale Error</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if(if($user_menu['Menu'] == 'SYSTEM VALIDATION.RATES.RATES WITH NO PROVIDER'){
+					echo '<li><a href="#">Rates</a>'; 					
+						echo '<ul class="rates_sub_list">';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_RATES_RATES_WITH_NO_PROVIDER'] . '">Rates with no Provider</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if(if($user_menu['Menu'] == 'SYSTEM VALIDATION.RATES.RATES WITH NO BUILDINGS'){
+					echo '<li><a href="#">Rates</a>'; 					
+						echo '<ul class="rates_sub_list">';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_RATES_RATES_WITH_NO_BUILDINGS'] . '">Rates with no Buildings</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if(if($user_menu['Menu'] == 'SYSTEM VALIDATION.RATES.RATES WITH NO METERS'){
+					echo '<li><a href="#">Rates</a>'; 					
+						echo '<ul class="rates_sub_list">';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_RATES_RATES_WITH_NO_METERS'] . '">Rates with no Meters</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
 			}	
 		?>
 		</ul>
     </li><!-- end of System Validation -->
 	
     <li><a href="#">System Administration</a>
-		<ul class="sub-menu" style="width: 197px;">      
+		<ul class="sub-menu" style="width: 197px;">
 		<?php 
 			foreach($business_function_user_menu_data as $user_menu){	
 				if($user_menu['Menu'] == 'SYSTEM ADMINISTRATION' || $userPK == 1){

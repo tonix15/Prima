@@ -1,5 +1,5 @@
 <?php
-$page_name = 'Buildings with Inactive Rates';
+$page_name = 'RATE SPECIFIC METER WITH INACTIVE RATE';
 
 require_once '../../init.php';
 

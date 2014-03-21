@@ -1,5 +1,5 @@
 <?php
-$page_name = 'Reading Estimated Three Times';
+$page_name = 'Meters Estimated Three Times';
 
 require_once '../../init.php';
 
@@ -34,7 +34,7 @@ $data_list = $dbhandler->repReadingEstimatedThreeTimes($params);
 $errmsg = !empty($data_list) ? '':'<strong>No Entries Found.</strong>';	
 ?>
 
-<div class="sub-menu-title"><h1>Reading Estimated Three Times Report</h1></div>
+<div class="sub-menu-title"><h1>Meters Estimated Three Times Report</h1></div>
 	<div class="table-wrapper billing-data-list-container">
 		<div class="wrapper-paging">
 			<ul>
@@ -85,7 +85,7 @@ $errmsg = !empty($data_list) ? '':'<strong>No Entries Found.</strong>';
 				$html = ob_get_contents();
 				ob_end_flush();
 				
-				$title = 'Reading Estimated Three Times Report';
+				$title = 'Meters Estimated Three Times Report';
 				$Session->write('title', $title);
 				$Session->write('content', $html);
 				

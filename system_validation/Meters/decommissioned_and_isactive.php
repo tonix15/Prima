@@ -1,5 +1,5 @@
 <?php
-$page_name = 'Decommissioned and IsActive';
+$page_name = 'Decommissioned and Is Active';
 
 require_once '../../init.php';
 

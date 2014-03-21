@@ -1,5 +1,5 @@
 <?php
-$page_name = 'SYSAD_PARAMETERS1';//to differentiate between maintenance-->parameters and system administration parameters
+$page_name = 'PARAMETERS';//to differentiate between maintenance-->parameters and system administration parameters
 
 require_once '../init.php';
 
@@ -26,10 +26,9 @@ $userPK = $userCredentials['UserPk'];
 
 require DOCROOT . '/template/header.php';
 
-$BusinessFunctionUserMenu = new BusinessFunctionUserMenu($dbh);
 //Restriction Level = 1; Read, Write and Update
 //Restriction Level = 0; Read Only
-$restriction_level =  $BusinessFunctionUserMenu->getRestrictionLevel($userPK, $userPK, $page_name);
+$restriction_level = $dbhandler->getRestrictionLevel($page_name);
 
 // Allocation
 $Allocation = new AllocationType($dbh);

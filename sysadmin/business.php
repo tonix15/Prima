@@ -24,12 +24,9 @@ else{
 $userCredentials = $User->getUserCredentials();
 $userPK = $userCredentials['UserPk'];
 
-require DOCROOT . '/template/header.php';
-
-$BusinessFunctionUserMenu = new BusinessFunctionUserMenu($dbh);
 //Restriction Level = 1; Read, Write and Update
 //Restriction Level = 0; Read Only
-$restriction_level =  $BusinessFunctionUserMenu->getRestrictionLevel($userPK, $userPK, $page_name);
+$restriction_level = $dbhandler->getRestrictionLevel($page_name);
 
 //Business Function
 $BusinessFunction = new BusinessFunction($dbh);
@@ -216,8 +213,8 @@ else if(isset($_POST['Update'])){
 			$business_function_menuPK,
 			$business_functionFK,
 			$menuFK = $business_function_menuPK_menuFK_explode[0],
-			Sanitize::cleanWholeNumber($business_function_isWritable[$i]),
-			Sanitize::cleanWholeNumber($business_function_isActive1[$i])
+			$business_function_isWritable[$i],
+			$business_function_isActive1[$i]
 		);		
 		$business_function_menu_updateStatus = $Business_function_menu->updateBusinessFunctionMenu($business_function_menu_params);
 	}
@@ -234,6 +231,7 @@ else if (isset($_POST['Cancel'])) {
 	header('Location:' . DOMAIN_NAME . Sanitize::sanitizeStr($_SERVER['PHP_SELF']));
 	exit();
 }
+require DOCROOT . '/template/header.php';
 ?>
 
 <form method="get" class="hover-cursor-pointer" id="company-selection-form">

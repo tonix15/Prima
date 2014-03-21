@@ -27,10 +27,9 @@ $user_CompanyFK = $Session->read('user_company_selection_key');
 
 require DOCROOT . '/template/header.php';
 
-$BusinessFunctionUserMenu = new BusinessFunctionUserMenu($dbh);
 //Restriction Level = 1; Read, Write and Update
 //Restriction Level = 0; Read Only
-$restriction_level =  $BusinessFunctionUserMenu->getRestrictionLevel($userPK, $userPK, $page_name);
+$restriction_level = $dbhandler->getRestrictionLevel($page_name);
 
 $systemUserPK = 0;
 $user_data = '';

@@ -1,5 +1,5 @@
 <?php
-$page_name = 'Readings Imported';
+$page_name = 'READINGS IMPORTED';
 
 require_once '../../../init.php';
 

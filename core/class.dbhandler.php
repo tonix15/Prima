@@ -12,39 +12,6 @@ class DBHandler extends PDOSQLServerdbhandler {
 	public function getAddress($params, $isSingleRecord = false) {
     	return $this->executeQueryStoredProcedure(SP::GET_ADDRESS, $params, $isSingleRecord);
     }
-    
-	public function getCutInstruction($params) { 
-    	return $this->executeQueryStoredProcedure(SP::GET_CUT_INSTRUCTION, $params);
-    }
-
-	public function updateCutInstruction($params) { 
-		return $this->executeNonQueryStoredProcedure(SP::SET_CUT_INSTRUCTION, $params);
-	}
-	
-	public function getReconnectionInstruction($params) {
-    	return $this->executeQueryStoredProcedure(SP::GET_RECONNECTION_INSTRUCTION, $params);
-    }
-
-	public function updateInstantReconnectionInstruction($params) {
-		return $this->executeNonQueryStoredProcedure(SP::SET_INSTANT_RECONNECTION_INSTRUCTION, $params);
-	}
-	
-	public function getInstantReconnectionInstruction($params) {
-    	return $this->executeQueryStoredProcedure(SP::GET_INSTANT_RECONNECTION_INSTRUCTION, $params);
-    }
-
-	public function updateReconnectionInstruction($params) {
-		return $this->executeNonQueryStoredProcedure(SP::SET_RECONNECTION_INSTRUCTION, $params);
-	}
-	
-    public function getCutNotification($params, $isSingleRecord = false) {
-    	return $this->executeQueryStoredProcedure(SP::GET_CUT_NOTIFICATION, $params, $isSingleRecord);
-    }
-    
-    public function createCutNotification($params) {
-    	$this->executeNonQueryStoredProcedure(SP::SET_CUT_NOTIFICATION, $params);
-    	return $this->getLastInsertId(PrimaDB::CREDIT_MANAGEMENT_TABLE);
-    }
 	
 	public function getArrangementList($params, $isSingleRecord = false) {
     	return $this->executeQueryStoredProcedure(SP::REP_ARRANGEMENT_LIST, $params, $isSingleRecord);
@@ -143,10 +110,21 @@ class DBHandler extends PDOSQLServerdbhandler {
     public function updateBuildingType($params) {
     	return $this->executeNonQueryStoredProcedure(SP::SET_BUILDING_TYPE, $params);
     }
-    
+	
+	/** Business Function */
+    public function getBusinessFunctionUserMenu($params, $isSingleRecord = false) {
+    	return $this->executeQueryStoredProcedure(SP::GET_BUSINESS_FUNCTION_USER_MENU, $params, $isSingleRecord);
+    }
+	
     /** Contact Person */
     public function getContactPerson($params, $isSingleRecord = false) {
     	return $this->executeQueryStoredProcedure(SP::GET_CONTACT_PERSON, $params, $isSingleRecord);
+    }
+	
+	/** Credit Management */
+	public function createCreditManagement($params) {
+    	$this->executeNonQueryStoredProcedure(SP::SET_CREDIT_MANAGEMENT, $params);
+    	return $this->getLastInsertId(PrimaDB::CREDIT_MANAGEMENT_TABLE);
     }
 	
 	/** Customer */
@@ -173,6 +151,25 @@ class DBHandler extends PDOSQLServerdbhandler {
 	
 	public function getInvoice($params, $isSingleRecord = false) {
 		return $this->executeQueryStoredProcedure(SP::GET_INVOICE, $params, $isSingleRecord);
+	}
+	
+	/**Cut Notification */
+    public function getCutNotification($params, $isSingleRecord = false) {
+    	return $this->executeQueryStoredProcedure(SP::GET_CUT_NOTIFICATION, $params, $isSingleRecord);
+    }
+    
+    public function createCutNotification($params) {
+    	$this->executeNonQueryStoredProcedure(SP::SET_CUT_NOTIFICATION, $params);
+    	return $this->getLastInsertId(PrimaDB::CREDIT_MANAGEMENT_TABLE);
+    }
+	
+	 /** Cut Instruction */
+	public function getCutInstruction($params) { 
+    	return $this->executeQueryStoredProcedure(SP::GET_CUT_INSTRUCTION, $params);
+    }
+
+	public function updateCutInstruction($params) { 
+		return $this->executeNonQueryStoredProcedure(SP::SET_CUT_INSTRUCTION, $params);
 	}
 	
 	/** Language Type */
@@ -419,6 +416,23 @@ class DBHandler extends PDOSQLServerdbhandler {
 		return $this->getLastInsertId(PrimaDB::READING_TABLE);
 	}
 	
+	/** Reconnection */
+	public function getReconnectionInstruction($params) {
+    	return $this->executeQueryStoredProcedure(SP::GET_RECONNECTION_INSTRUCTION, $params);
+    }
+
+	public function updateInstantReconnectionInstruction($params) {
+		return $this->executeNonQueryStoredProcedure(SP::SET_INSTANT_RECONNECTION_INSTRUCTION, $params);
+	}
+	
+	public function getInstantReconnectionInstruction($params) {
+    	return $this->executeQueryStoredProcedure(SP::GET_INSTANT_RECONNECTION_INSTRUCTION, $params);
+    }
+
+	public function updateReconnectionInstruction($params) {
+		return $this->executeNonQueryStoredProcedure(SP::SET_RECONNECTION_INSTRUCTION, $params);
+	}
+	
 	/** Team */
 	public function getTeam($params, $isSingleRecord = false) {
 		return $this->executeQueryStoredProcedure(SP::GET_TEAM, $params, $isSingleRecord);
@@ -561,5 +575,151 @@ class DBHandler extends PDOSQLServerdbhandler {
 	public function valMeterDecommissionedWithoutReplacement($params, $isSingleRecord = false) {
     	return $this->executeQueryStoredProcedure(SP::VAL_METER_DECOMMISSIONED_WITHOUT_REPLACEMENT, $params, $isSingleRecord);
     }
+
+	public function getRestrictionLevel($page_name){
+		$MenuList = $_SESSION['BusinessFunctionUser'];
+		$IsWritable = $_SESSION['IsWritable'];
+		$pagename = array();
+		
+		$permission = 0;
+		foreach($MenuList as $page){
+			//Check if string constains a '.' character
+			$temp = strrpos($page, '.');
+			$pagename[] = $temp === FALSE ? substr($page, $temp):substr($page, $temp+1);
+		}
+		
+		$index = 0;
+		for($i = 0; $i < count($pagename); $i++){
+			//if Maintenance is found in MenuList
+			if(strcasecmp($pagename[$i], 'MAINTENANCE') == 0){
+				//get current index
+				$index = $i;
+				
+				if(strcasecmp($page_name, 'PROVIDERS') == 0 ||
+				   strcasecmp($page_name, 'RATES') == 0 ||
+				   strcasecmp($page_name, 'BUILDINGS') == 0 ||
+				   strcasecmp($page_name, 'UNITS') == 0 ||
+				   strcasecmp($page_name, 'CUSTOMERS') == 0 ||
+				   strcasecmp($page_name, 'METERS') == 0 ||
+				   strcasecmp($page_name, 'PARAMETERS') == 0){
+					$permission = $IsWritable[$index];
+					break;
+				}
+			}
+			else if(strcasecmp($pagename[$i], 'PROCESSING') == 0){
+				//get current index
+				$index = $i;
+				
+				if(strcasecmp($page_name, 'PLANNING') == 0 ||
+				   strcasecmp($page_name, 'REASONABILITY') == 0 ||
+				   strcasecmp($page_name, 'INVOICING') == 0 ||
+				   strcasecmp($page_name, 'PREPAID TRANSACTIONS') == 0){
+					$permission = $IsWritable[$index];
+					break;
+				}
+			}
+			else if(strcasecmp($pagename[$i], 'CREDIT MANAGEMENT') == 0){
+				//get current index
+				$index = $i;
+				
+				if(strcasecmp($page_name, 'PLANNING') == 0 ||
+				   strcasecmp($page_name, 'REASONABILITY') == 0 ||
+				   strcasecmp($page_name, 'INVOICING') == 0 ||
+				   strcasecmp($page_name, 'PREPAID TRANSACTIONS') == 0){
+					$permission = $IsWritable[$index];
+					break;
+				}
+			}
+			else if(strcasecmp($pagename[$i], 'REPORTING') == 0){
+				//get current index
+				$index = $i;
+				
+				if(strcasecmp($page_name, 'PROVIDERS') == 0 ||
+				   strcasecmp($page_name, 'RATE REPORT') == 0 ||
+				   strcasecmp($page_name, 'BUILDING RATE LIST') == 0 ||
+				   strcasecmp($page_name, 'PORTFOLIO MANAGER LIST') == 0 ||
+				   strcasecmp($page_name, 'SQM METER ALLOCATION LIST') == 0 ||
+				   strcasecmp($page_name, 'UNITS') == 0 ||
+				   strcasecmp($page_name, 'DEPOSIT LIST') == 0 ||
+				   strcasecmp($page_name, 'ACCOUNT DETAIL') == 0 ||
+				   strcasecmp($page_name, 'ACCOUNTS WITHOUT CONTACT DETAILS') == 0 ||
+				   strcasecmp($page_name, 'OUTSTANDING AGREEMENT LIST') == 0 ||
+				   strcasecmp($page_name, 'READINGS IMPORTED') == 0 ||
+				   strcasecmp($page_name, 'Meter Test Required') == 0 ||
+				   strcasecmp($page_name, 'Estimated Readings') == 0 ||
+				   strcasecmp($page_name, 'Reading Review') == 0 ||
+				   strcasecmp($page_name, 'Meters Estimated Three Times') == 0 ||
+				   strcasecmp($page_name, 'Reading Variance Parameter Analysis') == 0 ||
+				   strcasecmp($page_name, 'Internal Prepaid Meter List') == 0 ||
+				   strcasecmp($page_name, 'Internal Prepaid Meter Reasonability') == 0 ||
+				   strcasecmp($page_name, 'Rate Specific Meter List') == 0 ||
+				   strcasecmp($page_name, 'Outstanding Billing List') == 0 ||
+				   strcasecmp($page_name, 'Common Property Allocation') == 0 ||
+				   strcasecmp($page_name, 'Previous Billing') == 0 ||
+				   strcasecmp($page_name, 'Payment Arrangement List') == 0 ||
+				   strcasecmp($page_name, 'Overdue Accounts not Notified') == 0 ||
+				   strcasecmp($page_name, 'Agreement Outstanding not Notified') == 0 ||
+				   strcasecmp($page_name, 'Notified Accounts not Cut') == 0 ||
+				   strcasecmp($page_name, 'Settled Accounts not Reconnected') == 0 ||
+				   strcasecmp($page_name, 'Standby Cut List') == 0){
+					$permission = $IsWritable[$index];
+					break;
+				}
+			}
+			else if(strcasecmp($pagename[$i], 'SYSTEM VALIDATION') == 0){
+				//get current index
+				$index = $i;
+				
+				if(strcasecmp($page_name, 'Providers with no Rates') == 0 ||
+				   strcasecmp($page_name, 'Rates with no Retail or Bulk Rate') == 0 ||
+				   strcasecmp($page_name, 'Rates with Scale Error') == 0 ||
+				   strcasecmp($page_name, 'Rates with no Provider') == 0 ||
+				   strcasecmp($page_name, 'Rates with no Buildings') == 0 ||
+				   strcasecmp($page_name, 'Rates with no Meters') == 0 ||
+				   strcasecmp($page_name, 'Buildings with no Portfolio Manager') == 0 ||
+				   strcasecmp($page_name, 'Buildings with no Rates') == 0 ||
+				   strcasecmp($page_name, 'Buildings with Inactive Rates') == 0 ||
+				   strcasecmp($page_name, 'Buildings with Rate Utility Mismatch') == 0 ||
+				   strcasecmp($page_name, 'Buildings with no Units') == 0 ||
+				   strcasecmp($page_name, 'Buildings with no Meters') == 0 ||
+				   strcasecmp($page_name, 'Buildings with no Bulk Meters') == 0 ||
+				   strcasecmp($page_name, 'Body Corporate Unit with Sub Meters') == 0 ||
+				   strcasecmp($page_name, 'Units with Bulk and Service Meters') == 0 ||
+				   strcasecmp($page_name, 'Customers with Overlapping Occupancy') == 0 ||
+				   strcasecmp($page_name, 'Prepaid Customers with Overlapping Occupancy') == 0 ||
+				   strcasecmp($page_name, 'Meter Utility Type Unknown') == 0 ||
+				   strcasecmp($page_name, 'Duplicate Meter Number') == 0 ||
+				   strcasecmp($page_name, 'Meters with Overlapping Period') == 0 ||
+				   strcasecmp($page_name, 'Decommissioned and Is Active') == 0 ||
+				   strcasecmp($page_name, 'Decommissioned not Replaced') == 0 ||
+				   strcasecmp($page_name, 'RATE SPECIFIC METER WITH INACTIVE RATE') == 0 ||
+				   strcasecmp($page_name, 'Reading After Vacancy Date') == 0 ||
+				   strcasecmp($page_name, 'Reading Current Negative Consumption') == 0){
+					$permission = $IsWritable[$index];
+					break;
+				}
+			}
+			else if(strcasecmp($pagename[$i], 'SYSTEM ADMINISTRATION') == 0){
+				//get current index
+				$index = $i;
+				
+				if(strcasecmp($page_name, 'PARAMETERS') == 0 ||
+				   strcasecmp($page_name, 'COMPANY') == 0 ||
+				   strcasecmp($page_name, 'BUSINESS FUNCTION') == 0 ||
+				   strcasecmp($page_name, 'USER') == 0 ||
+				   strcasecmp($page_name, 'Manual Reading Adjustment') == 0){
+					$permission = $IsWritable[$index];
+					break;
+				}
+			}
+			else if(strcasecmp($pagename[$i], $page_name) == 0){
+				//get current index
+				$index = $i;
+				$permission = $IsWritable[$index];
+				break;
+			}
+		}
+		return $permission;
+	}
 }
 ?>

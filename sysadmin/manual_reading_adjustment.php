@@ -1,5 +1,5 @@
 <?php
-$page_name = 'Manual Reading Adjust';
+$page_name = 'Manual Reading Adjustment';
 require_once '../init.php';
 
 if(!$User->isUserLogin()){
@@ -73,7 +73,7 @@ require DOCROOT . '/template/header.php';
 ?>
 
 <form method="get" class="hover-cursor-pointer">
-	<div class="sub-menu-title"><h1>Manual Reading Adjust</h1></div>
+	<div class="sub-menu-title"><h1>Manual Reading Adjustment</h1></div>
 	<div id="meter-critera" class="wrapper-fieldset-forms">
 		<fieldset class="fieldset-forms clear">
 			<legend>Building Selection</legend>
@@ -118,10 +118,7 @@ require DOCROOT . '/template/header.php';
 				</li>
 			</ul>
 			<div class="selection-form-submit float-left">
-				<input id="meter-selection-view" type="submit" value="View" name="View"/>
-				<?php if($restriction_level > 0){?>
-					<input id="meter-selection-create" type="submit" value="Create" name="Create"/>   
-				<?php }?>
+				<input id="meter-selection-view" type="submit" value="View" name="View"/>				
 			</div> 
 			<div id="meter-selection-error-box" class="selection-error-box error-box float-left hidden"></div>
 		</fieldset>

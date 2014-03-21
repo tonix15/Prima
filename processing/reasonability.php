@@ -24,13 +24,6 @@ else{
 $userCredentials = $User->getUserCredentials();
 $userPK = $userCredentials['UserPk'];
 $import_fancy_box = true;
-require DOCROOT . '/template/header.php';
-
-//Business Function User Menu
-$BusinessFunctionUserMenu = new BusinessFunctionUserMenu($dbh);
-//Restriction Level = 1; Read, Write and Update
-//Restriction Level = 0; Read Only
-$restriction_level =  $BusinessFunctionUserMenu->getRestrictionLevel($userPK, $userPK, $page_name);
 
 // Billing
 $Billing = new Billing($dbh);
@@ -76,6 +69,7 @@ if (isset($_POST['Cancel'])) {
 }
 
 $building_list = $Building->getBuilding(array($userPK, 0));
+require DOCROOT . '/template/header.php';
 ?>
 
 <div class="sub-menu-title"><h1>Reasonability</h1></div>

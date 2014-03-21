@@ -1,5 +1,5 @@
 <?php
-$page_name = 'Buildings with no Portfolio Managers';
+$page_name = 'Buildings with no Portfolio Manager';
 
 require_once '../../init.php';
 
@@ -34,7 +34,7 @@ $data_list = $dbhandler->valBuildingsNoPortfolioManagers($params);
 $errmsg = !empty($data_list) ? '':'<strong>No Entries Found.</strong>';	
 ?>
 
-<div class="sub-menu-title"><h1>Buildings with no Portfolio Managers Report</h1></div>
+<div class="sub-menu-title"><h1>Buildings with no Portfolio Manager Report</h1></div>
 	<div class="table-wrapper billing-data-list-container">
 		<div class="wrapper-paging">
 			<ul>
@@ -75,7 +75,7 @@ $errmsg = !empty($data_list) ? '':'<strong>No Entries Found.</strong>';
 				$html = ob_get_contents();
 				ob_end_flush();
 				
-				$title = 'Buildings with no Portfolio Managers Report';
+				$title = 'Buildings with no Portfolio Manager Report';
 				$Session->write('title', $title);
 				$Session->write('content', $html);
 				
