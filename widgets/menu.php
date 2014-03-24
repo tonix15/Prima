@@ -881,6 +881,205 @@
 					echo '</li>';
 					break;
 				}
+				else if(if($user_menu['Menu'] == 'SYSTEM VALIDATION.BUILDINGS'){
+					echo '<li><a href="#">Buildings</a>'; 					
+						echo '<ul class="building_sub_list">';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_BUILDINGS_BUILDINGS_WITH_NO_PORTFOLIO_MANAGER'] . '">Buildings with no Portfolio Manager</a></li>';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_BUILDINGS_BUILDINGS_WITH_NO_RATES'] . '">Buildings with no Rates</a></li>';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_BUILDINGS_BUILDINGS_WITH_INACTIVE_RATES'] . '">Buildings with Inactive Rates</a></li>';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_BUILDINGS_BUILDINGS_WITH_RATE_UTILITY_MISMATCH'] . '">Buildings with Rate Utility Mismatch</a></li>';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_BUILDINGS_BUILDINGS_WITH_NO_UNITS'] . '">Buildings with no Units</a></li>';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_BUILDINGS_BUILDINGS_WITH_NO_METERS'] . '">Buildings with no Meters</a></li>';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_BUILDINGS_BUILDINGS_WITH_NO_BULK_METERS'] . '">Buildings with no Bulk Meters</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if(if($user_menu['Menu'] == 'SYSTEM VALIDATION.BUILDINGS.BUILDINGS WITH NO PORTFOLIO MANAGERS'){
+					echo '<li><a href="#">Buildings</a>'; 					
+						echo '<ul class="building_sub_list">';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_BUILDINGS_BUILDINGS_WITH_NO_PORTFOLIO_MANAGER'] . '">Buildings with no Portfolio Manager</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if(if($user_menu['Menu'] == 'SYSTEM VALIDATION.BUILDINGS.BUILDINGS WITH NO RATES'){
+					echo '<li><a href="#">Buildings</a>'; 					
+						echo '<ul class="building_sub_list">';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_BUILDINGS_BUILDINGS_WITH_NO_RATES'] . '">Buildings with no Rates</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if(if($user_menu['Menu'] == 'SYSTEM VALIDATION.BUILDINGS.BUILDINGS WITH INACTIVE RATES'){
+					echo '<li><a href="#">Buildings</a>'; 					
+						echo '<ul class="building_sub_list">';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_BUILDINGS_BUILDINGS_WITH_INACTIVE_RATES'] . '">Buildings with Inactive Rates</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if(if($user_menu['Menu'] == 'SYSTEM VALIDATION.BUILDINGS.BUILDINGS WITH RATE UTILITY MISMATCH'){
+					echo '<li><a href="#">Buildings</a>'; 					
+						echo '<ul class="building_sub_list">';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_BUILDINGS_BUILDINGS_WITH_RATE_UTILITY_MISMATCH'] . '">Buildings with Rate Utility Mismatch</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if(if($user_menu['Menu'] == 'SYSTEM VALIDATION.BUILDINGS.BUILDINGS WITH NO UNITS'){
+					echo '<li><a href="#">Buildings</a>'; 					
+						echo '<ul class="building_sub_list">';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_BUILDINGS_BUILDINGS_WITH_NO_UNITS'] . '">Buildings with no Units</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if(if($user_menu['Menu'] == 'SYSTEM VALIDATION.BUILDINGS.BUILDINGS WITH NO METERS'){
+					echo '<li><a href="#">Buildings</a>'; 					
+						echo '<ul class="building_sub_list">';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_BUILDINGS_BUILDINGS_WITH_NO_METERS'] . '">Buildings with no Meters</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if(if($user_menu['Menu'] == 'SYSTEM VALIDATION.BUILDINGS.BUILDINGS WITH NO BULK METERS'){
+					echo '<li><a href="#">Buildings</a>'; 					
+						echo '<ul class="building_sub_list">';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_BUILDINGS_BUILDINGS_WITH_NO_BULK_METERS'] . '">Buildings with no Bulk Meters</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if(if($user_menu['Menu'] == 'SYSTEM VALIDATION.UNITS'){
+					echo '<li><a href="#">Units</a>'; 					
+						echo '<ul style="width:255px;">';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_UNITS_BODY_CORPORATE_UNIT_WITH_SUB_METERS'] . '">Body Corporate Unit with Sub Meters</a></li>';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_UNITS_UNITS_WITH_BULK_AND_SERVICE_METERS'] . '">Units with Bulk and Service Meters</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if(if($user_menu['Menu'] == 'SYSTEM VALIDATION.UNITS.BODY CORPORATE UNIT WITH SUB METERS'){
+					echo '<li><a href="#">Units</a>'; 					
+						echo '<ul style="width:255px;">';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_UNITS_BODY_CORPORATE_UNIT_WITH_SUB_METERS'] . '">Body Corporate Unit with Sub Meters</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if(if($user_menu['Menu'] == 'SYSTEM VALIDATION.UNITS.UNITS WITH BULK AND SERVICE METERS'){
+					echo '<li><a href="#">Units</a>'; 					
+						echo '<ul style="width:255px;">';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_UNITS_UNITS_WITH_BULK_AND_SERVICE_METERS'] . '">Units with Bulk and Service Meters</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if(if($user_menu['Menu'] == 'SYSTEM VALIDATION.CUSTOMERS'){
+					echo '<li><a href="#">Customers</a>'; 					
+						echo '<ul style="width: 325px;">';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_CUSTOMERS_CUSTOMERS_WITH_OVERLAPPING_OCCUPANCY'] . '">Customers with Overlapping Occupancy</a></li>';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_CUSTOMERS_PREPAID_CUSTOMERS_WITH_OVERLAPPING_OCCUPANCY'] . '">Prepaid Customers with Overlapping Occupancy</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if(if($user_menu['Menu'] == 'SYSTEM VALIDATION.CUSTOMERS.CUSTOMERS WITH OVERLAPPING OCCUPANCY'){
+					echo '<li><a href="#">Customers</a>'; 					
+						echo '<ul style="width: 325px;">';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_CUSTOMERS_CUSTOMERS_WITH_OVERLAPPING_OCCUPANCY'] . '">Customers with Overlapping Occupancy</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if(if($user_menu['Menu'] == 'SYSTEM VALIDATION.CUSTOMERS.PREPAID CUSTOMERS WITH OVERLAPPING OCCUPANCY'){
+					echo '<li><a href="#">Customers</a>'; 					
+						echo '<ul style="width: 325px;">';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_CUSTOMERS_PREPAID_CUSTOMERS_WITH_OVERLAPPING_OCCUPANCY'] . '">Prepaid Customers with Overlapping Occupancy</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if(if($user_menu['Menu'] == 'SYSTEM VALIDATION.METERS'){
+					echo '<li><a href="#">Meters</a>'; 					
+						echo '<ul style="width:270px;">';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_METERS_METER_UTILITY_TYPE_UNKNOWN'] . '">Meter Utility Type Unknown</a></li>';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_METERS_DUPLICATE_METER_NUMBER'] . '">Duplicate Meter Number</a></li>';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_METERS_METERS_WITH_OVERLAPPING_PERIOD'] . '">Meters with Overlapping Period</a></li>';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_METERS_DECOMMISSIONED_AND_IS_ACTIVE'] . '">Decommissioned and is Active</a></li>';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_METERS_DECOMMISSIONED_NOT_REPLACED'] . '">Decommissioned not Replaced</a></li>';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_METERS_RATE_SPECIFIC_METER_WITH_INACTIVE_RATE'] . '">Rate Specific Meter with Inactive Rate</a></li>';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_METERS_READINGS_AFTER_VACANCY_DATE'] . '">Readings After Vacancy Date</a></li>';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_METERS_READING_CURRENT_NEGATIVE_CONSUMPTION'] . '">Reading Current Negative Consumption</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if(if($user_menu['Menu'] == 'SYSTEM VALIDATION.METERS.METER UTILITY TYPE UNKNOWN'){
+					echo '<li><a href="#">Meters</a>'; 					
+						echo '<ul style="width:270px;">';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_METERS_METER_UTILITY_TYPE_UNKNOWN'] . '">Meter Utility Type Unknown</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if(if($user_menu['Menu'] == 'SYSTEM VALIDATION.METERS.DUPLICATE METER NUMBER'){
+					echo '<li><a href="#">Meters</a>'; 					
+						echo '<ul style="width:270px;">';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_METERS_DUPLICATE_METER_NUMBER'] . '">Duplicate Meter Number</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if(if($user_menu['Menu'] == 'SYSTEM VALIDATION.METERS.METERS WITH OVERLAPPING PERIOD'){
+					echo '<li><a href="#">Meters</a>'; 					
+						echo '<ul style="width:270px;">';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_METERS_METERS_WITH_OVERLAPPING_PERIOD'] . '">Meters with Overlapping Period</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if(if($user_menu['Menu'] == 'SYSTEM VALIDATION.METERS.DECOMMISSIONED AND IS ACTIVE'){
+					echo '<li><a href="#">Meters</a>'; 					
+						echo '<ul style="width:270px;">';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_METERS_DECOMMISSIONED_AND_IS_ACTIVE'] . '">Decommissioned and is Active</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if(if($user_menu['Menu'] == 'SYSTEM VALIDATION.METERS.DECOMMISSIONED NOT REPLACED'){
+					echo '<li><a href="#">Meters</a>'; 					
+						echo '<ul style="width:270px;">';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_METERS_DECOMMISSIONED_NOT_REPLACED'] . '">Decommissioned not Replaced</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if(if($user_menu['Menu'] == 'SYSTEM VALIDATION.METERS.RATE SPECIFIC METER WITH INACTIVE RATE'){
+					echo '<li><a href="#">Meters</a>'; 					
+						echo '<ul style="width:270px;">';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_METERS_RATE_SPECIFIC_METER_WITH_INACTIVE_RATE'] . '">Rate Specific Meter with Inactive Rate</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if(if($user_menu['Menu'] == 'SYSTEM VALIDATION.METERS.READINGS AFTER VACANCY DATE'){
+					echo '<li><a href="#">Meters</a>'; 					
+						echo '<ul style="width:270px;">';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_METERS_READINGS_AFTER_VACANCY_DATE'] . '">Readings After Vacancy Date</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
+				else if(if($user_menu['Menu'] == 'SYSTEM VALIDATION.METERS.READING CURRENT NEGATIVE CONSUMPTION'){
+					echo '<li><a href="#">Meters</a>'; 					
+						echo '<ul style="width:270px;">';
+							echo '<li><a href="' . $path_constants['SYSTEM_VALIDATION_METERS_READING_CURRENT_NEGATIVE_CONSUMPTION'] . '">Reading Current Negative Consumption</a></li>';
+						echo '</ul>';
+					echo '</li>';
+					break;
+				}
 			}	
 		?>
 		</ul>
